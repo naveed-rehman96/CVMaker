@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.coverLetterModule.CoverLetterMainActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarCoverLetterMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark"
+        app:theme="@style/ToolbarColoredBackArrow">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resume Cover Letter"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold" />
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/rateUsLottie"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:padding="@dimen/_3sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_exit_btn"
+                android:layout_alignParentEnd="true"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/rateus" />
+
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:id="@+id/btnTemplatesLetter"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:layout_below="@+id/toolbarCoverLetterMain"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_17sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:padding="@dimen/_9sdp"
+            android:id="@+id/createLetterImageView"
+            android:src="@drawable/ic_cover_letter_trs"
+            android:background="@drawable/bg_blue"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:paddingLeft="@dimen/_15sdp"
+            android:text="Create Cover Letter"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_14sdp" />
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:id="@+id/nextCreateCoverLetterMain"
+            android:layout_gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/bg_blue"
+            android:src="@drawable/ic_forwards" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="#989898"
+        android:id="@+id/vv1"
+        android:layout_below="@+id/btnTemplatesLetter"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:id="@+id/btnSavedCoverLettersProfiles"
+        android:layout_below="@+id/vv1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:padding="@dimen/_9sdp"
+            android:id="@+id/savedLetterProfileImageView"
+            android:src="@drawable/ic_profile_check"
+            android:background="@drawable/bg_blue"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:paddingLeft="@dimen/_15sdp"
+            android:text="Cover Letter Profiles"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_14sdp" />
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:id="@+id/nextSavedCoverLetterProfileMain"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/bg_blue"
+            android:src="@drawable/ic_forwards" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="#989898"
+        android:id="@+id/vv3"
+        android:layout_below="@+id/btnSavedCoverLettersProfiles"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:id="@+id/btnSavedCoverLettersFormats"
+        android:layout_below="@id/vv3"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:padding="@dimen/_9sdp"
+            android:id="@+id/savedLetterFormatsImageView"
+            android:src="@drawable/ic_save_resume_trs"
+            android:background="@drawable/bg_blue"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:paddingLeft="@dimen/_15sdp"
+            android:text="Saved Cover Letter"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_14sdp" />
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:id="@+id/nextSavedCoverLetterFormatsMain"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/bg_blue"
+            android:src="@drawable/ic_forwards" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="#989898"
+        android:id="@+id/vv2"
+        android:layout_below="@+id/btnSavedCoverLettersFormats"/>
+
+
+
+    <FrameLayout
+        android:id="@+id/fl_adplaceholderCover"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@+id/vv2"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

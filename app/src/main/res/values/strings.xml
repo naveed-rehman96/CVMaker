@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">CV-Maker</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_personel_info">Fragment personnel Info</string>
+    <string name="file_name_dialog">Create New CV</string>
+    <string name="str_dark_light_gray">Dark Light Gray</string>
+    <string name="str_darkgraywhite">Dark Gray White</string>
+    <string name="str_darkbluewhite">Dark Blue White</string>
+    <string name="str_darkbluecream">Dark Blue Cream</string>
+    <string name="str_graywhite">Gray White</string>
+    <string name="str_lightwhite">Light White</string>
+    <string name="str_darkredwhite">Dark Red White</string>
+    <string name="darklightwhite">Light Gray White</string>
+    <string name="str_whitebox">White Box</string>
+    <string name="str_yellowgray">Yellow Gray</string>
+
+    <!--    test Ads-->
+    <!--    <string name="app_ID">ca-app-pub-3940256099942544~3347511713</string>-->
+    <!--    <string name="splash_interstitial_ad_id">ca-app-pub-3940256099942544/1033173712</string>-->
+    <!--    <string name="facebook_main_native_ad">IMG_16_9_APP_INSTALL#135949588601440_135978091931923</string>-->
+    <!--    <string name="fb_interstitialAd_EditButton">IMG_16_9_APP_INSTALL#135949588601440_135949845268081</string>-->
+    <!--    <string name="fb_interstitialAd_CreateButton">IMG_16_9_APP_INSTALL#135949588601440_141137704749295</string>-->
+    <!--    <string name="fb_interstitialAd_ExportButton">IMG_16_9_APP_INSTALL#135949588601440_141136734749392</string>-->
+    <!--    <string name="fb_interstitialAd_WelcomeButton">IMG_16_9_APP_INSTALL#135949588601440_141143111415421</string>-->
+    <!--    <string name="fb_interstitialAd_SelectTemplateButton">IMG_16_9_APP_INSTALL#135949588601440_141139791415753</string>-->
+    <!--    <string name="fb_Banner_MainScreen">IMG_16_9_APP_INSTALL#135949588601440_141138591415873</string>-->
+    <!--    <string name="APP_IN_PURCHASE">android.test.purchased</string>-->
+
+
+    <!--Original Ads-->
+
+    <string name="app_ID">ca-app-pub-6507155656776237~4613982872</string>
+    <string name="splash_interstitial_ad_id">ca-app-pub-6507155656776237/9291594489</string>
+    <string name="APP_IN_PURCHASE">cvmaker_1</string>
+    <string name="facebook_main_native_ad">135949588601440_135978091931923</string>
+    <string name="fb_interstitialAd_EditButton">135949588601440_135949845268081</string>
+    <string name="fb_interstitialAd_CreateButton">135949588601440_141137704749295</string>
+    <string name="fb_interstitialAd_ExportButton">135949588601440_141136734749392</string>
+    <string name="fb_interstitialAd_WelcomeButton">135949588601440_141143111415421</string>
+    <string name="fb_interstitialAd_SelectTemplateButton">135949588601440_141139791415753</string>
+    <string name="fb_Banner_MainScreen">135949588601440_141138591415873</string>
+
+
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="theme_orange">ORANGE</string>
+    <string name="theme_blue">BLUE</string>
+    <string name="theme_red">RED</string>
+    <string name="theme_yellow">YELLOW</string>
+    <string name="theme_green">GREEN</string>
+    <string name="theme_gray">GRAY</string>
+
+    <string name="reinstall">Reinstall</string>
+    <string name="later">Later</string>
+    <string name="info_title">App Blocked</string>
+    <string name="title_activity_home__bottom_nav">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="str_darkLight_gray">DarkerLighterGray</string>
+    <string name="str_greenish">Lighter Green</string>
+    <string name="str_seaColor">Sea Color</string>
+    <string name="str_darkLight_brown">Dark Light Brown</string>
+    <string name="str_gray_pink">Gray Pink</string>
+    <string name="str_other">Other</string>
+    <string name="select_all">Select All</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+
+
+</resources>

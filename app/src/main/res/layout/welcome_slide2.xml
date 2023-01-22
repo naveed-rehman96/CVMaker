@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:weightSum="20">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="14"
+        android:scaleType="fitXY"
+        android:src="@drawable/s1" />
+
+
+    <TextView
+        android:id="@+id/text_screen_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/imageTop"
+        android:layout_weight="2"
+        android:fontFamily="@font/extra_bold"
+        android:gravity="center"
+        android:text="Easy To Export"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_screen_1_desc"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:fontFamily="@font/bold"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:gravity="top"
+        android:text="Professional attractive &amp; beautiful Resume templates for all categories eg: Software engineers , graphic designers etc"
+        android:textAlignment="center"
+        android:textSize="@dimen/_15sdp"
+        tools:ignore="RtlCompat" />
+
+
+</LinearLayout>

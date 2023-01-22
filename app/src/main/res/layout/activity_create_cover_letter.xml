@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.cvModule.CreateCVActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarCreateCoverLetter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark"
+        app:theme="@style/ToolbarColoredBackArrow">
+
+
+        <ImageButton
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:id="@+id/btn_backCreateLetterActivity"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_arrow_back_24"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Letter"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager123"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/linearLayoutBottomLetter"
+        android:scrollbarStyle="outsideOverlay"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/view"
+        android:background="#B3B3B3"
+        android:layout_below="@+id/linearLayoutBottomLetter"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbarCreateCoverLetter"
+        android:layout_alignParentBottom="false"
+        android:id="@+id/linearLayoutBottomLetter">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Position : 1/11"
+            android:id="@+id/ScreenPosition"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="gone"
+            android:textColor="@android:color/black"
+            android:layout_margin="@dimen/_3sdp"
+            />
+
+
+        <HorizontalScrollView
+            android:id="@+id/scrollViewButton"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/ScrollLinearLayout1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+
+                    android:id="@+id/layoutSentFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btnSentFrom"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/bg_orange"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:scaleType="fitXY"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_sent_from_cl" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_gravity="center_vertical"
+                        android:text="Sent From"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_9sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutSentTo"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btnSentTo"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/bg_purple"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:scaleType="fitXY"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_sent_to_cl" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_gravity="center_vertical"
+                        android:text="Sent To"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_9sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutSentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btnSentDate"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/bg_darkblue"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:scaleType="fitXY"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_date_cl" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_gravity="center_vertical"
+                        android:text="Sent Date"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_9sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btnDescription"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:background="@drawable/bg_orange"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:scaleType="fitXY"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_description_cl" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_gravity="center_vertical"
+                        android:text="Description"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_9sdp" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

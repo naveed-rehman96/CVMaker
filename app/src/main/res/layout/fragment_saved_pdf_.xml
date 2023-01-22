@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.cvModule.Saved_Cv_Pdf_Activity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90sdp"
+        android:id="@+id/btnLinearLayout"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/btnSavedCV"
+            android:layout_margin="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardBackgroundColor="#F6F6F6"
+
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    app:cardBackgroundColor="#DDD4FF"
+                    android:id="@+id/imagecardview"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_alignParentTop="true"
+                        android:id="@+id/imageCreateCV"
+                        android:src="@drawable/ic_save_cv_icon"
+                        android:padding="@dimen/_8sdp"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_below="@+id/imagecardview"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@android:color/black"
+                    android:layout_alignParentBottom="true"
+                    android:text="Saved CV's"/>
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/btnSavedCoverLetter"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardBackgroundColor="#F6F6F6"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    app:cardBackgroundColor="#DDD4FF"
+                    android:id="@+id/imagecardview1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_alignParentTop="true"
+                        android:id="@+id/imageResumeCV"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:src="@drawable/ic_save_coverlatter"
+                        android:padding="@dimen/_7sdp"/>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_below="@+id/imagecardview1"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@android:color/black"
+                    android:layout_alignParentBottom="true"
+                    android:text="Saved Cover Letter"/>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnLinearLayout"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_alignParentBottom="true"
+        >
+        <com.facebook.ads.NativeAdLayout
+            android:id="@+id/native_ad_container"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_3sdp"
+            android:background="@drawable/border_ad"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+
+
+
+
+
+
+
+</RelativeLayout>

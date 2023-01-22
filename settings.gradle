@@ -1,0 +1,2 @@
+rootProject.name = "CV & Resume Builder"
+include ':app'

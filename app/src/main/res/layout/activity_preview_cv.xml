@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.previewCV.PreviewDark_GrayBlueActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarPreviewCV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:theme="@style/ToolbarColoredBackArrow">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textPreviewCV"
+                android:layout_centerInParent="true"
+                android:layout_toStartOf="@+id/ExportCv"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Export"
+                android:textColor="@android:color/white"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/ExportCv"/>
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <include
+        layout="@layout/fragment_preview"
+        android:layout_below="@+id/toolbarPreviewCV"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content" />
+</RelativeLayout>

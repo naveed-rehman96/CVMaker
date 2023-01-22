@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_250sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_15sdp"
+    android:layout_margin="@dimen/_15sdp"
+    android:layout_height="wrap_content">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="How's your experience with Us?"
+            android:id="@+id/txt23"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:textColor="@android:color/black"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt23"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:text="Rate Us"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_centerHorizontal="true"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_bg"
+                android:id="@+id/btnCancelExitDialog"/>
+
+            <Button
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:text="Exit"
+                android:textAllCaps="false"
+                android:layout_gravity="end"
+                android:layout_alignParentEnd="true"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_bg"
+                android:id="@+id/btnOkExitDialog"/>
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

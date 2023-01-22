@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:id="@+id/selectAll"
+        android:orderInCategory="100"
+        android:title="@string/select_all"
+        android:icon="@drawable/ic_baseline_select_all_24"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/actionShareSelected"
+        android:orderInCategory="100"
+        android:title="@string/share"
+        android:icon="@drawable/ic_share_24"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/actionDeleteSelected"
+        android:orderInCategory="100"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_elete_24"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/cancelMenu"
+        android:orderInCategory="100"
+        android:title="@string/select_all"
+        android:icon="@drawable/ic_baseline_clear_24"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/actionAscendingOrder"
+        android:orderInCategory="100"
+        android:title="Order by Oldest"
+        android:icon="@drawable/ic_baseline_clear_24"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionDescendingOrder"
+        android:orderInCategory="100"
+        android:title="Order By Latest"
+        android:icon="@drawable/ic_baseline_clear_24"
+        app:showAsAction="never" />
+
+
+
+
+
+</menu>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/white"
+        android:padding="@dimen/_5sdp"
+        android:id="@+id/itemView"
+        app:cardCornerRadius="@dimen/_10sdp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/itemImage"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_file" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                android:layout_toStartOf="@+id/btnOptionMenu"
+                android:layout_toEndOf="@+id/itemImage"
+                android:maxLines="3"
+                android:textColor="@android:color/black"
+                android:id="@+id/fileName" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_10sdp"
+                android:layout_toEndOf="@+id/itemImage"
+                android:layout_toStartOf="@+id/btnOptionMenu"
+                android:layout_below="@+id/fileName"
+                android:maxLines="3"
+                android:visibility="gone"
+                android:textColor="@android:color/black"
+                android:id="@+id/fileSize" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_toStartOf="@+id/btnOptionMenu"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_10sdp"
+                android:layout_toEndOf="@+id/itemImage"
+                android:layout_below="@+id/fileSize"
+                android:maxLines="3"
+                android:textColor="@android:color/black"
+                android:id="@+id/fileDate" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:textSize="@dimen/_10sdp"
+                android:layout_toStartOf="@id/btnOptionMenu"
+                android:layout_toEndOf="@+id/itemImage"
+                android:layout_below="@+id/fileDate"
+                android:maxLines="3"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:id="@+id/filePath" />
+
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/btnOptionMenu"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_more_vert"
+                android:background="@drawable/flag_transparent"/>
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

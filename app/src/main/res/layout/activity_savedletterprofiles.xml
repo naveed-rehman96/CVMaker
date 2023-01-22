@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.cvModule.SavedProfileActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarSavedLetter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:theme="@style/ToolbarColoredBackArrow">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Saved Profiles"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold" />
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/rateUsLottie"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:padding="@dimen/_3sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_exit_btn"
+                android:layout_alignParentEnd="true"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/rateus" />
+
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_below="@+id/toolbarSavedLetter"
+        android:id="@+id/savedLetterRcv"/>
+
+
+
+    <FrameLayout
+        android:id="@+id/fl_adplaceholderCover"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_above="@+id/bottomCreateCVLayout"
+        android:layout_below="@+id/toolbarSavedLetter"
+        android:layout_height="wrap_content"/>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:visibility="visible"
+        android:background="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomCreateCVLayout"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:id="@+id/btnCreateCVMain1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_imagebtn"
+            android:layout_marginBottom="@dimen/_28sdp"
+            android:elevation="@dimen/_3sdp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:id="@+id/btnCreateLetterSavedProfile"
+            android:layout_alignParentBottom="true"
+            android:elevation="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_add_main_cv" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:id="@+id/bottomSavedProfile"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:background="@drawable/bg_rectangle"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@android:color/white"
+                android:text="Create New Cover Letter"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

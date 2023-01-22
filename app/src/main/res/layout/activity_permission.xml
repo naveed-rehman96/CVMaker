@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_8sdp"
+    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.PermissionActivity">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_250sdp"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:id="@+id/imagePermiison"
+        android:src="@drawable/permissionimagee"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/imagePermiison"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:padding="@dimen/_10sdp"
+        android:textColor="#434343"
+        android:textStyle="bold"
+        android:layout_above="@+id/btnPermissionActivity"
+        android:gravity="left"
+        android:text="Please Allow Following Permission\n\n1.Storage Permission
+        \n\nOtherwise your app will not gonna work properly
+            \n\n We need Storage Permission to store your resume data in internal storage of Application.
+             \n"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnPermissionActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Allow Permission"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_permissionbtn"
+        android:layout_marginBottom="@dimen/_15sdp"/>
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnStartActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Start Now"
+        android:enabled="false"
+        android:visibility="gone"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_permissionbtn"
+        android:layout_marginBottom="@dimen/_15sdp"/>
+
+
+
+</RelativeLayout>

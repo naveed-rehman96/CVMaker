@@ -1,0 +1,88 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Blue_Theme</item>
+        <item name="colorPrimaryDark">@color/Blue_Theme</item>
+        <item name="colorAccent">@color/Blue_Theme</item>
+        <item name="background">@color/Blue_Theme</item>
+    </style>
+
+    <style name="CreateFirstCv" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="statusBarBackground">@android:color/white</item>
+    </style>
+    <style name="AppThemeYellow" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Yellow_Theme</item>
+        <item name="colorPrimaryDark">@color/Yellow_Theme</item>
+        <item name="colorAccent">@color/Yellow_Theme</item>
+        <item name="background">@color/Yellow_Theme</item>
+    </style>
+    <style name="AppThemeRed" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Red_Theme</item>
+        <item name="colorPrimaryDark">@color/Red_Theme</item>
+        <item name="colorAccent">@color/Red_Theme</item>
+        <item name="background">@color/Red_Theme</item>
+    </style>
+    <style name="AppThemeGreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Green_Theme</item>
+        <item name="colorPrimaryDark">@color/Green_Theme</item>
+        <item name="colorAccent">@color/Green_Theme</item>
+        <item name="background">@color/Green_Theme</item>
+    </style>
+    <style name="AppThemeOrange" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Orange_Theme</item>
+        <item name="colorPrimaryDark">@color/Orange_Theme</item>
+        <item name="colorAccent">@color/Orange_Theme</item>
+        <item name="background">@color/Orange_Theme</item>
+    </style>
+    <style name="AppThemeGray" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Gray_Theme</item>
+        <item name="colorPrimaryDark">@color/Gray_Theme</item>
+        <item name="colorAccent">@color/Gray_Theme</item>
+        <item name="background">@color/Gray_Theme</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="fontFamily">@font/bold</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView"
+        parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/bold</item>
+    </style>
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+    <style name="YourDialogTheme">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+    <style name="DialogStyle" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <!-- dialog_background is drawable shape with corner radius -->
+        <item name="android:background">@drawable/dialog_background</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="AppTheme.AdAttribution">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:text">Ad</item>
+        <item name="android:background">#FFCC66</item>
+        <item name="android:width">@dimen/_25sdp</item>
+        <item name="android:height">20dp</item>
+    </style>
+</resources>

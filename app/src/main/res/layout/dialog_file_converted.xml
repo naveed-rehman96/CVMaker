@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingStart="@dimen/_10sdp"
+    android:paddingEnd="@dimen/_10sdp">
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:text="Successfully Converted"
+        android:textSize="@dimen/_15sdp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt1"
+        android:gravity="center"
+        android:layout_below="@+id/txt"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@android:color/black"
+        android:text="Your Resume is successfully Converted."
+        android:textSize="@dimen/_13sdp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_below="@+id/txt1"
+        >
+
+        <Button
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="wrap_content"
+            android:text="Later"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:background="@android:color/transparent"
+            android:id="@+id/btnlater"/>
+
+        <Button
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="wrap_content"
+            android:text="View Now"
+            android:textAllCaps="false"
+            android:layout_gravity="end"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/colorPrimary"
+            android:background="@android:color/transparent"
+            android:id="@+id/btnViewNow"/>
+    </RelativeLayout>
+
+</RelativeLayout>

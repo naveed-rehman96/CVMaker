@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeCreateCVActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:src="@drawable/ic_cv"
+        android:id="@+id/imageCv"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Profile"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/bold"
+        app:layout_constraintTop_toBottomOf="@+id/imageCv"
+        android:gravity="center"
+        android:textSize="@dimen/_15sdp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create a profile of yours to continue to\nmake your resume in multiple cool design."
+        android:textColor="@color/Gray_Theme"
+        app:layout_constraintTop_toBottomOf="@+id/imageCv"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textSize="@dimen/_12sdp"/>
+
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Create Profile"
+        android:textStyle="bold"
+        android:id="@+id/btnCreateProfile"
+        android:letterSpacing=".05"
+        android:textAllCaps="false"
+        android:fontFamily="@font/bold"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/bg_privacy_button"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue to App"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imageCv"
+        android:gravity="center"
+        android:fontFamily="@font/bold"
+        android:textSize="@dimen/_15sdp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create a profile of yours to continue to\nmake your resume in multiple cool design."
+        android:textColor="@color/Gray_Theme"
+        app:layout_constraintTop_toBottomOf="@+id/imageCv"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textSize="@dimen/_12sdp"/>
+
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Skip"
+        android:id="@+id/btnSkip"
+        android:textStyle="bold"
+        android:fontFamily="@font/bold"
+        android:textSize="@dimen/_14sdp"
+        android:textAllCaps="false"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/border_orange"/>
+
+
+    </LinearLayout>
+</ScrollView>
