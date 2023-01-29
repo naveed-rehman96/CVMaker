@@ -29,6 +29,7 @@ class CVModelEntity {
     var awards = ""
     var fullNumber = ""
     var countryCode = ""
+    var isSelected = false
 
     @Ignore
     constructor() {

@@ -62,6 +62,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         TinyDB tinyDB = new TinyDB(this);
 
+        if (!tinyDB.getBoolean("ShowWelcomeScreen"))
+        {
+            tinyDB.putBoolean("ShowWelcomeScreen" , true);
+        }
+
+
+
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnNext = (Button) findViewById(R.id.btn_next);

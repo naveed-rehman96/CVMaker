@@ -20,6 +20,11 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun qualificationDAO(): QualificationDAO
 
     companion object {
+
+        fun provideCvDao(database: AppDatabase): CvDao {
+            return database.cvDao()
+        }
+
         const val DATABASE_NAME = "ResumeBuilder.db"
 
         @Volatile
@@ -29,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         @JvmStatic
         @Synchronized
-        fun getInstance(context: Context): AppDatabase? {
+        fun getDatabaseInstance(context: Context): AppDatabase? {
             if (instance == null) {
                 instance = databaseBuilder(
                     context.applicationContext,

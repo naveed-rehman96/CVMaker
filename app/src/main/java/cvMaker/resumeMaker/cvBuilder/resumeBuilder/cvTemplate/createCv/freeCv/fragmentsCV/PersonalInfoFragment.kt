@@ -23,26 +23,24 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.rilixtech.widget.countrycodepicker.CountryCodePicker
+import com.theartofdev.edmodo.cropper.CropImage
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.PersonalInfoDataClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.PathUtil
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.appDataBase.AppDatabase
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.PersonalInfoDataClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.CvViewModel
-import com.rilixtech.widget.countrycodepicker.CountryCodePicker
-import com.theartofdev.edmodo.cropper.CropImage
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.appDataBase.AppDatabase
 import de.hdodenhof.circleimageview.CircleImageView
 import org.koin.android.ext.android.inject
 import java.io.File
 import java.util.*
-
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class PersonalInfoFragment : Fragment() {
@@ -54,7 +52,6 @@ class PersonalInfoFragment : Fragment() {
 
     val cvDatabase by inject<AppDatabase>()
 
-
     lateinit var nameEdt: EditText
 
     companion object {
@@ -62,7 +59,6 @@ class PersonalInfoFragment : Fragment() {
         lateinit var dateOfBirthEdt123: TextView
     }
 
-    private var cvViewModel: CvViewModel? = null
     lateinit var emailID: EditText
     lateinit var phoneNumEdt: EditText
     lateinit var fatherNameEdt: EditText
@@ -91,18 +87,12 @@ class PersonalInfoFragment : Fragment() {
 
     private val GALLERY_REQUEST_CODE = 1234
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         parent: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
         val v = inflater.inflate(R.layout.fragment_personel_info, parent, false)
-        cvViewModel = ViewModelProvider(this).get(CvViewModel::class.java)
-
-
         tinyDB =
             TinyDB(
                 requireContext()
@@ -112,11 +102,9 @@ class PersonalInfoFragment : Fragment() {
 
         phoneNumEdt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             @SuppressLint("SetTextI18n")
@@ -149,30 +137,22 @@ class PersonalInfoFragment : Fragment() {
                 profileImage.visibility = View.VISIBLE
                 textImageStatus.visibility = View.VISIBLE
             }
-
         }
 
-
-
-        cCPicker.registerPhoneNumberTextView(phoneNumEdt);
-
+        cCPicker.registerPhoneNumberTextView(phoneNumEdt)
 
         profileImage.setOnClickListener {
             pickFromGallery()
-
         }
         dateOfBirthEdt123.setOnClickListener {
             selectDateDialog()
         }
         confirm.setOnClickListener {
-            //ValidatePersonalInfoDataIndividual()
+            // ValidatePersonalInfoDataIndividual()
             cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.mViewPager2.currentItem = 1
         }
 
-
-
         if (tinyDB.getBoolean("Boolean")) {
-
             cvMainModel.personInfo = cvDatabase.cvDao().getCVbyId(tinyDB.getString("UID"))
 
             cnicEdt.setText(cvMainModel.personInfo.cnic)
@@ -189,7 +169,7 @@ class PersonalInfoFragment : Fragment() {
                     Glide.with(it).load(File(imagePath)).into(
                         profileImage
                     )
-                };
+                }
             }
             nationalityEdt.setText(cvMainModel.personInfo.nationality)
             fatherNameEdt.setText(cvMainModel.personInfo.fatherName)
@@ -214,24 +194,17 @@ class PersonalInfoFragment : Fragment() {
             Log.e("statusMarital", "CheckAboveIf: $martialStatussss")
 
             if (cvMainModel.personInfo.maritalStatus.equals("Single")) {
-
                 maritalGroup.check(R.id.rb_Single)
                 maritalStatus1 = "Single"
-
             } else if (cvMainModel.personInfo.maritalStatus.equals("Married")) {
-
                 maritalGroup.check(R.id.rb_Married)
                 maritalStatus1 = "Married"
-
             }
 
-            if(!cvMainModel.personInfo.countryCode.equals(""))
-            {
+            if (!cvMainModel.personInfo.countryCode.equals("")) {
                 cCPicker.setCountryForPhoneCode(cvMainModel.personInfo.countryCode.toInt())
             }
-
         }
-
 
         when {
             tinyDB.getString("APP_THEME") == getString(R.string.theme_blue) -> {
@@ -239,12 +212,10 @@ class PersonalInfoFragment : Fragment() {
                 MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#6C48EF"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-
                 MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#ED851A"))
                 MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#ED851A"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-
                 MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#950806"))
                 MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#950806"))
             }
@@ -262,7 +233,6 @@ class PersonalInfoFragment : Fragment() {
             }
         }
 
-
         genderRadioGroup.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { _, checkedId ->
 
@@ -276,9 +246,9 @@ class PersonalInfoFragment : Fragment() {
                     R.id.rb_other -> {
                         gender = "Other"
                     }
-
                 }
-            })
+            }
+        )
         maritalGroup.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { _, checkedId ->
 
@@ -288,12 +258,10 @@ class PersonalInfoFragment : Fragment() {
                     }
                     R.id.rb_Single -> {
                         maritalStatus1 = "Single"
-
                     }
-
                 }
-            })
-
+            }
+        )
 
         return v
     }
@@ -303,7 +271,6 @@ class PersonalInfoFragment : Fragment() {
     }
 
     private fun initializeViews(view: View?) {
-
         db = activity?.let { DataBaseHandler(it) }!!
         cnicEdt = view?.findViewById(R.id.cnicEdt) as EditText
         nationalityEdt = view.findViewById(R.id.nationalityEdt) as EditText
@@ -322,13 +289,9 @@ class PersonalInfoFragment : Fragment() {
         genderRadioGroup = view.findViewById(R.id.genderRadioGroup)
         maritalGroup = view.findViewById(R.id.maritalGroup)
         profileImageSkipped = view.findViewById(R.id.profileImageSkipped)
-
-
     }
 
-
     private fun ValidatePersonalInfoDataIndividual() {
-
         val name = nameEdt.text.toString()
         val fathername = fatherNameEdt.text.toString()
         val phoneNumber = phoneNumEdt.text.toString()
@@ -347,7 +310,8 @@ class PersonalInfoFragment : Fragment() {
 
         val db = Room.databaseBuilder(
             requireContext().applicationContext,
-            AppDatabase::class.java, AppDatabase.DATABASE_NAME
+            AppDatabase::class.java,
+            AppDatabase.DATABASE_NAME
         ).build()
 
         if (TextUtils.isEmpty(name)) {
@@ -355,18 +319,15 @@ class PersonalInfoFragment : Fragment() {
         } else {
             model.fullName = name
             cvMainModel.personInfo.fullName = name
-
         }
 
         if (!TextUtils.isEmpty(imagePath)) {
             model.imagePath = imagePath
             cvMainModel.personInfo.imagePath = imagePath
-
         }
         if (!TextUtils.isEmpty(gender)) {
             model.gender = gender
             cvMainModel.personInfo.gender = gender
-
         }
 
         if (!TextUtils.isEmpty(maritalStatus1)) {
@@ -413,7 +374,6 @@ class PersonalInfoFragment : Fragment() {
         } else {
             model.cnic = cnic
             cvMainModel.personInfo.cnic = cnic
-
         }
 
         if (TextUtils.isEmpty(emailid)) {
@@ -435,37 +395,27 @@ class PersonalInfoFragment : Fragment() {
             cvMainModel.personInfo.address = address
         }
 
-
-        AppDatabase.databaseWriteExecutor.execute{
-
-            db.cvDao().updateImagePath(model.imagePath , tinyDB.getString("UID"))
-            db.cvDao().updateName(model.fullName , tinyDB.getString("UID"))
-            db.cvDao().updateFatherName(model.fatherName , tinyDB.getString("UID"))
-            db.cvDao().updateGender(model.gender , tinyDB.getString("UID"))
-            db.cvDao().updateMaritalStatus(model.maritalStatus , tinyDB.getString("UID"))
-            db.cvDao().updatePhone(model.phoneNumber , tinyDB.getString("UID"))
-            db.cvDao().updateEmailID(model.emailId , tinyDB.getString("UID"))
-            db.cvDao().updateFullNumber(model.fullPhoneNum , tinyDB.getString("UID"))
-            db.cvDao().updateCountryCode(model.CountryCode , tinyDB.getString("UID"))
-            db.cvDao().updateDateOfBirth(model.dateOfBirth , tinyDB.getString("UID"))
-            db.cvDao().updateCnic(model.cnic , tinyDB.getString("UID"))
-            db.cvDao().updateNationality(model.nationality , tinyDB.getString("UID"))
-            db.cvDao().updateAddress(model.address , tinyDB.getString("UID"))
-
+        AppDatabase.databaseWriteExecutor.execute {
+            db.cvDao().updateImagePath(model.imagePath, tinyDB.getString("UID"))
+            db.cvDao().updateName(model.fullName, tinyDB.getString("UID"))
+            db.cvDao().updateFatherName(model.fatherName, tinyDB.getString("UID"))
+            db.cvDao().updateGender(model.gender, tinyDB.getString("UID"))
+            db.cvDao().updateMaritalStatus(model.maritalStatus, tinyDB.getString("UID"))
+            db.cvDao().updatePhone(model.phoneNumber, tinyDB.getString("UID"))
+            db.cvDao().updateEmailID(model.emailId, tinyDB.getString("UID"))
+            db.cvDao().updateFullNumber(model.fullPhoneNum, tinyDB.getString("UID"))
+            db.cvDao().updateCountryCode(model.CountryCode, tinyDB.getString("UID"))
+            db.cvDao().updateDateOfBirth(model.dateOfBirth, tinyDB.getString("UID"))
+            db.cvDao().updateCnic(model.cnic, tinyDB.getString("UID"))
+            db.cvDao().updateNationality(model.nationality, tinyDB.getString("UID"))
+            db.cvDao().updateAddress(model.address, tinyDB.getString("UID"))
         }
-
-
     }
 
-
     private fun selectDateDialog() {
-
-
         val dialogfragment: DialogFragment = DatePickerDialogTheme4()
 
         dialogfragment.show(requireFragmentManager(), "Theme 4")
-
-
     }
 
     class DatePickerDialogTheme4 : DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -476,7 +426,11 @@ class PersonalInfoFragment : Fragment() {
             val day = calendar[Calendar.DAY_OF_MONTH]
             return DatePickerDialog(
                 requireContext(),
-                AlertDialog.THEME_HOLO_LIGHT, this, year, month, day
+                AlertDialog.THEME_HOLO_LIGHT,
+                this,
+                year,
+                month,
+                day
             )
         }
 
@@ -492,15 +446,12 @@ class PersonalInfoFragment : Fragment() {
     }
 
     private fun launchImageCrop() {
-
         val intent = context?.let {
             CropImage.activity()
                 .setAspectRatio(1, 1)
                 .getIntent(it)
         }
         startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-
-
     }
 
     private fun setImage(uri: Uri) {
@@ -513,7 +464,6 @@ class PersonalInfoFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-
             GALLERY_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     data?.data?.let { uri ->
@@ -527,7 +477,6 @@ class PersonalInfoFragment : Fragment() {
                     Log.e(TAG, "Image selection error: Couldn't select that image from memory.")
                 }
             }
-
 
             CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                 val result = CropImage.getActivityResult(data)
@@ -555,7 +504,6 @@ class PersonalInfoFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -575,15 +523,11 @@ class PersonalInfoFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        Log.e("TAG", "onStop");
+        Log.e("TAG", "onStop")
     }
 
     override fun onPause() {
         ValidatePersonalInfoDataIndividual()
         super.onPause()
-
-
     }
-
-
 }

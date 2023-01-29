@@ -11,17 +11,16 @@ import java.util.ArrayList
 
 open class InAppBaseClass : AppCompatActivity() {
 
-
     lateinit var billingClient: BillingClient
     var purchaseUpdateListener: PurchasesUpdatedListener? = null
     var isBillingReady = false
 
-    //Test
+    // Test
     val LIFETIME = "android.test.purchased"
 
     var arrayListInApp = ArrayList<InAppModel>()
 
-    //Original
+    // Original
 //    val LIFETIME = "cvmaker_1";
     var isPremium = false
 
@@ -29,7 +28,7 @@ open class InAppBaseClass : AppCompatActivity() {
         super.onStart()
         initIAP()
     }
-    fun initIAP(){
+    fun initIAP() {
         isPremium = TinyDB(this).getBoolean("inApp")
 
         purchaseUpdateListener = PurchasesUpdatedListener { billingResult: BillingResult, purchases: List<Purchase>? ->
@@ -40,8 +39,7 @@ open class InAppBaseClass : AppCompatActivity() {
                 }
             } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
                 Log.i("BillingTag", "getOldPurchases: User Cancelled")
-            }
-            else {
+            } else {
                 Log.i("BillingTag", "getOldPurchases: Other Error")
             }
         }
@@ -50,7 +48,6 @@ open class InAppBaseClass : AppCompatActivity() {
         settingSub()
         setupConnection(this)
     }
-
 
     fun setupConnection(context: Context) {
         billingClient.startConnection(object : BillingClientStateListener {
@@ -81,7 +78,8 @@ open class InAppBaseClass : AppCompatActivity() {
             skuList.add(product)
             val params = SkuDetailsParams.newBuilder()
             params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP)
-            billingClient.querySkuDetailsAsync(params.build()
+            billingClient.querySkuDetailsAsync(
+                params.build()
             ) { billingResult: BillingResult?, skuDetailsList: List<SkuDetails?>? ->
                 // Process the result.
                 if (skuDetailsList != null) {
@@ -106,7 +104,8 @@ open class InAppBaseClass : AppCompatActivity() {
             skuList.add(product)
             val params = SkuDetailsParams.newBuilder()
             params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
-            billingClient.querySkuDetailsAsync(params.build()
+            billingClient.querySkuDetailsAsync(
+                params.build()
             ) { billingResult: BillingResult?, skuDetailsList: List<SkuDetails?>? ->
                 // Process the result.
                 if (skuDetailsList != null) {
@@ -131,7 +130,7 @@ open class InAppBaseClass : AppCompatActivity() {
         priceButton02.setText(purchaseListingDetails.get(1).currency + purchaseListingDetails.get(1).priceValue);
         priceButton03.setText(purchaseListingDetails.get(2).currency + purchaseListingDetails.get(2).priceValue);
     }*/
-     fun handlePurchase(context: Context, purchase: Purchase) {
+    fun handlePurchase(context: Context, purchase: Purchase) {
         val acknowledgePurchaseResponseListener = AcknowledgePurchaseResponseListener { billingResult: BillingResult? -> Log.i("BillingTag", "getOldPurchases: Acknowledge") }
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
             if (purchase.sku == LIFETIME) {
@@ -142,14 +141,14 @@ open class InAppBaseClass : AppCompatActivity() {
             }
             if (!purchase.isAcknowledged) {
                 val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
-                        .setPurchaseToken(purchase.purchaseToken)
-                        .build()
+                    .setPurchaseToken(purchase.purchaseToken)
+                    .build()
                 billingClient.acknowledgePurchase(acknowledgePurchaseParams, acknowledgePurchaseResponseListener)
             }
         }
     }
 
-     fun getOldPurchases(context: Context) {
+    fun getOldPurchases(context: Context) {
         val result = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
         val purchases = result.purchasesList
         if (purchases != null) {
@@ -228,10 +227,8 @@ open class InAppBaseClass : AppCompatActivity() {
                         val inAppModel = InAppModel(sku, price, freeTrail, currencyCode, description, subscriptionPeriod)
                         arrayListInApp.add(inAppModel)
                     }
-
                 }
             }
         }
     }
-
 }

@@ -8,7 +8,6 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
@@ -19,20 +18,21 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.mo
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.CvViewModel
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.CVModelEntity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
+import org.koin.android.ext.android.inject
 
 class WelcomeCreateCVActivity : AppCompatActivity() {
 
     private lateinit var btnSkip: Button
     lateinit var btnCreateProfile: Button
     lateinit var tinyDB: TinyDB
-    private var cvViewModel: CvViewModel? = null
+
+    val cvViewModel: CvViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_create_cv)
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         tinyDB = TinyDB(this)
-        cvViewModel = ViewModelProvider(this).get(CvViewModel::class.java)
 
         if (tinyDB.getBoolean("SkipScreen")) {
             startActivity(Intent(this, HomeActivity::class.java))

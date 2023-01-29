@@ -20,7 +20,7 @@ public interface CvDao {
     void deleteCvData(CVModelEntity cvModelEntity);
 
     @Query("SELECT * FROM CV_TABLE")
-    List<CVModelEntity> getAllRecords();
+    List<CVModelEntity> fetchAllRecords();
 
     @Query("SELECT * FROM cv_table WHERE id = :id")
     CVModelEntity getCVbyId(String id);

@@ -1,14 +1,14 @@
 package cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.room.Room
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.appDataBase.AppDatabase
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.CVModelEntity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.states.CvStates
+import kotlinx.coroutines.flow.* // ktlint-disable no-wildcard-imports
+import kotlinx.coroutines.launch
 
-class CvViewModel(application: Application?) : AndroidViewModel(application!!) {
-    private val cvRepository: CvRepository
-    var db: AppDatabase
+class CvViewModel(val cvRepository: CvRepository) : ViewModel() {
 
     fun insert(data: CVModelEntity?): LongArray {
         val rowID = LongArray(1)
@@ -16,9 +16,18 @@ class CvViewModel(application: Application?) : AndroidViewModel(application!!) {
         return rowID
     }
 
-    init {
-        db = Room.databaseBuilder(application!!, AppDatabase::class.java, AppDatabase.DATABASE_NAME)
-            .build()
-        cvRepository = CvRepository(application)
+    private val _allCvListStateFlow = MutableStateFlow<CvStates>(CvStates.Empty)
+    val allCvListStateFlow: StateFlow<CvStates> = _allCvListStateFlow
+
+    fun getAllCvList() = viewModelScope.launch {
+        cvRepository.getAllCVList().onStart {
+            _allCvListStateFlow.value = CvStates.Loading
+        }.catch {
+            _allCvListStateFlow.value = CvStates.Failure(it)
+        }.onEach {
+            _allCvListStateFlow.value = CvStates.Empty
+        }.collect {
+            _allCvListStateFlow.value = CvStates.Success(it)
+        }
     }
 }

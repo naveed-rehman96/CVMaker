@@ -10,6 +10,7 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ap
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class MyApplication : Application() {
 
@@ -22,7 +23,7 @@ class MyApplication : Application() {
         firebaseCrashlytics = FirebaseCrashlytics.getInstance()
         startKoin {
             // Log Koin into Android logger
-            androidLogger()
+            androidLogger(Level.ERROR)
             // Reference Android context
             androidContext(this@MyApplication)
             // Load modules

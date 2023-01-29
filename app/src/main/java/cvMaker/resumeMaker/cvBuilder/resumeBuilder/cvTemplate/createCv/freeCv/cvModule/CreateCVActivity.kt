@@ -91,7 +91,10 @@ class CreateCVActivity : AppCompatActivity() {
                 cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.Companion.mToast!!.cancel()
             }
             cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.Companion.mToast = Toast.makeText(
-                cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.Companion.context, message, Toast.LENGTH_SHORT)
+                cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.Companion.context,
+                message,
+                Toast.LENGTH_SHORT
+            )
             cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.Companion.mToast!!.show()
         }
     }
@@ -649,10 +652,14 @@ class CreateCVActivity : AppCompatActivity() {
         }
 
         Ok.setOnClickListener {
-            super.onBackPressed()
             startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }
         alertDialog.show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

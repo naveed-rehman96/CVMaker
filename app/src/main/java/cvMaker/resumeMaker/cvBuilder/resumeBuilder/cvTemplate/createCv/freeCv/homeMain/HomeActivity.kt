@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
@@ -45,12 +46,15 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.he
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.inAppPurchase.InAppBaseClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvMainModel
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelMain
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.CvViewModel
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.appDataBase.AppDatabase
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.* // ktlint-disable no-wildcard-imports
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.states.CvStates
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.PermissionActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.SettingsActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.io.File
 
@@ -67,7 +71,6 @@ class HomeActivity :
     lateinit var toolbarBottomNav: RelativeLayout
     private lateinit var nav_header_main: LinearLayout
 
-    private lateinit var modelMainArray: ArrayList<ModelMain>
     private lateinit var arrayListCVs: ArrayList<CVModelEntity>
 
     private val updateRequestCode = 999 // set globally
@@ -75,11 +78,12 @@ class HomeActivity :
     private var appUpdateManager: AppUpdateManager? = null
 
     val cvDatabase: AppDatabase by inject()
+    val cvViewModel: CvViewModel by inject()
+
+    var progressBar: KProgressHUD? = null
+    lateinit var adapter: SavedNavProfileAdapterClass
 
     companion object {
-
-        @SuppressLint("StaticFieldLeak")
-        lateinit var adapter: SavedNavProfileAdapterClass
 
         @SuppressLint("StaticFieldLeak")
         lateinit var adContainerView: FrameLayout
@@ -141,6 +145,14 @@ class HomeActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        progressBar = KProgressHUD(this@HomeActivity)
+        progressBar?.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+        progressBar?.setLabel("Loading Profile")
+        progressBar?.setDetailsLabel("Please Wait")
+        progressBar?.setCancellable(false)
+        progressBar?.setAnimationSpeed(2)
+        progressBar?.setDimAmount(0.5f)
+
         tinyDB12 = TinyDB(this)
 
         if (!tinyDB12.getBoolean("FirstCreated")) {
@@ -167,8 +179,9 @@ class HomeActivity :
         verifyPermissions()
 
         arrayListCVs = ArrayList()
-        modelMainArray = ArrayList()
-        GetCvProfiles().execute()
+
+        cvViewModel.getAllCvList()
+        getAllCvProfiles()
 
         if (isPremium) {
             remove_ads.visibility = View.GONE
@@ -222,6 +235,34 @@ class HomeActivity :
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_gray) -> {
                 grayTheme()
+            }
+        }
+    }
+
+    private fun getAllCvProfiles() {
+        lifecycleScope.launch {
+            cvViewModel.allCvListStateFlow.collect {
+                when (it) {
+                    CvStates.Empty -> {
+                        progressBar?.dismiss()
+                    }
+                    is CvStates.Failure -> {
+                        progressBar?.dismiss()
+                    }
+                    CvStates.Loading -> {
+                        progressBar?.show()
+                    }
+                    is CvStates.Success -> {
+                        progressBar?.dismiss()
+                        arrayListCVs = it.response as ArrayList<CVModelEntity>
+                        adapter = SavedNavProfileAdapterClass(
+                            this@HomeActivity,
+                            arrayListCVs,
+                            this@HomeActivity
+                        )
+                        recyclerViewNavProfiles.adapter = adapter
+                    }
+                }
             }
         }
     }
@@ -321,54 +362,6 @@ class HomeActivity :
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class GetCvProfiles() : AsyncTask<String, String, String>() {
-
-        val progressBar = KProgressHUD(this@HomeActivity)
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-
-            progressBar.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            progressBar.setLabel("Loading Profile")
-            progressBar.setDetailsLabel("Please Wait")
-            progressBar.setCancellable(false)
-            progressBar.setAnimationSpeed(2)
-            progressBar.setDimAmount(0.5f)
-        }
-
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
-
-            Log.e("Size", "onPostExecute: " + modelMainArray.size)
-
-            adapter = SavedNavProfileAdapterClass(
-                this@HomeActivity,
-                modelMainArray,
-                this@HomeActivity
-            )
-            recyclerViewNavProfiles.adapter = adapter
-
-            progressBar.dismiss()
-        }
-
-        override fun doInBackground(vararg params: String?): String {
-            arrayListCVs = cvDatabase.cvDao()?.allRecords as ArrayList<CVModelEntity>
-            modelMainArray.clear()
-            for (model in arrayListCVs) {
-                val obj = ModelMain(
-                    model.fileName,
-                    model.fullName,
-                    model.imagePath,
-                    model.emailID,
-                    model.id
-                )
-                modelMainArray.add(obj)
-            }
-            return ""
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
     inner class GetUserDetails() : AsyncTask<String, String, String>() {
 
         val progressBar = KProgressHUD(this@HomeActivity)
@@ -422,7 +415,7 @@ class HomeActivity :
     }
 
     override fun onViewCVClick(position: Int) {
-        tinyDB12.putString("UID", modelMainArray[position].id)
+        tinyDB12.putString("UID", arrayListCVs[position].id)
         tinyDB12.putBoolean(Constants.skipExp, false)
         tinyDB12.putBoolean(Constants.skipQua, false)
         tinyDB12.putBoolean(Constants.skipInterest, false)
@@ -438,39 +431,35 @@ class HomeActivity :
     override fun onCVLongClickListener(position: Int) {
         val db = DataBaseHandler(this)
         val sourceString =
-            "Are you sure you want delete it <b><i>" + modelMainArray[position].fileName + "</i></b> " + " CV ?"
+            "Are you sure you want delete it <b><i>" + arrayListCVs[position].fileName + "</i></b> " + " CV ?"
         val dialogBuilder = AlertDialog.Builder(this, R.style.DialogStyle)
         dialogBuilder.setMessage(Html.fromHtml(sourceString))
             // if the dialog is cancelable
             .setCancelable(false)
             .setPositiveButton(
-                "Ok",
-                DialogInterface.OnClickListener { dialog, _ ->
+                "Ok"
+            ) { dialog, _ ->
 
-                    val ids = modelMainArray[position].id
-                    cvDatabase.cvDao()?.deleteById(modelMainArray[position].id)
-                    cvDatabase.skillsDao()?.deleteAllSkills(ids)
-                    cvDatabase.projectsDao()?.deleteAllProject(ids)
-                    cvDatabase.qualificationDAO()?.deleteAllQualification(ids)
-                    cvDatabase.experienceDAO()?.deleteAllExperience(ids)
+                val ids = arrayListCVs[position].id
+                cvDatabase.cvDao().deleteById(arrayListCVs[position].id)
+                cvDatabase.skillsDao().deleteAllSkills(ids)
+                cvDatabase.projectsDao().deleteAllProject(ids)
+                cvDatabase.qualificationDAO().deleteAllQualification(ids)
+                cvDatabase.experienceDAO().deleteAllExperience(ids)
 
-                    modelMainArray.removeAt(position)
-                    adapter.notifyDataSetChanged()
-                    if (tinyDB12.getString("UID") == ids) {
-                        tinyDB12.putString("UID", "")
-                        navProfileImage1.setImageDrawable(
-                            ContextCompat.getDrawable(
-                                this,
-                                R.drawable.ic_profile_icon
-                            )
+                arrayListCVs.removeAt(position)
+                if (tinyDB12.getString("UID") == ids) {
+                    tinyDB12.putString("UID", "")
+                    navProfileImage1.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_profile_icon
                         )
-                        selectedProfName.text = "No Profile Selected"
-                    }
-                    GetCvProfiles().execute()
-
-                    dialog.dismiss()
+                    )
+                    selectedProfName.text = "No Profile Selected"
                 }
-            ).setNegativeButton(
+                dialog.dismiss()
+            }.setNegativeButton(
                 "Cancel",
                 DialogInterface.OnClickListener { dialog, id ->
                     dialog.dismiss()
