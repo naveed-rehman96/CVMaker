@@ -17,20 +17,18 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.Constants
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.textfield.TextInputLayout
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.HomeActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.fragments.ModernTemplateFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.fragments.NewTemplateFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.fragments.ProfessionalTemplateFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.fragments.latestTemplateFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.CVModelEntity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.CvViewModel
-
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.textfield.TextInputLayout
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.CVModelEntity
 
 class HomeFragment : Fragment() {
 
@@ -41,14 +39,11 @@ class HomeFragment : Fragment() {
     lateinit var tinyDB: TinyDB
     lateinit var buttonFragmentLinear: LinearLayout
 
-
     private var cvViewModel: CvViewModel? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,19 +57,13 @@ class HomeFragment : Fragment() {
                 requireContext()
             )
 
-        if(tinyDB.getBoolean("FirstCreated"))
-        {
+        if (tinyDB.getBoolean("FirstCreated")) {
             resumeBtnFunc()
         }
 
-
-
         cvViewModel = ViewModelProvider(this).get(CvViewModel::class.java)
 
-
         if (!tinyDB.getBoolean("inApp")) {
-
-
         }
         viewPager = view.findViewById(R.id.viewPagerTemplates)
         tabLayout = view.findViewById(R.id.tablayoutTemplates)
@@ -85,10 +74,8 @@ class HomeFragment : Fragment() {
         viewPager.adapter = MyPagerAdapter(childFragmentManager)
         viewPager.offscreenPageLimit = 1
 
-
         when {
             tinyDB.getString("APP_THEME") == getString(R.string.theme_blue) -> {
-
                 buttonFragmentLinear.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -97,17 +84,14 @@ class HomeFragment : Fragment() {
                 )
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-
                 buttonFragmentLinear.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.Orange_Theme
                     )
                 )
-
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-
                 buttonFragmentLinear.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -116,28 +100,22 @@ class HomeFragment : Fragment() {
                 )
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_yellow) -> {
-
-
                 buttonFragmentLinear.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.Yellow_Theme
                     )
                 )
-
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_green) -> {
-
                 buttonFragmentLinear.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.Green_Theme
                     )
                 )
-
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_gray) -> {
-
                 buttonFragmentLinear.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -147,31 +125,25 @@ class HomeFragment : Fragment() {
             }
         }
 
-
         btnCreateProfile.setOnClickListener {
             tinyDB.putBoolean("Boolean", false)
             dialogCVNameNAV()
 
-            HomeActivity.adapter.notifyDataSetChanged()
-
-
+//            HomeActivity.adapter.notifyDataSetChanged()
         }
 
         btnResumeCV.setOnClickListener {
             resumeBtnFunc()
         }
 
-
         return view
     }
-
 
     fun resumeBtnFunc() {
         if (tinyDB.getString("UID").equals("")) {
             dialogCVNameNAV()
         } else {
-
-            val intent = Intent(requireContext(), CreateCVActivity::class.java)
+            val intent = Intent(requireContext(), cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity::class.java)
             intent.putExtra("ID", tinyDB.getString("UID"))
             tinyDB.putString("UID", tinyDB.getString("UID"))
             tinyDB.putBoolean("CHECK_ACTIVITY", false)
@@ -182,17 +154,13 @@ class HomeFragment : Fragment() {
             tinyDB.putBoolean("IS_SELECTED", false)
             requireActivity().startActivity(intent)
             requireActivity().finish()
-
         }
     }
 
-
-
     private class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
 
-
         override fun getCount(): Int {
-            return 4;
+            return 4
         }
 
         override fun getItem(pos: Int): Fragment {
@@ -201,7 +169,6 @@ class HomeFragment : Fragment() {
                 2 -> latestTemplateFragment()
                 3 -> ProfessionalTemplateFragment()
                 else -> ModernTemplateFragment()
-
             }
         }
 
@@ -218,7 +185,6 @@ class HomeFragment : Fragment() {
             }
             return title
         }
-
     }
 
     private fun dialogCVNameNAV() {
@@ -232,13 +198,11 @@ class HomeFragment : Fragment() {
         val alertDialog = dialogBuilder.create()
         alertDialog.setCancelable(false)
 
-
         createBt.setOnClickListener {
             val name = cvName.editText?.text.toString()
             if (!TextUtils.isEmpty(name)) {
                 createCV(name)
                 alertDialog.dismiss()
-
             } else {
                 cvName.editText?.error = "Required"
             }
@@ -248,10 +212,8 @@ class HomeFragment : Fragment() {
             alertDialog.dismiss()
         }
 
-
         alertDialog.show()
     }
-
 
     fun createCV(name: String) {
         val tinyDB =
@@ -262,7 +224,6 @@ class HomeFragment : Fragment() {
         tinyDB.putString("FILE", myfinalstring)
         tinyDB.putString("UID", "" + System.currentTimeMillis())
         Log.d("TAG", "dialogCVName: " + tinyDB.getString("FILE"))
-
 
         val model =
             CVModelEntity(
@@ -288,12 +249,8 @@ class HomeFragment : Fragment() {
                 ""
             )
 
-
-
         val rowId = cvViewModel?.insert(model)
         Log.e("Inserted", "Row ID: $rowId")
-
-
 
         tinyDB.putBoolean("PERSONEL_INFO_CHECK", false)
         tinyDB.putBoolean("CHECK_ACTIVITY", true)
@@ -307,11 +264,9 @@ class HomeFragment : Fragment() {
         tinyDB.putBoolean(Constants.skipTech, false)
         tinyDB.putBoolean(Constants.skipRef, false)
         tinyDB.putBoolean(Constants.skipAwards, false)
-        val intent = Intent(requireContext(), CreateCVActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP;
+        val intent = Intent(requireContext(), cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
         requireActivity().finish()
-
     }
-
 }

@@ -5,11 +5,11 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
@@ -17,25 +17,24 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.MyApplication
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.ModelCoverLetter
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.TemplateModelClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.FragmentCvTemplateAdapter
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetterTemplates.FragmentBlueLetter
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetterTemplates.FragmentBrownLetter
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetterTemplates.FragmentGreenLetter
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetterTemplates.FragmentWhiteLetter
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.MyApplication
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.coverletter.CoverLetterFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelCoverLetter
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvTemplateModelClass
 
-class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.OnTemplateSelect {
-
+class LetterTemplateActivity : AppCompatActivity(), FragmentCvTemplateAdapter.OnTemplateSelect {
 
     lateinit var recyclerView: RecyclerView
-    lateinit var templateList: ArrayList<TemplateModelClass>
+    lateinit var templateList: ArrayList<CvTemplateModelClass>
     lateinit var adapter: FragmentCvTemplateAdapter
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var tinyDB: TinyDB
@@ -52,35 +51,32 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
                 super.setTheme(R.style.AppThemeOrange)
-
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
                 super.setTheme(R.style.AppThemeRed)
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_yellow) -> {
-
                 super.setTheme(R.style.AppThemeYellow)
-
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_green) -> {
                 super.setTheme(R.style.AppThemeGreen)
-
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_gray) -> {
                 super.setTheme(R.style.AppThemeGray)
             }
         }
-
     }
 
     override fun onStart() {
         super.onStart()
-        this.overridePendingTransition(R.anim.anim_slide_in_top,
-            R.anim.anim_slide_out_top);
+        this.overridePendingTransition(
+            R.anim.anim_slide_in_top,
+            R.anim.anim_slide_out_top
+        )
     }
+
     @SuppressLint("Range")
-    private fun getDetails()
-    {
+    private fun getDetails() {
         val datebase = DataBaseHandler(this)
         val cursor = datebase.fetchLetterRecord(tinyDB.getString("CL_ID"))
 
@@ -121,7 +117,6 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tinyDB =
@@ -131,15 +126,13 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
         checkTheme()
         setContentView(R.layout.activity_select_letterview_template)
 
-
         getDetails()
-
 
         val toolbar = findViewById<Toolbar>(R.id.toolbarSelectTemplate)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = "Cover Letter Templates"
         val backBtn = findViewById<ImageButton>(R.id.selectTemplateBackButton)
-        backBtn.setOnClickListener{
+        backBtn.setOnClickListener {
             onBackPressed()
         }
         val lottie = findViewById<LottieAnimationView>(R.id.rateUsLottie)
@@ -156,18 +149,14 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
             }
         }
 
-
         templateList = ArrayList()
         addDataToArray()
 
         recyclerView = findViewById(R.id.templateRcv)
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL , false)
+        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = linearLayoutManager
         adapter = FragmentCvTemplateAdapter(this, templateList, this)
         recyclerView.adapter = adapter
-
-
-
 
         frameLayout = findViewById(R.id.FragmentPreviewCvFrameLayout)
         fragmentManager = supportFragmentManager
@@ -181,12 +170,10 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
                 MyDrawableCompat.setColorFilter(recyclerView.background, Color.parseColor("#6C48EF"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-
                 toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Orange_Theme))
                 MyDrawableCompat.setColorFilter(recyclerView.background, Color.parseColor("#ED851A"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-
                 toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Red_Theme))
                 MyDrawableCompat.setColorFilter(recyclerView.background, Color.parseColor("#950806"))
             }
@@ -203,7 +190,6 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
                 MyDrawableCompat.setColorFilter(recyclerView.background, Color.parseColor("#6A6A6A"))
             }
         }
-
     }
 
     override fun onResume() {
@@ -217,31 +203,29 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun addDataToArray() {
-        val object1 = TemplateModelClass()
+        val object1 = CvTemplateModelClass()
         object1.setName("Blue Bar")
-        object1.setTemplate(ContextCompat.getDrawable(this , R.drawable.bluebar))
+        object1.setTemplate(ContextCompat.getDrawable(this, R.drawable.bluebar))
         templateList.add(object1)
 
-        val object2 = TemplateModelClass()
+        val object2 = CvTemplateModelClass()
         object2.setName("Green Bar")
         object2.setTemplate(ContextCompat.getDrawable(this, R.drawable.greenbar))
         templateList.add(object2)
 
-        val object3 = TemplateModelClass()
+        val object3 = CvTemplateModelClass()
         object3.setName("White BG")
         object3.setTemplate(ContextCompat.getDrawable(this, R.drawable.white))
         templateList.add(object3)
 
-        val object4 = TemplateModelClass()
+        val object4 = CvTemplateModelClass()
         object4.setName("Brown Bar")
         object4.setTemplate(ContextCompat.getDrawable(this, R.drawable.brown))
         templateList.add(object4)
-
     }
 
     override fun onTemplateClick(position: Int) {
-
-        MyApplication.firbaseAnalaytics(this,"1","onTemplateClickLetter" )
+        MyApplication.firbaseAnalaytics(this, "1", "onTemplateClickLetter")
         if (templateList[position].getName().equals("Blue Bar")) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.FragmentPreviewCvFrameLayout, FragmentBlueLetter()).commitAllowingStateLoss()
@@ -256,7 +240,4 @@ class LetterTemplateActivity : AppCompatActivity() , FragmentCvTemplateAdapter.O
                 .replace(R.id.FragmentPreviewCvFrameLayout, FragmentBrownLetter()).commitAllowingStateLoss()
         }
     }
-
-
-
 }

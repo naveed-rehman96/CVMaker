@@ -14,14 +14,18 @@ import androidx.recyclerview.widget.RecyclerView
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.TemplateAdapter
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.TemplateModelClass
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCV.*
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvTemplateModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCvTemplateActivities.*
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewBlueCreamCreamActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewDarkRedWhiteActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewlightGrayWhiteActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewlightWhiteboxActivity
 
 class latestTemplateFragment : Fragment(), TemplateAdapter.OnTemplateSelect{
 
 
     lateinit var recyclerView: RecyclerView
-    lateinit var templateList: ArrayList<TemplateModelClass>
+    lateinit var templateList: ArrayList<CvTemplateModelClass>
     lateinit var adapter: TemplateAdapter
     lateinit var gridLayoutManager: GridLayoutManager
     lateinit var tinyDB: TinyDB
@@ -53,22 +57,22 @@ class latestTemplateFragment : Fragment(), TemplateAdapter.OnTemplateSelect{
     }
     @SuppressLint("UseCompatLoadingForDrawables")
     fun addDataToArray() {
-        val object4 = TemplateModelClass()
+        val object4 = CvTemplateModelClass()
         object4.setName(getString(R.string.str_darkbluecream))
         object4.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.templ_blue_dark_cream))
         templateList.add(object4)
 
-        val object9 = TemplateModelClass()
+        val object9 = CvTemplateModelClass()
         object9.setName(getString(R.string.str_whitebox))
         object9.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.templ_whitebox))
         templateList.add(object9)
 
-        val object7 = TemplateModelClass()
+        val object7 = CvTemplateModelClass()
         object7.setName(getString(R.string.str_darkredwhite))
         object7.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.templ_dark_redwhite))
         templateList.add(object7)
 
-        val object8 = TemplateModelClass()
+        val object8 = CvTemplateModelClass()
         object8.setName(getString(R.string.darklightwhite))
         object8.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.templ_lightgraywhite))
         templateList.add(object8)

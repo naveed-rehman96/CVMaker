@@ -34,15 +34,15 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.FileModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvFileModelClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.MyApplication
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
 class SavedCoverLetterAcitivity : AppCompatActivity(), SavedCoverLetterPdfAdapter.SavedCVClickListener,
     SavedLetterImagesAdapter.SavedCVClickListener {
-    lateinit var pDFArrayList: ArrayList<FileModelClass>
-    lateinit var imagesArrayList: ArrayList<FileModelClass>
+    lateinit var pDFArrayList: ArrayList<CvFileModelClass>
+    lateinit var imagesArrayList: ArrayList<CvFileModelClass>
     lateinit var recyclerViewPDF: RecyclerView
     lateinit var recyclerViewImages: RecyclerView
     lateinit var adapterPDf: SavedCoverLetterPdfAdapter
@@ -741,7 +741,8 @@ class SavedCoverLetterAcitivity : AppCompatActivity(), SavedCoverLetterPdfAdapte
                 } else {
                     if (listFile[i].name.endsWith(pdfPattern)) {
                         //Do what ever u want
-                        val objec = FileModelClass()
+                        val objec =
+                            CvFileModelClass()
                         objec.name = listFile[i].name.toString()
                         objec.location = listFile[i].absolutePath
                         objec.itemIcon = ContextCompat.getDrawable(
@@ -766,7 +767,8 @@ class SavedCoverLetterAcitivity : AppCompatActivity(), SavedCoverLetterPdfAdapte
                 } else {
                     if (listFile[i].name.endsWith(pdfPattern)) {
                         //Do what ever u want
-                        val objec = FileModelClass()
+                        val objec =
+                            CvFileModelClass()
                         objec.name = listFile[i].name.toString()
                         objec.location = listFile[i].absolutePath
                         imagesArrayList.add(objec)

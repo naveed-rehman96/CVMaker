@@ -21,7 +21,7 @@ import com.google.android.material.textfield.TextInputLayout
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.Saved_Cv_Pdf_Activity.Companion.isMultiSelectionOnPDF
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.FileModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvFileModelClass
 import java.io.File
 import java.text.DateFormat
 import java.util.*
@@ -30,7 +30,7 @@ import java.util.*
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class SavedResumeAdapter(
     val context: Context,
-    private val arrayList: ArrayList<FileModelClass>,
+    private val arrayList: ArrayList<CvFileModelClass>,
     var onClickItem: SavedCVClickListener
 
 ) :
@@ -206,7 +206,7 @@ class SavedResumeAdapter(
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showRenameDialog(context: Context, model: FileModelClass) {
+    private fun showRenameDialog(context: Context, model: CvFileModelClass) {
 
 
         val oldFile = File(model.location)

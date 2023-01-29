@@ -27,12 +27,12 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.coverLetterModule.CreateCoverLetterActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.ModelCoverLetter
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.TemplateModelClass
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetter.PreviewBlueLetterActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetter.PreviewBrownLetterActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetter.PreviewGreenLetterActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetter.PreviewWhiteLetterActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelCoverLetter
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvTemplateModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCoverLetterActivities.PreviewBlueLetterActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCoverLetterActivities.PreviewBrownLetterActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCoverLetterActivities.PreviewGreenLetterActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCoverLetterActivities.PreviewWhiteLetterActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.kaopiz.kprogresshud.KProgressHUD
 
@@ -50,7 +50,7 @@ class CoverLetterFragment : Fragment(), CoverLetterAdapterClassFrag.CoverLetterC
     lateinit var objectAsync : GetLetterProfiles
 
     lateinit var buttonFragmentLinear : LinearLayout
-    lateinit var templateList: ArrayList<TemplateModelClass>
+    lateinit var templateList: ArrayList<CvTemplateModelClass>
     lateinit var adapterTemplates: SelectTemplateAdapter
     companion object
     {
@@ -149,22 +149,22 @@ class CoverLetterFragment : Fragment(), CoverLetterAdapterClassFrag.CoverLetterC
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun addDataToArray() {
-        val object1 = TemplateModelClass()
+        val object1 = CvTemplateModelClass()
         object1.setName("Blue Bar")
         object1.setTemplate(ContextCompat.getDrawable(requireContext() , R.drawable.bluebar))
         templateList.add(object1)
 
-        val object2 = TemplateModelClass()
+        val object2 = CvTemplateModelClass()
         object2.setName("Green Bar")
         object2.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.greenbar))
         templateList.add(object2)
 
-        val object3 = TemplateModelClass()
+        val object3 = CvTemplateModelClass()
         object3.setName("White BG")
         object3.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.white))
         templateList.add(object3)
 
-        val object4 = TemplateModelClass()
+        val object4 = CvTemplateModelClass()
         object4.setName("Brown Bar")
         object4.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.brown))
         templateList.add(object4)

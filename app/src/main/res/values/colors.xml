@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6C48EF</color>
-    <color name="colorPrimaryDark">#6C48EF</color>
+    <color name="colorPrimary">#28282B</color>
+    <color name="colorPrimaryDark">#28282B</color>
     <color name="colorAccent">#03DAC5</color>
 
 
@@ -13,14 +13,14 @@
     <color name="red">#FF0000</color>
     <color name="green">#13CC1A</color>
 
-    <color name="Blue_Theme">#6C48EF</color>
+    <color name="Blue_Theme">#28282B</color>
     <color name="Orange_Theme">#ED851A</color>
     <color name="Yellow_Theme">#C8BA00</color>
     <color name="Red_Theme">#950806</color>
     <color name="Green_Theme">#296E01</color>
     <color name="Gray_Theme">#6A6A6A</color>
     <color name="Adgrey">#F5F5F5</color>
-    <color name="your_color">#6B47EC</color>
+    <color name="your_color">#28282B</color>
     <color name="your_color2">#FFD601</color>
     <color name="your_color3">#37C3FF</color>
 
@@ -40,12 +40,12 @@
     <color name="bg_screen3">#A1E3FF</color>
 
     <!-- dots inactive colors -->
-    <color name="dot_dark_screen1">#6B47EC</color>
+    <color name="dot_dark_screen1">#28282B</color>
     <color name="dot_dark_screen2">#FFD601</color>
     <color name="dot_dark_screen3">#37C3FF</color>
 
     <!-- dots active colors -->
-    <color name="dot_light_screen1">#6B47EC</color>
+    <color name="dot_light_screen1">#28282B</color>
     <color name="dot_light_screen2">#FFD601</color>
     <color name="dot_light_screen3">#37C3FF</color>
     <color name="dot_light_screen4">#e4b5fc</color>

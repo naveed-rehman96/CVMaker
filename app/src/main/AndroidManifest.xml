@@ -26,10 +26,10 @@
         tools:replace="android:allowBackup"
         tools:targetApi="n">
         <activity
-            android:name=".WelcomeCreateCVActivity"
+            android:name=".ui.activities.WelcomeCreateCVActivity"
             android:theme="@style/CreateFirstCv" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ui.activities.SplashScreenActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.activities.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".inAppPurchase.InAppBaseClass" />
         <activity
@@ -48,7 +48,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".ui.activities.WelcomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".coverLetterModule.SavedCoverLetterAcitivity"
@@ -65,14 +65,14 @@
         </provider>
 
         <activity
-            android:name=".pdfPreview.PdfPreviewActivity"
+            android:name=".ui.activities.PdfPreviewActivity"
             android:parentActivityName=".cvModule.Saved_Cv_Pdf_Activity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".cvModule.Saved_Cv_Pdf_Activity"
             android:parentActivityName=".homeMain.HomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PermissionActivity" />
+        <activity android:name=".ui.activities.PermissionActivity" />
 
 
         <service android:name=".fcmNotification.FCMService"
@@ -90,96 +90,96 @@
             android:name=".coverLetterModule.CreateCoverLetterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCoverLetter.PreviewBlueLetterActivity"
+            android:name=".ui.activities.previewCoverLetterActivities.PreviewBlueLetterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCoverLetter.PreviewGreenLetterActivity"
+            android:name=".ui.activities.previewCoverLetterActivities.PreviewGreenLetterActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCoverLetter.PreviewBrownLetterActivity"
+            android:name=".ui.activities.previewCoverLetterActivities.PreviewBrownLetterActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCoverLetter.PreviewWhiteLetterActivity"
+            android:name=".ui.activities.previewCoverLetterActivities.PreviewWhiteLetterActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".cvModule.TemplatesCVActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewDarkBlue_whiteCreamActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewDarkBlue_whiteCreamActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".cvModule.SelectTemplateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewDark_GrayBlueActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewDark_GrayBlueActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewDarkRedWhiteActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewDarkRedWhiteActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewlightGrayWhiteActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewlightGrayWhiteActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewlightWhiteboxActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewlightWhiteboxActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewDarkerLighterGrayActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewDarkerLighterGrayActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewSeaBlueActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewSeaBlueActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewDarkLightBrownActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewDarkLightBrownActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewGreenishActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewGreenishActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewYellowGrayActivity"
-            android:noHistory="true"
-            android:parentActivityName=".cvModule.SelectTemplateActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".previewCV.PreviewlightWhiteActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewYellowGrayActivity"
             android:noHistory="true"
             android:parentActivityName=".cvModule.SelectTemplateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewDark_light_GrayActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewlightWhiteActivity"
             android:noHistory="true"
             android:parentActivityName=".cvModule.SelectTemplateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewBlueCreamCreamActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewDark_light_GrayActivity"
             android:noHistory="true"
             android:parentActivityName=".cvModule.SelectTemplateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewDark_GrayWhiteActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewBlueCreamCreamActivity"
+            android:noHistory="true"
+            android:parentActivityName=".cvModule.SelectTemplateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewDark_GrayWhiteActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewGrayPinkActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewGrayPinkActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".previewCV.PreviewOtherActivity"
+            android:name=".ui.activities.previewCvTemplateActivities.PreviewOtherActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".cvModule.CreateCVActivity"
+            android:name=".ui.activities.cvModule.CreateCVActivity"
             android:screenOrientation="portrait" />
 
         <provider

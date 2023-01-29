@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.cvModule.Saved_Cv_Pdf_Activity">
+    >
 
 
     <LinearLayout
@@ -121,31 +121,6 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/btnLinearLayout"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_alignParentBottom="true"
-        >
-        <com.facebook.ads.NativeAdLayout
-            android:id="@+id/native_ad_container"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:padding="@dimen/_5sdp"
-            android:layout_margin="@dimen/_3sdp"
-            android:background="@drawable/border_ad"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-
-
-
-
-
 
 
 </RelativeLayout>

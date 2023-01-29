@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.homeMain.ui.home.HomeFragment"
+        android:name="cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_SavedCV"
-        android:name="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.homeMain.ui.savedCv.SavedPdfFragment"
+        android:name="cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.savedCv.SavedPdfFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_saved_pdf_" />
 
     <fragment
         android:id="@+id/navigation_CoverLetter"
-        android:name="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.homeMain.ui.coverletter.CoverLetterFragment"
+        android:name="cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.coverletter.CoverLetterFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_cover_letters" />
 

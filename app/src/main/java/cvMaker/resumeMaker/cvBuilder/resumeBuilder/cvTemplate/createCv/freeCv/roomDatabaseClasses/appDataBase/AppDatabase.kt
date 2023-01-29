@@ -5,8 +5,7 @@ import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.dao.*
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.*
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.* // ktlint-disable no-wildcard-imports
 import java.util.concurrent.Executors
 
 @Database(
@@ -27,6 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
         var instance: AppDatabase? = null
         val lock = Any()
         val databaseWriteExecutor = Executors.newFixedThreadPool(4)
+
         @JvmStatic
         @Synchronized
         fun getInstance(context: Context): AppDatabase? {

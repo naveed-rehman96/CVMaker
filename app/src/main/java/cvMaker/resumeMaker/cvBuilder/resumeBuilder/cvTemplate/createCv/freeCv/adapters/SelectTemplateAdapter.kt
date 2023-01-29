@@ -9,10 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.TemplateModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvTemplateModelClass
 
 class SelectTemplateAdapter
-    (val context: Context, private val arrayList: ArrayList<TemplateModelClass>, var onTemplateClick: OnTemplateClick)
+    (val context: Context, private val arrayList: ArrayList<CvTemplateModelClass>, var onTemplateClick: OnTemplateClick)
     : RecyclerView.Adapter<SelectTemplateAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  ,View.OnClickListener {

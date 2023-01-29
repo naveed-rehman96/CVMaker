@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.homeMain.HomeActivity">
+    >
 
 
     <include layout="@layout/activity_home_bottom_nav" />

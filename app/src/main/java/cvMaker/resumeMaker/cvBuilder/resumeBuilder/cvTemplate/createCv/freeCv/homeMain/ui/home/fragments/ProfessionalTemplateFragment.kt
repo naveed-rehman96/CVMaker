@@ -14,18 +14,18 @@ import androidx.recyclerview.widget.RecyclerView
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.TemplateAdapter
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.TemplateModelClass
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCV.PreviewDarkBlue_whiteCreamActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCV.PreviewDark_GrayBlueActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCV.PreviewDark_GrayWhiteActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCV.PreviewlightWhiteActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvTemplateModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewDarkBlue_whiteCreamActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewDark_GrayBlueActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewDark_GrayWhiteActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewlightWhiteActivity
 
 
 class ProfessionalTemplateFragment : Fragment() , TemplateAdapter.OnTemplateSelect{
 
 
     lateinit var recyclerView: RecyclerView
-    lateinit var templateList: ArrayList<TemplateModelClass>
+    lateinit var templateList: ArrayList<CvTemplateModelClass>
     lateinit var adapter: TemplateAdapter
     lateinit var gridLayoutManager: GridLayoutManager
     lateinit var tinyDB: TinyDB
@@ -64,23 +64,23 @@ class ProfessionalTemplateFragment : Fragment() , TemplateAdapter.OnTemplateSele
     @SuppressLint("UseCompatLoadingForDrawables")
     fun addDataToArray() {
 
-        val object6 = TemplateModelClass()
+        val object6 = CvTemplateModelClass()
         object6.setName(getString(R.string.str_lightwhite))
         object6.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.templ_light_white))
         templateList.add(object6)
 
 
-        val object5 = TemplateModelClass()
+        val object5 = CvTemplateModelClass()
         object5.setName(getString(R.string.str_graywhite))
         object5.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.templ_graywhite))
         templateList.add(object5)
 
-        val object3 = TemplateModelClass()
+        val object3 = CvTemplateModelClass()
         object3.setName(getString(R.string.str_darkbluewhite))
         object3.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.templ_dark_blue_white_cream))
         templateList.add(object3)
 
-        val object1 = TemplateModelClass()
+        val object1 = CvTemplateModelClass()
         object1.setName(getString(R.string.str_dark_light_gray))
         object1.setTemplate(ContextCompat.getDrawable(requireContext(), R.drawable.temp_darkgray))
         templateList.add(object1)

@@ -8,13 +8,13 @@ import android.content.Intent
 import android.content.IntentSender.SendIntentException
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.*
+import android.os.* // ktlint-disable no-wildcard-imports
 import android.text.Html
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
-import android.widget.*
+import android.widget.* // ktlint-disable no-wildcard-imports
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -24,16 +24,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.android.billingclient.api.*
+import com.android.billingclient.api.* // ktlint-disable no-wildcard-imports
 import com.bumptech.glide.Glide
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.*
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.SavedNavProfileAdapterClass
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.inAppPurchase.InAppBaseClass
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.CvMainModel
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.modelClasses.ModelMain
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -45,16 +37,27 @@ import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.android.play.core.tasks.Task
 import com.kaopiz.kprogresshud.KProgressHUD
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.* // ktlint-disable no-wildcard-imports
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.SavedNavProfileAdapterClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.inAppPurchase.InAppBaseClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvMainModel
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelMain
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.appDataBase.AppDatabase
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.*
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.model.* // ktlint-disable no-wildcard-imports
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.PermissionActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.SettingsActivity
 import org.koin.android.ext.android.inject
 import java.io.File
 
-
-class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileClick,
+class HomeActivity :
+    InAppBaseClass(),
+    SavedNavProfileAdapterClass.SavedProfileClick,
     PurchasesUpdatedListener {
-
 
     private lateinit var btnMenu: ImageView
     private lateinit var navProfileImage1: ImageView
@@ -67,13 +70,11 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
     private lateinit var modelMainArray: ArrayList<ModelMain>
     private lateinit var arrayListCVs: ArrayList<CVModelEntity>
 
-
     private val updateRequestCode = 999 // set globally
     lateinit var reviewManager: ReviewManager
     private var appUpdateManager: AppUpdateManager? = null
 
-    val cvDatabase : AppDatabase by inject<AppDatabase>()
-
+    val cvDatabase: AppDatabase by inject()
 
     companion object {
 
@@ -87,7 +88,6 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             adContainerView.visibility = View.GONE
             remove_ads.visibility = View.GONE
         }
-
     }
 
     lateinit var recyclerViewNavProfiles: RecyclerView
@@ -100,33 +100,28 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_orange) -> {
                 super.setTheme(R.style.AppThemeOrange)
-
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_red) -> {
                 super.setTheme(R.style.AppThemeRed)
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_yellow) -> {
-
                 super.setTheme(R.style.AppThemeYellow)
-
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_green) -> {
                 super.setTheme(R.style.AppThemeGreen)
-
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_gray) -> {
                 super.setTheme(R.style.AppThemeGray)
             }
         }
-
     }
 
     private fun checkAppUpdate() {
         appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager!!.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { result ->
-            if (result!!.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            if (result!!.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
             ) {
                 try {
                     appUpdateManager!!.startUpdateFlowForResult(
@@ -142,12 +137,9 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
         }
     }
 
-
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         tinyDB12 = TinyDB(this)
 
@@ -155,14 +147,12 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             cvMainModel = CvMainModel()
         }
 
-
         checkTheme()
         setContentView(R.layout.activity_home_2)
         checkAppUpdate()
 
-        reviewManager = ReviewManagerFactory.create(this);
+        reviewManager = ReviewManagerFactory.create(this)
         showRateApp()
-
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         btnSettings = findViewById(R.id.settingsLottie)
@@ -180,16 +170,12 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
         modelMainArray = ArrayList()
         GetCvProfiles().execute()
 
-
         if (isPremium) {
             remove_ads.visibility = View.GONE
         }
 
-
         remove_ads.setOnClickListener {
-
             purchase(this, getString(R.string.APP_IN_PURCHASE))
-
         }
 
         if (!tinyDB12.getString("UID").equals("")) {
@@ -201,15 +187,10 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
                 .into(navProfileImage1)
         }
 
-
-
-
-
         btnSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
             finish()
         }
-
 
         drawerLayout = findViewById(R.id.drawer_layout)
         btnMenu = findViewById(R.id.btnNavMenu)
@@ -229,26 +210,21 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_orange) -> {
                 orangeTheme()
-
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_red) -> {
                 redTheme()
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_yellow) -> {
-
                 yellowTheme()
-
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_green) -> {
                 greenTheme()
-
             }
             tinyDB12.getString("APP_THEME") == getString(R.string.theme_gray) -> {
                 grayTheme()
             }
         }
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -296,7 +272,8 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String?>, grantResults: IntArray
+        permissions: Array<String?>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (permissions.isEmpty()) {
@@ -308,7 +285,7 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             for (grantResult in grantResults) {
                 if (grantResult != PackageManager.PERMISSION_GRANTED) {
                     allPermissionsGranted = false
-                    tinyDB12.putBoolean("PermissionGranted", allPermissionsGranted)
+                    tinyDB12.putBoolean("PermissionGranted", false)
                     break
                 }
             }
@@ -317,7 +294,7 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             var somePermissionsForeverDenied = false
             for (permission in permissions) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission!!)) {
-                    //denied
+                    // denied
                     Log.e("denied", permission)
                     val intent = Intent(this, PermissionActivity::class.java)
                     startActivity(intent)
@@ -327,10 +304,10 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
                             permission
                         ) == PackageManager.PERMISSION_GRANTED
                     ) {
-                        //allowed
+                        // allowed
                         Log.e("allowed", permission)
                     } else {
-                        //set to never ask again
+                        // set to never ask again
                         Log.e("set to never ask again", permission)
                         somePermissionsForeverDenied = true
                     }
@@ -339,10 +316,7 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             if (somePermissionsForeverDenied) {
                 val intent = Intent(this, PermissionActivity::class.java)
                 startActivity(intent)
-
             }
-        } else {
-
         }
     }
 
@@ -360,7 +334,6 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             progressBar.setCancellable(false)
             progressBar.setAnimationSpeed(2)
             progressBar.setDimAmount(0.5f)
-
         }
 
         override fun onPostExecute(result: String?) {
@@ -376,11 +349,9 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             recyclerViewNavProfiles.adapter = adapter
 
             progressBar.dismiss()
-
         }
 
         override fun doInBackground(vararg params: String?): String {
-
             arrayListCVs = cvDatabase.cvDao()?.allRecords as ArrayList<CVModelEntity>
             modelMainArray.clear()
             for (model in arrayListCVs) {
@@ -395,9 +366,7 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             }
             return ""
         }
-
     }
-
 
     @SuppressLint("StaticFieldLeak")
     inner class GetUserDetails() : AsyncTask<String, String, String>() {
@@ -410,7 +379,6 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             progressBar.setCancellable(false)
             progressBar.setAnimationSpeed(2)
             progressBar.setDimAmount(0.5f)
-
         }
 
         override fun onPostExecute(result: String?) {
@@ -432,13 +400,11 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
                     )
                 }
                 selectedProfName.text = cvMainModel.personInfo.fullName
-
             }, 100)
-
         }
 
         override fun doInBackground(vararg params: String?): String {
-            //getDetails(tinyDB12.getString("UID"))
+            // getDetails(tinyDB12.getString("UID"))
 
             cvMainModel.personInfo =
                 cvDatabase.cvDao()?.getCVbyId(tinyDB12.getString("UID"))!!
@@ -451,12 +417,9 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             cvMainModel.projectsEntity = cvDatabase.projectsDao()
                 ?.getAllProject(tinyDB12.getString("UID")) as ArrayList<ProjectsEntity>
 
-
             return ""
         }
-
     }
-
 
     override fun onViewCVClick(position: Int) {
         tinyDB12.putString("UID", modelMainArray[position].id)
@@ -469,12 +432,10 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
         tinyDB12.putBoolean(Constants.skipAwards, false)
         GetUserDetails().execute()
 
-
         selectedProfName.text = cvMainModel.personInfo.fullName
     }
 
     override fun onCVLongClickListener(position: Int) {
-
         val db = DataBaseHandler(this)
         val sourceString =
             "Are you sure you want delete it <b><i>" + modelMainArray[position].fileName + "</i></b> " + " CV ?"
@@ -482,97 +443,86 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
         dialogBuilder.setMessage(Html.fromHtml(sourceString))
             // if the dialog is cancelable
             .setCancelable(false)
-            .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, _ ->
+            .setPositiveButton(
+                "Ok",
+                DialogInterface.OnClickListener { dialog, _ ->
 
+                    val ids = modelMainArray[position].id
+                    cvDatabase.cvDao()?.deleteById(modelMainArray[position].id)
+                    cvDatabase.skillsDao()?.deleteAllSkills(ids)
+                    cvDatabase.projectsDao()?.deleteAllProject(ids)
+                    cvDatabase.qualificationDAO()?.deleteAllQualification(ids)
+                    cvDatabase.experienceDAO()?.deleteAllExperience(ids)
 
-                val ids = modelMainArray[position].id
-                cvDatabase.cvDao()?.deleteById(modelMainArray[position].id)
-                cvDatabase.skillsDao()?.deleteAllSkills(ids)
-                cvDatabase.projectsDao()?.deleteAllProject(ids)
-                cvDatabase.qualificationDAO()?.deleteAllQualification(ids)
-                cvDatabase.experienceDAO()?.deleteAllExperience(ids)
-
-
-                modelMainArray.removeAt(position)
-                adapter.notifyDataSetChanged()
-                if (tinyDB12.getString("UID") == ids) {
-                    tinyDB12.putString("UID", "")
-                    navProfileImage1.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            this,
-                            R.drawable.ic_profile_icon
+                    modelMainArray.removeAt(position)
+                    adapter.notifyDataSetChanged()
+                    if (tinyDB12.getString("UID") == ids) {
+                        tinyDB12.putString("UID", "")
+                        navProfileImage1.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                this,
+                                R.drawable.ic_profile_icon
+                            )
                         )
-                    )
-                    selectedProfName.text = "No Profile Selected"
+                        selectedProfName.text = "No Profile Selected"
+                    }
+                    GetCvProfiles().execute()
+
+                    dialog.dismiss()
                 }
-                GetCvProfiles().execute()
-
-                dialog.dismiss()
-
-            }).setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
-                dialog.dismiss()
-            })
+            ).setNegativeButton(
+                "Cancel",
+                DialogInterface.OnClickListener { dialog, id ->
+                    dialog.dismiss()
+                }
+            )
         val alert = dialogBuilder.create()
         alert.setIcon(android.R.drawable.ic_menu_delete)
         alert.show()
-
-
     }
 
     private fun grayTheme() {
-
         // MyDrawableCompat.setColorFilter(view.background, Color.parseColor("#6A6A6A"))
         toolbarBottomNav.setBackgroundColor(ContextCompat.getColor(this, R.color.Gray_Theme))
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Gray_Theme);
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Gray_Theme)
         nav_header_main.setBackgroundColor(ContextCompat.getColor(this, R.color.Gray_Theme))
     }
 
     private fun greenTheme() {
-
         // MyDrawableCompat.setColorFilter(btnFeedBack.background, Color.parseColor("#296E01"))
         toolbarBottomNav.setBackgroundColor(ContextCompat.getColor(this, R.color.Green_Theme))
         nav_header_main.setBackgroundColor(ContextCompat.getColor(this, R.color.Green_Theme))
 
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Green_Theme);
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Green_Theme)
     }
 
     private fun yellowTheme() {
-
         // MyDrawableCompat.setColorFilter(view.background, Color.parseColor("#C8BA00"))
         toolbarBottomNav.setBackgroundColor(ContextCompat.getColor(this, R.color.Yellow_Theme))
         nav_header_main.setBackgroundColor(ContextCompat.getColor(this, R.color.Yellow_Theme))
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Yellow_Theme);
-
-
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Yellow_Theme)
     }
 
     private fun orangeTheme() {
-
         // MyDrawableCompat.setColorFilter(view.background, Color.parseColor("#ED851A"))
         toolbarBottomNav.setBackgroundColor(ContextCompat.getColor(this, R.color.Orange_Theme))
         nav_header_main.setBackgroundColor(ContextCompat.getColor(this, R.color.Orange_Theme))
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Orange_Theme);
-
-
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Orange_Theme)
     }
 
     private fun redTheme() {
-
-        //MyDrawableCompat.setColorFilter(view.background, Color.parseColor("#950806"))
+        // MyDrawableCompat.setColorFilter(view.background, Color.parseColor("#950806"))
         toolbarBottomNav.setBackgroundColor(ContextCompat.getColor(this, R.color.Red_Theme))
         nav_header_main.setBackgroundColor(ContextCompat.getColor(this, R.color.Red_Theme))
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Red_Theme);
-
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Red_Theme)
     }
 
     private fun blueTheme() {
-
         // MyDrawableCompat.setColorFilter(view.background, Color.parseColor("#0078FF"))
         toolbarBottomNav.setBackgroundColor(ContextCompat.getColor(this, R.color.Blue_Theme))
         nav_header_main.setBackgroundColor(ContextCompat.getColor(this, R.color.Blue_Theme))
-        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Blue_Theme);
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.Blue_Theme)
     }
-
 
     override fun onBackPressed() {
         val dialogBuilder1 = AlertDialog.Builder(this, R.style.DialogStyle)
@@ -584,10 +534,9 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
         val cancel: Button = dialogView.findViewById(R.id.btnCancelExitDialog)
         val Ok: Button = dialogView.findViewById(R.id.btnOkExitDialog)
 
-
         val alertDialog = dialogBuilder1.create()
         alertDialog.setCancelable(true)
-        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         cancel.setOnClickListener {
             try {
@@ -608,29 +557,23 @@ class HomeActivity : InAppBaseClass(), SavedNavProfileAdapterClass.SavedProfileC
             finish()
         }
         alertDialog.show()
-
-
     }
 
     fun showRateApp() {
         val request: Task<ReviewInfo?> = reviewManager.requestReviewFlow()
         request.addOnCompleteListener { task: Task<ReviewInfo?> ->
             if (task.isSuccessful) {
-                // We can get the ReviewInfo object
                 val reviewInfo = task.result
                 val flow: Task<Void?> =
                     reviewManager.launchReviewFlow(this, reviewInfo)
-                flow.addOnCompleteListener { task1: Task<Void?>? -> }
+                flow.addOnCompleteListener { }
             }
         }
     }
-
 
     override fun onPurchasesUpdated(p0: BillingResult, p1: MutableList<Purchase>?) {
         if (p0.responseCode == BillingClient.BillingResponseCode.OK) {
             adContainerView.visibility = View.GONE
         }
     }
-
-
 }

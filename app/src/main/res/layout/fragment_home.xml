@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    android:background="#F6F6F6"
-    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.homeMain.ui.home.HomeFragment">
+    android:background="#F6F6F6">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,13 +138,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/viewPagerTemplates"/>
-
-
-
-
-
-
-
 
 
 
