@@ -15,10 +15,10 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ad
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvTemplateModelClass
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewDarkBlue_whiteCreamActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewDark_GrayBlueActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewDark_GrayWhiteActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.previewCvTemplateActivities.PreviewlightWhiteActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCvTemplateActivities.PreviewDarkBlue_whiteCreamActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCvTemplateActivities.PreviewDark_GrayBlueActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCvTemplateActivities.PreviewDark_GrayWhiteActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCvTemplateActivities.PreviewlightWhiteActivity
 
 
 class ProfessionalTemplateFragment : Fragment() , TemplateAdapter.OnTemplateSelect{

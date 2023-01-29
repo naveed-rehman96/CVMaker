@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.HomeActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvMainModel
@@ -130,7 +130,7 @@ class WelcomeCreateCVActivity : AppCompatActivity() {
         tinyDB.putBoolean(Constants.skipTech, false)
         tinyDB.putBoolean(Constants.skipRef, false)
         tinyDB.putBoolean(Constants.skipAwards, false)
-        val intent = Intent(this, cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity::class.java)
+        val intent = Intent(this, cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
         finish()

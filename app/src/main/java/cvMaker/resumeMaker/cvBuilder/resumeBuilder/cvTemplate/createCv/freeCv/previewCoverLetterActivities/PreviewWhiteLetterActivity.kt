@@ -1,30 +1,47 @@
-package cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetterTemplates
+package cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetterActivities
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Picture
 import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
+import android.os.Looper
+import android.print.PdfPrint
+import android.print.PrintAttributes
+import android.print.PrintManager
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
-import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.coverletter.CoverLetterFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.coverLetterModule.SavedCoverLetterAcitivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelCoverLetter
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelNewMain
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetterActivities.PreviewBlueLetterActivity
+
+import java.io.File
+import java.io.FileOutputStream
 import java.lang.String
+import java.util.*
 
 
-class FragmentBlueLetter : Fragment() {
+class PreviewWhiteLetterActivity : AppCompatActivity() {
+
 
     lateinit var dialog: ProgressDialog
     lateinit var tinyDB: TinyDB
@@ -33,99 +50,265 @@ class FragmentBlueLetter : Fragment() {
         lateinit var modelMain: ModelCoverLetter
     }
 
+
     lateinit var xModel: ModelNewMain
     val htmlContent = StringBuilder()
 
+    @SuppressLint("SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_preview_cv)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_preview_all_cv, container, false)
-
-
-        val btnFullScreen: ImageButton = view.findViewById(R.id.btnFullScreenPreview)
-        btnFullScreen.setOnClickListener {
-            val intent = Intent(requireContext(), PreviewBlueLetterActivity::class.java)
-            startActivity(intent)
-        }
-        val btnNext = view.findViewById(R.id.btnNextTemplate) as Button
-        val btnBack = view.findViewById(R.id.btnBackTemplate) as Button
-
-        btnNext.setOnClickListener {
-            val intent = Intent(requireContext(), PreviewBlueLetterActivity::class.java)
-            startActivity(intent)
-        }
-        btnBack.setOnClickListener {
-            activity?.finish()
-        }
-        tinyDB =
-            TinyDB(
-                requireContext()
-            )
-
-
-
-
-
-        when {
-            tinyDB.getString("APP_THEME") == getString(R.string.theme_blue) -> {
-                MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#6C48EF"))
-                MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#6C48EF"))
-            }
-            tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-                MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#ED851A"))
-                MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#ED851A"))
-            }
-            tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-                MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#950806"))
-                MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#950806"))
-            }
-            tinyDB.getString("APP_THEME") == getString(R.string.theme_yellow) -> {
-                MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#C8BA00"))
-                MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#C8BA00"))
-            }
-            tinyDB.getString("APP_THEME") == getString(R.string.theme_green) -> {
-                MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#296E01"))
-                MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#296E01"))
-            }
-            tinyDB.getString("APP_THEME") == getString(R.string.theme_gray) -> {
-                MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#6A6A6A"))
-                MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#6A6A6A"))
-            }
-        }
-
-        dialog = ProgressDialog(requireContext())
-        dialog.setTitle("Loading Letter")
+        dialog = ProgressDialog(this)
+        dialog.setTitle("Loading CV")
         dialog.setMessage("Please Wait While we are preparing your CV")
         dialog.setCancelable(false)
 
         tinyDB =
             TinyDB(
-                requireContext()
+                applicationContext
             )
+
         modelMain = CoverLetterFragment.modelObjectCLFrag
         Log.e("letter", "onCreate: modelMain" + modelMain.getReceiverName())
         Log.e("letter", "onCreate: modelMain" + modelMain.getReceiverAddress())
 
+        val toolbar: Toolbar =
+            findViewById(R.id.toolbarPreviewCV)
+        setSupportActionBar(toolbar)
+        val txtToolbar: TextView = toolbar.findViewById(R.id.textPreviewCV)
+        txtToolbar.text = modelMain.getCFileName().capitalize()
+
         dialog.show()
-        previewCV(view)
+
+        Thread {
+            previewCV()
+            Handler(Looper.getMainLooper()).post {
+                webView = findViewById(R.id.webView)
+                webView.settings.allowFileAccess = true;
+                webView.settings.javaScriptEnabled = true;
+                webView.setInitialScale(100)
+                webView.settings.builtInZoomControls = true;
+                webView.loadDataWithBaseURL(
+                    null,
+                    htmlContent.toString(),
+                    "text/html",
+                    "utf-8",
+                    null
+                )
+                webView.webViewClient = object : WebViewClient() {
+                    override fun onPageFinished(view: WebView, url: kotlin.String) {
+                        if (dialog.isShowing()) {
+                            dialog.dismiss()
+                        }
+                    }
+                }
+            }
+        }.start()
 
 
-        return view
+
+
+        btnExport = toolbar.findViewById(R.id.ExportCv)
+        btnExport.setOnClickListener {
+
+                btnExportClicked()
+
+        }
     }
-    @SuppressLint("SetJavaScriptEnabled")
-    fun previewCV(view: View) {
-        webView = view.findViewById(R.id.WebView)
-        webView.settings.allowFileAccess = true;
-        webView.settings.javaScriptEnabled = true;
-        webView.setInitialScale(90)
-        webView.settings.builtInZoomControls = false;
-        webView.settings.displayZoomControls = false;
-        webView.settings.builtInZoomControls = true;
-        val htmlContent = StringBuilder()
+    private lateinit var btnExport: Button
 
+
+    fun btnExportClicked()
+    {
+        val popup = PopupMenu(this, btnExport)
+        popup.inflate(R.menu.menu_export)
+        popup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.actionExportPdf -> {
+                    savePdf()
+                }
+                R.id.actionExportPng -> {
+
+                    webView.setInitialScale(100)
+                    savePng()
+                }
+            }
+            false
+        }
+        popup.show()
+    }
+
+    private val PERMISSION_REQUEST = 0
+    private var allowSave = true
+    private fun savePdf() {
+        if (!allowSave) return
+        allowSave = false
+        if (ActivityCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            val fileName = modelMain.cfilename+"_"+ modelMain.getCid()+"_WL.pdf"
+            val printAdapter = webView.createPrintDocumentAdapter(fileName)
+            val printAttributes = PrintAttributes.Builder()
+                .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                .setResolution(PrintAttributes.Resolution("pdf", "pdf", 600, 600))
+                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                .build()
+            val file = File(Environment.getExternalStorageDirectory().absolutePath + "/CVMaker/CoverLetter/Pdf/")
+            PdfPrint(printAttributes).print(
+                printAdapter,
+                file,
+                fileName,
+                object : PdfPrint.CallbackPrint {
+                    override fun success(path: kotlin.String?) {
+                        allowSave = true
+                        Toast.makeText(
+                            applicationContext,
+                            kotlin.String.format("Your file is saved in %s", path),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        showFilesDialogPDf()
+                    }
+
+                    override fun onFailure(errorMsg: kotlin.String?) {
+                        allowSave = true
+                        Toast.makeText(
+                            applicationContext,
+                            kotlin.String.format(
+                                "Failed",
+                            ),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<kotlin.String?>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_REQUEST) {
+            if (grantResults[Arrays.asList(*permissions)
+                    .indexOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)] == PackageManager.PERMISSION_GRANTED
+            ) {
+                savePdf()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun getOPFile(): File? {
+        val mediaStorageDir = File(Environment.getExternalStorageDirectory().absolutePath + "/CVMaker/CoverLetter/Images/")
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null
+            }
+        }
+        return File(mediaStorageDir.path + File.separator + modelMain.cfilename+"_WL.jpg")
+    }
+
+    private fun savePng() {
+        val picture: Picture = webView.capturePicture()
+        val b = Bitmap.createBitmap(
+            picture.width, picture.height, Bitmap.Config.ARGB_8888
+        )
+        val c = Canvas(b)
+        picture.draw(c)
+
+        var fos: FileOutputStream? = null
+        try {
+            fos = FileOutputStream( getOPFile())
+            b.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.close()
+            showFilesDialogImages()
+
+        } catch (e: Exception) {
+            println("-----error--$e")
+        }
+    }
+
+    private fun showFilesDialogPDf() {
+
+        webView.setInitialScale(100)
+        val dialogBuilder = AlertDialog.Builder(this, R.style.DialogStyle)
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_file_converted, null)
+        dialogBuilder.setView(dialogView)
+        val createBt: Button = dialogView.findViewById(R.id.btnViewNow)
+        val cancelBt: Button = dialogView.findViewById(R.id.btnlater)
+        val alertDialog = dialogBuilder.create()
+        alertDialog.setCancelable(false)
+
+        createBt.setOnClickListener {
+            tinyDB.putBoolean("Cpdf", false)
+            val intent = Intent(this, SavedCoverLetterAcitivity::class.java)
+            startActivity(intent)
+            finish()
+            alertDialog.dismiss()
+
+        }
+
+        cancelBt.setOnClickListener {
+            alertDialog.dismiss()
+
+        }
+
+
+        alertDialog.show()
+    }  private fun showFilesDialogImages() {
+
+        webView.setInitialScale(100)
+        val dialogBuilder = AlertDialog.Builder(this, R.style.DialogStyle)
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_file_converted, null)
+        dialogBuilder.setView(dialogView)
+        val createBt: Button = dialogView.findViewById(R.id.btnViewNow)
+        val cancelBt: Button = dialogView.findViewById(R.id.btnlater)
+        val alertDialog = dialogBuilder.create()
+        alertDialog.setCancelable(false)
+
+        createBt.setOnClickListener {
+
+            tinyDB.putBoolean("Cpdf", true)
+            val intent = Intent(this, SavedCoverLetterAcitivity::class.java)
+            startActivity(intent)
+            finish()
+            alertDialog.dismiss()
+
+        }
+
+        cancelBt.setOnClickListener {
+            alertDialog.dismiss()
+
+        }
+
+
+        alertDialog.show()
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        webView.destroy()
+    }
+
+
+
+
+
+    @SuppressLint("SetJavaScriptEnabled")
+    fun previewCV() {
         htmlContent.append(
             String.format(
                 "<!DOCTYPE html>\n" +
@@ -199,11 +382,11 @@ class FragmentBlueLetter : Fragment() {
                         ".c17{height:265pt}" +
 
 
-                        ".c9 {            color: #000000;            text-align: left;        }" +
-                        ".c16 { color: #000000; text-decoration: none; vertical-align: baseline; text-align: left; font-family: \"Raleway\"; font-style: normal }" +
-                        ".c26 {width: 500;height: 700pt; border-right-style: solid; border-bottom-color: #ffffff; border-top-width: 0pt; border-right-width: 0pt; border-left-color: #ffffff; vertical-align: top; border-right-color: #ffffff; border-left-width: 0pt; background: #F7F7F8; border-top-style: solid; border-left-style: solid; border-bottom-width: 0pt; border-top-color: #ffffff; border-bottom-style: solid}\n" +
-                        ".header { background: #0064A9;  height: 40pt;  color: #ffffff;  margin-top: -3pt  }" +
-                        ".footer { background: #0064A9;  height: 40pt; color: #ffffff;  margin-bottom: -3pt;            vertical-align: bottom }" +
+                        ".c9 { color: #000000;            text-align: left;}" +
+                        ".c16 { color: #000000;  text-decoration: none;            vertical-align: baseline;            text-align: left;            font-family: \"Raleway\";            font-style: normal}" +
+                        ".c26 { border-right-style: solid; border-bottom-color: #ffffff; border-top-width: 0pt; border-right-width: 0pt border-left-color: #ffffff; vertical-align: top; border-right-color: #ffffff; border-left-width: 0pt; background: #ffffff; border-top-style: solid; border-left-style: solid; border-bottom-width: 0pt; width: 750pt; border-top-color: #ffffff; border-bottom-style: solid}\n" +
+                        ".header {  background: #ffffff;            height: 40pt;            color: #ffffff;            margin-top: -3pt     }" +
+                        ".footer {  background: #ffffff;            height: 40pt;            color: #ffffff;            margin-bottom: -3pt;            vertical-align: bottom}" +
 
 
 
@@ -233,67 +416,54 @@ class FragmentBlueLetter : Fragment() {
             String.format(
                 "        <table class=\"c23\" style=\"background: #2F3A40;\">\n" +
                         "            <tbody>\n"+
-                        "                 <tr class=\"c21\">\n" +
-                        "                    <th class=\"c26\" style=\"margin-top: 50px;\" colspan=\"1\" rowspan=\"1\">\n"
+                        "                 <tr class=\"c21\">\n"+
+                        "                 <<td class=\"c26\" style=\"margin-left: -5pt;\">\n"
 
             )
         )
 
-        htmlContent.append(
-            String.format(
+        htmlContent.append(String.format(
             "" +
-                    " <td class=\"c26\" style=\"margin-left: -5pt;\">" +
-                    "" +
-                    "" +
-                    "                        <h1 class=\"header\">" +
+                    "<h1 class=\"header\">" +
                     "                        </h1>" +
                     "                        <h1 class=\"c9\" style=\" text-align: center;margin-top: 15pt;\">" +
-                    "                            <span class=\"c16\" style=\"color: #FF0000;font-size: 30pt; margin-bottom: 10px;text-align: right;\">%s</span>",
-
-            modelMain.getSenderCompany()
-
-        ))
-        htmlContent.append(
-            String.format(
-            "" +
-                    "                         <h1 style=\" text-align: left;margin-top: 35pt;margin-left: 30pt;\">" +
+                    "                            <span class=\"c16\" style=\"color: #FF0000;font-size: 30pt; margin-bottom: 10px;text-align: right;\">%s</span>" +
+                    "                        </h1>" +
+                    "                        <h1 style=\" text-align: left;margin-top: 35pt;margin-left: 30pt;\">" +
                     "                            <span style=\"font-size: 12pt;color: #000000;text-align: right; margin-left: : 30pt;\">%s</span>" +
                     "                        </h1>" +
                     "                        <h1 style=\" text-align: left;margin-top: -8pt;\">" +
                     "                            <span style=\"font-size: 12pt;color: #000000;text-align: right; margin-left: 30pt;\">%s</span>" +
                     "                        </h1>" +
                     "                        <h1 style=\" text-align: left;margin-top: -8pt;\">" +
-                    "                            <span style=\"font-size: 12pt;color: #000000;text-align: right; margin-left: 30pt;\">%s" +
-                    "" +
-                    "</span>" +
-                    "                        </h1>",
-            modelMain.getReceiverName(), modelMain.getReceiverDesignation() , modelMain.getReceiverAddress()
-
-
-
-        ))
-        htmlContent.append(
-            String.format(
-            "" +
-                    "   <h1 class=\"c9\" style=\"height: 400pt;width:500pt; text-align: left; margin-right: 25pt;margin-left: 30pt\">" +
-                    "                            <span class=\"c16\" style=\" line-height: 2.0;color: #000000; margin: 10pt;text-align: left;padding-right: 20pt\">" +
-                    "                                     %s</span>" +
+                    "                            <span style=\"font-size: 12pt;color: #000000;text-align: right; margin-left: 30pt;\">%s</span>" +
                     "                        </h1>" +
+                    "                        " +
+                    ""        ,
+            modelMain.getSenderCompany(),
+            modelMain.getReceiverName(),
+            modelMain.getReceiverDesignation(),
+            modelMain.getReceiverAddress()
+        ))
+
+        htmlContent.append(String.format(
+            "" +
+                    " <h1 class=\"c9\" style=\"height: 400pt;width:500pt; text-align: left; margin-right: 25pt;margin-left: 30pt\">" +
+                    "                            <span class=\"c16\" style=\" line-height: 2.0;color: #000000; margin: 10pt;text-align: left;padding-right: 20pt\">" +
+                    "                                %s</span>" +
+                    "                        </h1>" +
+                    "" +
                     "",
             modelMain.getDescription()
-
         ))
 
-
-
-
-
-
-        htmlContent.append(
-            String.format(
+        htmlContent.append(String.format(
             "" +
                     "" +
                     "                        <h1 style=\" text-align: left;margin-left: 30pt;\">" +
+                    "                            <span style=\"font-size: 12pt;color: #000000; margin-bottom: 10px;text-align: right; margin-left: : 30pt;\">Yours Sincerely</span>" +
+                    "                        </h1>" +
+                     "                        <h1 style=\" text-align: left;margin-left: 30pt;\">" +
                     "                            <span style=\"font-size: 12pt;color: #000000; margin-bottom: 10px;text-align: right; margin-left: : 30pt;\">%s</span>" +
                     "                        </h1>" +
                     "                        <h1 style=\" text-align: left;margin-top: -8pt;\">" +
@@ -301,15 +471,17 @@ class FragmentBlueLetter : Fragment() {
                     "                        </h1>" +
                     "                        <h1 style=\" text-align: left;margin-top: -8pt;\">" +
                     "                            <span style=\"font-size: 12pt;color: #000000; margin-bottom: 10px;text-align: right; margin-left: 30pt;\">%s</span>" +
-                    "                        </h1>",
-            modelMain.getSenderName(), modelMain.getSenderAddress(), modelMain.getSenderPhone()
+                    "                        </h1>" +
+                    "",
+            modelMain.getSenderName(), modelMain.getSenderEmail(), modelMain.getSenderAddress()
+
         ))
 
-        htmlContent.append(
-            String.format(
+
+        htmlContent.append(String.format(
+
             "" +
-                    "                        " +
-                    "                        <h3 style=\" text-align: right;margin-right: 30pt;\">" +
+                    " <h3 style=\" text-align: right;margin-right: 30pt;\">" +
                     "                            <span style=\" text-decoration: overline;font-size: 12pt;color: #000000; margin-bottom: 10px;text-align: left; margin-right: 15pt\">" +
                     "                                ( Signature )" +
                     "                            </span>" +
@@ -321,15 +493,16 @@ class FragmentBlueLetter : Fragment() {
                     "                        </h3>" +
                     "                        <h1 class=\"footer\">" +
                     "                        </h1>" +
-                    "                    </td>" +
                     "" +
-                    "",
+                    "" ,
             modelMain.getDate()
         ))
 
+
+
         htmlContent.append(
             String.format(
-                "                    </th>\n"+
+                        "                  </td>\n" +
                         "                </tr>\n" +
                         "            </tbody>\n" +
                         "        </table>\n" +
@@ -339,17 +512,25 @@ class FragmentBlueLetter : Fragment() {
                         "</html>\n"
             )
         )
-        webView.settings.javaScriptEnabled = true;
-        webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: kotlin.String) {
-                if (dialog.isShowing) {
-                    dialog.dismiss()
-                }
 
-            }
-        }
-        webView.loadDataWithBaseURL(null, htmlContent.toString(), "text/html", "utf-8", null)
 
+    }
+
+    private fun createWebPrintJob(webView: WebView) {
+
+
+
+        val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
+        val jobName = modelMain.getCFileName() + "_Resume"
+        val printAdapter = webView.createPrintDocumentAdapter()
+        val builder = PrintAttributes.Builder()
+
+        val custom = PrintAttributes.MediaSize.ISO_A4
+        builder.setMediaSize(custom)
+        val printJob = printManager.print(
+            jobName, printAdapter,
+            builder.build()
+        )
     }
 
 }

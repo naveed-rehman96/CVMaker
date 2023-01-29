@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.fragments.ModernTemplateFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.fragments.NewTemplateFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.home.fragments.ProfessionalTemplateFragment
@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
         if (tinyDB.getString("UID").equals("")) {
             dialogCVNameNAV()
         } else {
-            val intent = Intent(requireContext(), cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity::class.java)
+            val intent = Intent(requireContext(), cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity::class.java)
             intent.putExtra("ID", tinyDB.getString("UID"))
             tinyDB.putString("UID", tinyDB.getString("UID"))
             tinyDB.putBoolean("CHECK_ACTIVITY", false)
@@ -264,7 +264,7 @@ class HomeFragment : Fragment() {
         tinyDB.putBoolean(Constants.skipTech, false)
         tinyDB.putBoolean(Constants.skipRef, false)
         tinyDB.putBoolean(Constants.skipAwards, false)
-        val intent = Intent(requireContext(), cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities.cvModule.CreateCVActivity::class.java)
+        val intent = Intent(requireContext(), cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
         requireActivity().finish()
