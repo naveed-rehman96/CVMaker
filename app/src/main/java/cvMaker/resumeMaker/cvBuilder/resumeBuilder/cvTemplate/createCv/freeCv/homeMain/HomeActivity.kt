@@ -458,6 +458,7 @@ class HomeActivity :
                     )
                     selectedProfName.text = "No Profile Selected"
                 }
+                adapter.notifyDataSetChanged()
                 dialog.dismiss()
             }.setNegativeButton(
                 "Cancel",
