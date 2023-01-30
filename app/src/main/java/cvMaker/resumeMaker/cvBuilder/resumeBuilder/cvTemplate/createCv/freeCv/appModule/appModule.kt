@@ -11,7 +11,11 @@ val appModule = module {
 
     single { getDatabaseInstance(get()) }
     single { AppDatabase.provideCvDao(database = getDatabaseInstance(get())!!) }
-    single { CvRepository(cvDao = get()) }
+    single { AppDatabase.provideSkillsDao(database = getDatabaseInstance(get())!!) }
+    single { AppDatabase.provideExperienceDAO(database = getDatabaseInstance(get())!!) }
+    single { AppDatabase.provideProjectsDao(database = getDatabaseInstance(get())!!) }
+    single { AppDatabase.provideQualificationDAO(database = getDatabaseInstance(get())!!) }
+    single { CvRepository(cvDao = get(), skillsDao = get(), projectsDao = get(), experienceDAO = get(), qualificationDAO = get()) }
 
     viewModel { CvViewModel(cvRepository = get()) }
 }

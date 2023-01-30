@@ -8,22 +8,20 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
+import androidx.fragment.app.Fragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.appDataBase.AppDatabase
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
 import org.koin.android.ext.android.inject
-
 
 class LanguageFragment : Fragment() {
     lateinit var language: EditText
@@ -35,7 +33,6 @@ class LanguageFragment : Fragment() {
     lateinit var tinyDB: TinyDB
 
     lateinit var btnSkipLanguage: CheckBox
-
 
     val cvDatabase by inject<AppDatabase>()
 
@@ -55,7 +52,6 @@ class LanguageFragment : Fragment() {
         btnBack = v.findViewById(R.id.btn_back) as Button
         btnSkipLanguage = v.findViewById(R.id.btnSkipLanguage)
 
-
         val textCountObj = v.findViewById(R.id.textCountObj) as TextView
         language.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -66,31 +62,25 @@ class LanguageFragment : Fragment() {
 
             @SuppressLint("SetTextI18n")
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                textCountObj.text = s!!.length.toString() +"/50"
-                if(s.length == 50)
-                {
-                    textCountObj.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
-                }
-                else{
-
-                    textCountObj.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                textCountObj.text = s!!.length.toString() + "/50"
+                if (s.length == 50) {
+                    textCountObj.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                } else {
+                    textCountObj.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
                 }
             }
         })
         btnNext.setOnClickListener {
-
-            cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.mViewPager2.setCurrentItem(9,true)
+            CreateCVActivity.mViewPager2.setCurrentItem(9, true)
         }
-        btnBack.setOnClickListener{
-            cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.mViewPager2.setCurrentItem(7,true)
+        btnBack.setOnClickListener {
+            CreateCVActivity.mViewPager2.setCurrentItem(7, true)
         }
 
-
-        if ( tinyDB.getBoolean("Boolean")) {
+        if (tinyDB.getBoolean("Boolean")) {
             language.setText(cvMainModel.personInfo.language)
             ID = cvMainModel.personInfo.id.toString()
         }
-
 
         when {
             tinyDB.getString("APP_THEME") == getString(R.string.theme_blue) -> {
@@ -98,12 +88,10 @@ class LanguageFragment : Fragment() {
                 MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#6C48EF"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-
                 MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#ED851A"))
                 MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#ED851A"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-
                 MyDrawableCompat.setColorFilter(btnNext.background, Color.parseColor("#950806"))
                 MyDrawableCompat.setColorFilter(btnBack.background, Color.parseColor("#950806"))
             }
@@ -129,11 +117,9 @@ class LanguageFragment : Fragment() {
             language.visibility = View.VISIBLE
         }
 
-
-        Log.e("btnSkipExperience", "Qualification Skip: "+ tinyDB.getBoolean(Constants.skipLang))
+        Log.e("btnSkipExperience", "Qualification Skip: " + tinyDB.getBoolean(Constants.skipLang))
 
         btnSkipLanguage.setOnClickListener {
-
             if (tinyDB.getBoolean(Constants.skipLang)) {
                 btnSkipLanguage.isChecked = false
                 tinyDB.putBoolean(Constants.skipLang, false)
@@ -145,40 +131,23 @@ class LanguageFragment : Fragment() {
             }
         }
 
-
-
-
-
         return v
     }
 
     override fun onPause() {
         super.onPause()
-        
+
         val languageTxt = language.text.toString()
 
         if (TextUtils.isEmpty(languageTxt)) {
             language.error = "Required"
         } else {
-
-            AppDatabase.databaseWriteExecutor.execute{
-                cvDatabase.cvDao().updateLanguage(languageTxt,tinyDB.getString("UID"))
+            AppDatabase.databaseWriteExecutor.execute {
+                cvDatabase.cvDao().updateLanguage(languageTxt, tinyDB.getString("UID"))
                 cvMainModel.personInfo.language = languageTxt
             }
-
         }
     }
-
-    private fun updateLanguage(languageTxt: String) {
-        val db = activity?.let { DataBaseHandler(it) }
-        db?.updateLanguage(
-            languageTxt,
-            tinyDB.getString("UID")
-        )
-
-        cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.xModel.language = languageTxt
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,22 +164,11 @@ class LanguageFragment : Fragment() {
         Log.e("TAG", "onStart: ")
     }
 
-    override fun onResume() {
-        super.onResume()
-//        if (tinyDB.getBoolean("CHECK_ACTIVITY")) {
-//            language.setText(tinyDB.getString("language"))
-//        }
-//        if (tinyDB.getBoolean("RESUME_CV"))
-//        {
-//            language.setText(tinyDB.getString("language1"))
-//        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         if (tinyDB.getBoolean("CHECK_ACTIVITY")) {
-            tinyDB.putString("language" , language.text.toString())
-            tinyDB.putString("language1" , language.text.toString())
+            tinyDB.putString("language", language.text.toString())
+            tinyDB.putString("language1", language.text.toString())
         }
     }
 }

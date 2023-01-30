@@ -9,79 +9,90 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import android.widget.Toast
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ExperienceModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelCoverLetter
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelMain
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ProjectModelClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.QualificationModelClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.TechnicalSkillModelClass
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelCoverLetter
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelMain
-
 
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
-    context, DATABASE_NAME, null,
+    context,
+    DATABASE_NAME,
+    null,
     1
 ) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        val CREATE_CV_TABLE = ("CREATE TABLE " +
-                TABLE_NAME + "("
-                + COLUMN_ID + " INTEGER,"
-                + COLUMN_FILE_NAME + " TEXT ,"
-                + COLUMN_objective + " TEXT,"
-                + COLUMN_Nationality + " TEXT,"
-                + COLUMN_Cnic + " TEXT,"
-                + COLUMN_DOB + " TEXT,"
-                + COLUMN_emailID + " TEXT,"
-                + COLUMN_Phone + " TEXT,"
-                + COLUMN_FatherName + " TEXT,"
-                + COLUMN_PersonName + " TEXT,"
-                + COLUMN_imageURI + " TEXT,"
-                + COLUMN_Achievements + " TEXT,"
-                + COLUMN_Interests + " TEXT,"
-                + COLUMN_Language + " TEXT,"
-                + COLUMN_Reference + " TEXT,"
-                + COLUMN_ADDRESS + " TEXT,"
-                + COULMN_GENDER + " TEXT,"
-                + COULMN_MARTIALSTATUS + " TEXT,"
-                + COLUMN_CountryCode + " TEXT," +
+        val CREATE_CV_TABLE = (
+            "CREATE TABLE " +
+                TABLE_NAME + "(" +
+                COLUMN_ID + " INTEGER," +
+                COLUMN_FILE_NAME + " TEXT ," +
+                COLUMN_objective + " TEXT," +
+                COLUMN_Nationality + " TEXT," +
+                COLUMN_Cnic + " TEXT," +
+                COLUMN_DOB + " TEXT," +
+                COLUMN_emailID + " TEXT," +
+                COLUMN_Phone + " TEXT," +
+                COLUMN_FatherName + " TEXT," +
+                COLUMN_PersonName + " TEXT," +
+                COLUMN_imageURI + " TEXT," +
+                COLUMN_Achievements + " TEXT," +
+                COLUMN_Interests + " TEXT," +
+                COLUMN_Language + " TEXT," +
+                COLUMN_Reference + " TEXT," +
+                COLUMN_ADDRESS + " TEXT," +
+                COULMN_GENDER + " TEXT," +
+                COULMN_MARTIALSTATUS + " TEXT," +
+                COLUMN_CountryCode + " TEXT," +
                 COLUMN_FullNumber + " TEXT" +
-                ")")
+                ")"
+            )
 
-        val CREATE_QUALIFICATION_TABLE = ("CREATE TABLE " +
-                TABLE_QUALIFICATION + "("
-                + COLUMN_ID + " TEXT,"
-                + COLUMN_QUA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_DEGREE + " TEXT ,"
-                + COLUMN_SCHOOL + " TEXT,"
-                + COLUMN_ENDDATE + " TEXT,"
-                + COLUMN_MARKS + " TEXT" +
-                ")")
+        val CREATE_QUALIFICATION_TABLE = (
+            "CREATE TABLE " +
+                TABLE_QUALIFICATION + "(" +
+                COLUMN_ID + " TEXT," +
+                COLUMN_QUA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_DEGREE + " TEXT ," +
+                COLUMN_SCHOOL + " TEXT," +
+                COLUMN_ENDDATE + " TEXT," +
+                COLUMN_MARKS + " TEXT" +
+                ")"
+            )
 
-        val CREATE_EXPERIENCE_TABLE = ("CREATE TABLE " +
-                TABLE_EXPERIENCE + "("
-                + COLUMN_EXP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_ID + " TEXT,"
-                + COLUMN_CNAME + " TEXT ,"
-                + COLUMN_DESIG + " TEXT,"
-                + COLUMN_TO + " TEXT,"
-                + COLUMN_FROM + " TEXT" +
-                ")")
+        val CREATE_EXPERIENCE_TABLE = (
+            "CREATE TABLE " +
+                TABLE_EXPERIENCE + "(" +
+                COLUMN_EXP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_ID + " TEXT," +
+                COLUMN_CNAME + " TEXT ," +
+                COLUMN_DESIG + " TEXT," +
+                COLUMN_TO + " TEXT," +
+                COLUMN_FROM + " TEXT" +
+                ")"
+            )
 
-        val CREATE_TECHSKILL_TABLE = ("CREATE TABLE " +
-                TABLE_TECHSKILL + "("
-                + COLUMN_SKILL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_ID + " TEXT,"
-                + COLUMN_SKILL + " TEXT" +
-                ")")
+        val CREATE_TECHSKILL_TABLE = (
+            "CREATE TABLE " +
+                TABLE_TECHSKILL + "(" +
+                COLUMN_SKILL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_ID + " TEXT," +
+                COLUMN_SKILL + " TEXT" +
+                ")"
+            )
 
-        val CREATE_PROJECT_TABLE = ("CREATE TABLE " +
-                TABLE_PROJECT + "("
-                + COLUMN_PROJECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_ID + " TEXT,"
-                + COLUMN_PROJECT + " TEXT" +
-                ")")
+        val CREATE_PROJECT_TABLE = (
+            "CREATE TABLE " +
+                TABLE_PROJECT + "(" +
+                COLUMN_PROJECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_ID + " TEXT," +
+                COLUMN_PROJECT + " TEXT" +
+                ")"
+            )
 
-
-        val CREATE_COVER_LETTER_TABLE = ("CREATE TABLE " +
+        val CREATE_COVER_LETTER_TABLE = (
+            "CREATE TABLE " +
                 TABLE_COVER_LETTER + "(" +
                 COLUMN_CID + " INTEGER," +
                 COLUMN_CLNAME + " TEXT," +
@@ -97,8 +108,8 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                 COLUMN_REC_ADDRESS + " TEXT," +
                 COLUMN_DATE + " TEXT," +
                 COLUMN_DESCRIPTION + " TEXT" +
-                ")")
-
+                ")"
+            )
 
         db.execSQL(CREATE_QUALIFICATION_TABLE)
         db.execSQL(CREATE_EXPERIENCE_TABLE)
@@ -118,9 +129,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         onCreate(db)
     }
 
-
-    //-------------------------------  COVER LETTER FUNCTIONS -----------------------------------------------
-
+    // -------------------------------  COVER LETTER FUNCTIONS -----------------------------------------------
 
     @SuppressLint("Range")
     fun fetchCoverLetterData(): ArrayList<ModelCoverLetter> {
@@ -155,7 +164,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
             Toast.makeText(context, "Failed To Delete", Toast.LENGTH_SHORT).show()
             false
         }
-
     }
 
     fun fetchLetterRecord(id: String): Cursor? {
@@ -164,7 +172,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         cursor.moveToFirst()
         return cursor
     }
-
 
     fun addCoverLetterRecord(fileName1: String, id: String) {
         val db = this.writableDatabase
@@ -184,12 +191,9 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_DATE, "")
         values.put(COLUMN_DESCRIPTION, "")
 
-
         if (db.insert(TABLE_COVER_LETTER, null, values) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
-
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
         db.close()
@@ -201,7 +205,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         cv.put(COLUMN_DATE, date)
 
         if (db.update(TABLE_COVER_LETTER, cv, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -230,7 +233,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         cv.put(COLUMN_SEND_ADDRESS, address)
 
         if (db.update(TABLE_COVER_LETTER, cv, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -246,7 +248,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         cv.put(COLUMN_REC_ADDRESS, recAddress)
 
         if (db.update(TABLE_COVER_LETTER, cv, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -260,7 +261,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         cv.put(COLUMN_DESCRIPTION, description)
 
         if (db.update(TABLE_COVER_LETTER, cv, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -268,9 +268,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         db.close()
     }
 
-
-    //-------------------------------    END OF COVER LETTER  -----------------------------------------------
-
+    // -------------------------------    END OF COVER LETTER  -----------------------------------------------
 
     fun deleteExperienceRow(ID: String) {
         val db1 = this.writableDatabase
@@ -301,7 +299,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         val db = this.writableDatabase
         val db1 = this.readableDatabase
         val mcursor = db1.rawQuery("SELECT COUNT(*) FROM $TABLE_EXPERIENCE", null)
-        mcursor.moveToFirst();
+        mcursor.moveToFirst()
         val count = mcursor.getInt(0)
         if (count > 0) {
             val cursor = db1.rawQuery("SELECT * FROM $TABLE_EXPERIENCE WHERE $COLUMN_ID=$uid", null)
@@ -314,10 +312,9 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                     )
                 } while (cursor.moveToNext())
                 for (i in id) {
-
                     db1.delete(TABLE_EXPERIENCE, "$COLUMN_EXP_ID=$i", null)
                     db1.rawQuery("DELETE FROM $TABLE_EXPERIENCE WHERE $COLUMN_ID LIKE '$i'", null)
-                    //db.rawQuery("DELETE FROM $TABLE_EXPERIENCE WHERE $COLUMN_EXP_ID='$i'", null)
+                    // db.rawQuery("DELETE FROM $TABLE_EXPERIENCE WHERE $COLUMN_EXP_ID='$i'", null)
                     Log.d("Cursor", "saveExperience: ID  $i")
                 }
             }
@@ -330,7 +327,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
             data.put(COLUMN_FROM, model.getFromDate())
 
             if (db.insert(TABLE_EXPERIENCE, null, data) > 0) {
-
                 Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
             } else {
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -344,7 +340,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         val db = this.writableDatabase
         val db1 = this.readableDatabase
         val mcursor = db1.rawQuery("SELECT COUNT(*)TABLE_$TABLE_QUALIFICATION", null)
-        mcursor.moveToFirst();
+        mcursor.moveToFirst()
         val count = mcursor.getInt(0)
         if (count > 0) {
             val cursor =
@@ -354,13 +350,12 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                     id.add(cursor.getString(cursor.getColumnIndex(COLUMN_QUA_ID)))
                 } while (cursor.moveToNext())
                 for (i in id) {
-
                     db1.delete(TABLE_QUALIFICATION, "$COLUMN_QUA_ID=$i", null)
                     db1.rawQuery(
                         "DELETE FROM $TABLE_QUALIFICATION WHERE $COLUMN_ID LIKE '$i'",
                         null
                     )
-                    //db.rawQuery("DELETE FROM $TABLE_EXPERIENCE WHERE $COLUMN_EXP_ID='$i'", null)
+                    // db.rawQuery("DELETE FROM $TABLE_EXPERIENCE WHERE $COLUMN_EXP_ID='$i'", null)
                     Log.d("Cursor", "saveQualification: ID  $i")
                 }
             }
@@ -373,7 +368,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
             data.put(COLUMN_ENDDATE, model.getEndDate())
 
             if (db.insert(TABLE_QUALIFICATION, null, data) > 0) {
-
                 Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
             } else {
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -388,7 +382,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         val db = this.writableDatabase
         val db1 = this.readableDatabase
         val mcursor = db1.rawQuery("SELECT COUNT(*)TABLE_$TABLE_TECHSKILL", null)
-        mcursor.moveToFirst();
+        mcursor.moveToFirst()
         val count = mcursor.getInt(0)
         if (count > 0) {
             val cursor =
@@ -398,7 +392,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                     id.add(cursor.getString(cursor.getColumnIndex(COLUMN_SKILL_ID)))
                 } while (cursor.moveToNext())
                 for (i in id) {
-
                     db1.delete(TABLE_TECHSKILL, "$COLUMN_SKILL_ID=$i", null)
                     db1.rawQuery(
                         "DELETE FROM $TABLE_TECHSKILL WHERE $COLUMN_ID LIKE '$i'",
@@ -413,7 +406,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
             data.put(COLUMN_SKILL, model.techSkills)
 
             if (db.insert(TABLE_TECHSKILL, null, data) > 0) {
-
                 Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
             } else {
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -428,7 +420,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         val db = this.writableDatabase
         val db1 = this.readableDatabase
         val mcursor = db1.rawQuery("SELECT COUNT(*)TABLE_$TABLE_PROJECT", null)
-        mcursor.moveToFirst();
+        mcursor.moveToFirst()
         val count = mcursor.getInt(0)
         if (count > 0) {
             val cursor =
@@ -438,7 +430,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                     id.add(cursor.getString(cursor.getColumnIndex(COLUMN_PROJECT_ID)))
                 } while (cursor.moveToNext())
                 for (i in id) {
-
                     db1.delete(TABLE_PROJECT, "$COLUMN_PROJECT_ID=$i", null)
                     db1.rawQuery(
                         "DELETE FROM $TABLE_PROJECT WHERE $COLUMN_ID LIKE '$i'",
@@ -453,7 +444,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
             data.put(COLUMN_PROJECT, model.projectTitle)
 
             if (db.insert(TABLE_PROJECT, null, data) > 0) {
-
                 Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
             } else {
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -461,6 +451,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         }
     }
 
+    @SuppressLint("Range")
     fun getAllExperience(id: String): ArrayList<ExperienceModelClass> {
         val modelExperienceList: ArrayList<ExperienceModelClass> = ArrayList()
         val db1 = this.readableDatabase
@@ -475,7 +466,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                 object1.setExpId(cursor.getString(cursor.getColumnIndex(COLUMN_EXP_ID)))
 
                 modelExperienceList.add(object1)
-
             } while (cursor.moveToNext())
         }
 
@@ -496,7 +486,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                 object1.setQuaId(cursor.getString(cursor.getColumnIndex(COLUMN_QUA_ID)))
 
                 modelQualificationList.add(object1)
-
             } while (cursor.moveToNext())
         }
 
@@ -514,7 +503,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                 object1.skillId = (cursor.getString(cursor.getColumnIndex(COLUMN_SKILL_ID)))
 
                 modelQualificationList.add(object1)
-
             } while (cursor.moveToNext())
         }
 
@@ -532,7 +520,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
                 object1.projectId = (cursor.getString(cursor.getColumnIndex(COLUMN_PROJECT_ID)))
 
                 modelQualificationList.add(object1)
-
             } while (cursor.moveToNext())
         }
 
@@ -549,7 +536,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
             Toast.makeText(context, "Failed To Delete", Toast.LENGTH_SHORT).show()
             false
         }
-
     }
 
     fun getRecord(id: String): Cursor? {
@@ -558,7 +544,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         cursor.moveToFirst()
         db.close()
         return cursor
-
     }
 
     fun saveIndividualInfo(columnName: String, value: String, id: String) {
@@ -566,20 +551,17 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         val db = this.writableDatabase
         data.put(columnName, value)
         if (db.update(TABLE_NAME, data, "$COLUMN_ID=$id", null) > 0) {
-
             Log.e("saveIndividualInfo", "$columnName----$value")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
     }
 
-
     fun updateAchievements(achievements: String, id: String) {
         val values = ContentValues()
         values.put(COLUMN_Achievements, achievements)
         val db = this.writableDatabase
         if (db.update(TABLE_NAME, values, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -591,7 +573,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_Interests, interest)
         val db = this.writableDatabase
         if (db.update(TABLE_NAME, values, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -603,7 +584,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_Language, language)
         val db = this.writableDatabase
         if (db.update(TABLE_NAME, values, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -618,7 +598,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_ENDDATE, model.getEndDate())
 
         if (db.update(TABLE_QUALIFICATION, values, "$COLUMN_QUA_ID=$expId", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         }
     }
@@ -629,7 +608,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_SKILL, skill)
 
         if (db.update(TABLE_TECHSKILL, values, "$COLUMN_SKILL_ID=$expId", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         }
     }
@@ -639,13 +617,11 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_PROJECT, skill)
 
         if (db.update(TABLE_PROJECT, values, "$COLUMN_PROJECT_ID=$expId", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         }
     }
 
     fun updateExperience(expId: String, model: ExperienceModelClass) {
-
         val values = ContentValues()
         values.put(COLUMN_DESIG, model.getDesignation())
         values.put(COLUMN_CNAME, model.getCompanyName())
@@ -653,7 +629,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_FROM, model.getFromDate())
         val db = this.writableDatabase
         if (db.update(TABLE_EXPERIENCE, values, "$COLUMN_EXP_ID=$expId", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         }
     }
@@ -663,30 +638,24 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         values.put(COLUMN_objective, value)
         val db = this.writableDatabase
         if (db.update(TABLE_NAME, values, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
     fun updateReference(value: String, id: String) {
         val values = ContentValues()
         values.put(COLUMN_Reference, value)
         val db = this.writableDatabase
         if (db.update(TABLE_NAME, values, "$COLUMN_ID=$id", null) > 0) {
-
             Log.d("addCoverLetterRecord", "addCoverLetterRecord: Saved")
         } else {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
     }
 
-
     fun addFileName(fileName1: String, uid: String) {
-
         val values = ContentValues()
         values.put(COLUMN_FILE_NAME, fileName1)
         values.put(COLUMN_ID, uid)
@@ -725,10 +694,9 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
             "UPDATE $TABLE_NAME SET $columnName='$objective' WHERE $COLUMN_FILE_NAME='$id';"
         Log.d("TAG", "updateValues: $COLUMN_ID= $id")
         Toast.makeText(context, "Added", Toast.LENGTH_SHORT).show()
-        db.execSQL(query);
+        db.execSQL(query)
         db.close()
     }
-
 
     fun fetchData(): ArrayList<ModelMain> {
         val db = this.readableDatabase
@@ -746,9 +714,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         return arrayList
     }
 
-
-
-
     companion object {
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "cvMaker.db"
@@ -758,7 +723,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         const val TABLE_TECHSKILL = "TechnicalSkills"
         const val TABLE_PROJECT = "Projects"
         const val TABLE_COVER_LETTER = "CoverLetter"
-
 
         const val COLUMN_ID = "ID"
         const val COLUMN_FILE_NAME = "fileName"
@@ -791,7 +755,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         const val COLUMN_EXP_ID = "expId"
         const val COLUMN_ENDDATE = "endDate"
 
-
         const val COLUMN_CNAME = "cnam"
         const val COLUMN_DESIG = "desig"
         const val COLUMN_TO = "toDate"
@@ -803,7 +766,6 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
 
         const val COLUMN_PROJECT = "project"
         const val COLUMN_PROJECT_ID = "projectId"
-
 
         const val COLUMN_CID = "ID"
         const val COLUMN_CLNAME = "cname"
@@ -819,7 +781,5 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(
         const val COLUMN_DESCRIPTION = "description"
         const val COLUMN_SEND_COMPANY = "company"
         const val COLUMN_SEND_SUBJECT = "subject"
-
-
     }
 }

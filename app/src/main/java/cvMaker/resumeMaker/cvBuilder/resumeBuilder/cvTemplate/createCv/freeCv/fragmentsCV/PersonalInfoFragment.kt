@@ -23,12 +23,14 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker
 import com.theartofdev.edmodo.cropper.CropImage
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.showMessage
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
@@ -38,6 +40,7 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.mo
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.CvViewModel
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.appDataBase.AppDatabase
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.io.File
 import java.util.*
@@ -87,6 +90,8 @@ class PersonalInfoFragment : Fragment() {
 
     private val GALLERY_REQUEST_CODE = 1234
 
+    val cvViewModel: CvViewModel by inject()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         parent: ViewGroup?,
@@ -129,7 +134,7 @@ class PersonalInfoFragment : Fragment() {
             }
         })
 
-        profileImageSkipped.setOnCheckedChangeListener { _, isChecked ->
+        profileImageSkipped.setOnCheckedChangeListener { _, _ ->
             if (profileImageSkipped.isChecked) {
                 profileImage.visibility = View.GONE
                 textImageStatus.visibility = View.GONE
@@ -148,61 +153,70 @@ class PersonalInfoFragment : Fragment() {
             selectDateDialog()
         }
         confirm.setOnClickListener {
-            // ValidatePersonalInfoDataIndividual()
-            cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.mViewPager2.currentItem = 1
+            // validatePersonalInfoDataIndividual()
+            CreateCVActivity.mViewPager2.currentItem =
+                1
         }
 
         if (tinyDB.getBoolean("Boolean")) {
-            cvMainModel.personInfo = cvDatabase.cvDao().getCVbyId(tinyDB.getString("UID"))
-
-            cnicEdt.setText(cvMainModel.personInfo.cnic)
-            imagePath = cvMainModel.personInfo.imagePath
-            if (imagePath == "") {
-                profileImage.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_baseline_add_circle_24
-                    )
-                )
-            } else {
-                activity?.let {
-                    Glide.with(it).load(File(imagePath)).into(
-                        profileImage
-                    )
+            lifecycleScope.launch {
+                cvViewModel.getCvById(tinyDB.getString("UID")).collect() {
+                    cvMainModel.personInfo = it
                 }
-            }
-            nationalityEdt.setText(cvMainModel.personInfo.nationality)
-            fatherNameEdt.setText(cvMainModel.personInfo.fatherName)
-            phoneNumEdt.setText(cvMainModel.personInfo.phoneNum)
-            emailID.setText(cvMainModel.personInfo.emailID)
-            dateOfBirthEdt123.text = cvMainModel.personInfo.dateOfBirth
-            nameEdt.setText(cvMainModel.personInfo.fullName)
-            addressEdt.setText(cvMainModel.personInfo.address)
-            ID = cvMainModel.personInfo.id.toString()
-            if (cvMainModel.personInfo.gender.equals("Male")) {
-                genderRadioGroup.check(R.id.rb_Male)
-                gender = "Male"
-            } else if (cvMainModel.personInfo.gender.equals("Female")) {
-                genderRadioGroup.check(R.id.rb_female)
-                gender = "Female"
-            } else if (cvMainModel.personInfo.gender.equals("Other")) {
-                genderRadioGroup.check(R.id.rb_other)
-                gender = "Other"
-            }
+            }.invokeOnCompletion {
+                cnicEdt.setText(cvMainModel.personInfo.cnic)
+                imagePath = cvMainModel.personInfo.imagePath
+                if (imagePath == "") {
+                    profileImage.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_baseline_add_circle_24
+                        )
+                    )
+                } else {
+                    activity?.let {
+                        Glide.with(it).load(File(imagePath)).into(
+                            profileImage
+                        )
+                    }
+                }
+                nationalityEdt.setText(cvMainModel.personInfo.nationality)
+                fatherNameEdt.setText(cvMainModel.personInfo.fatherName)
+                phoneNumEdt.setText(cvMainModel.personInfo.phoneNum)
+                emailID.setText(cvMainModel.personInfo.emailID)
+                dateOfBirthEdt123.text = cvMainModel.personInfo.dateOfBirth
+                nameEdt.setText(cvMainModel.personInfo.fullName)
+                addressEdt.setText(cvMainModel.personInfo.address)
+                ID = cvMainModel.personInfo.id.toString()
+                when (cvMainModel.personInfo.gender) {
+                    "Male" -> {
+                        genderRadioGroup.check(R.id.rb_Male)
+                        gender = "Male"
+                    }
+                    "Female" -> {
+                        genderRadioGroup.check(R.id.rb_female)
+                        gender = "Female"
+                    }
+                    "Other" -> {
+                        genderRadioGroup.check(R.id.rb_other)
+                        gender = "Other"
+                    }
+                }
 
-            val martialStatussss = cvMainModel.personInfo.maritalStatus
-            Log.e("statusMarital", "CheckAboveIf: $martialStatussss")
+                val martialStatussss = cvMainModel.personInfo.maritalStatus
+                Log.e("statusMarital", "CheckAboveIf: $martialStatussss")
 
-            if (cvMainModel.personInfo.maritalStatus.equals("Single")) {
-                maritalGroup.check(R.id.rb_Single)
-                maritalStatus1 = "Single"
-            } else if (cvMainModel.personInfo.maritalStatus.equals("Married")) {
-                maritalGroup.check(R.id.rb_Married)
-                maritalStatus1 = "Married"
-            }
+                if (cvMainModel.personInfo.maritalStatus == "Single") {
+                    maritalGroup.check(R.id.rb_Single)
+                    maritalStatus1 = "Single"
+                } else if (cvMainModel.personInfo.maritalStatus == "Married") {
+                    maritalGroup.check(R.id.rb_Married)
+                    maritalStatus1 = "Married"
+                }
 
-            if (!cvMainModel.personInfo.countryCode.equals("")) {
-                cCPicker.setCountryForPhoneCode(cvMainModel.personInfo.countryCode.toInt())
+                if (cvMainModel.personInfo.countryCode != "") {
+                    cCPicker.setCountryForPhoneCode(cvMainModel.personInfo.countryCode.toInt())
+                }
             }
         }
 
@@ -249,19 +263,17 @@ class PersonalInfoFragment : Fragment() {
                 }
             }
         )
-        maritalGroup.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { _, checkedId ->
+        maritalGroup.setOnCheckedChangeListener { _, checkedId ->
 
-                when (checkedId) {
-                    R.id.rb_Married -> {
-                        maritalStatus1 = "Married"
-                    }
-                    R.id.rb_Single -> {
-                        maritalStatus1 = "Single"
-                    }
+            when (checkedId) {
+                R.id.rb_Married -> {
+                    maritalStatus1 = "Married"
+                }
+                R.id.rb_Single -> {
+                    maritalStatus1 = "Single"
                 }
             }
-        )
+        }
 
         return v
     }
@@ -291,7 +303,7 @@ class PersonalInfoFragment : Fragment() {
         profileImageSkipped = view.findViewById(R.id.profileImageSkipped)
     }
 
-    private fun ValidatePersonalInfoDataIndividual() {
+    private fun validatePersonalInfoDataIndividual() {
         val name = nameEdt.text.toString()
         val fathername = fatherNameEdt.text.toString()
         val phoneNumber = phoneNumEdt.text.toString()
@@ -300,11 +312,6 @@ class PersonalInfoFragment : Fragment() {
         val cnic = cnicEdt.text.toString()
         val emailid = emailID.text.toString()
         val address = addressEdt.text.toString()
-
-//        val modelPersonalInfo =PersonalInfoDataClass(imagePath , name ,fathername ,gender ,maritalStatus1 ,
-//                                                    cCPicker.number , cCPicker.fullNumber , cCPicker.selectedCountryCode
-//                                                    ,emailid ,dateofbirth , cnic , nationality , address)
-//
 
         val model = PersonalInfoDataClass()
 
@@ -350,7 +357,9 @@ class PersonalInfoFragment : Fragment() {
                 model.phoneNumber = phoneNumber
                 cvMainModel.personInfo.fullNumber = cCPicker.fullNumber
             } else {
-                cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.showMessage("You have entered and Invalid Number...")
+                activity?.showMessage(
+                    "You have entered and Invalid Number..."
+                )
                 phoneNumEdt.error = "Invalid"
             }
         }
@@ -380,7 +389,9 @@ class PersonalInfoFragment : Fragment() {
             emailID.error = "Required"
         } else {
             if (!isValidEmail(emailid)) {
-                cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity.showMessage("Email Not Saved .. Please Type Correct Email ...")
+                activity?.showMessage(
+                    "Email Not Saved .. Please Type Correct Email ..."
+                )
                 emailID.error = "Invalid"
             } else {
                 model.emailId = emailid
@@ -527,7 +538,7 @@ class PersonalInfoFragment : Fragment() {
     }
 
     override fun onPause() {
-        ValidatePersonalInfoDataIndividual()
+        validatePersonalInfoDataIndividual()
         super.onPause()
     }
 }

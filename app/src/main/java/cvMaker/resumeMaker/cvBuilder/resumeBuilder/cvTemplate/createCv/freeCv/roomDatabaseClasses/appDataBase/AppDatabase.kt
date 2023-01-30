@@ -24,6 +24,18 @@ abstract class AppDatabase : RoomDatabase() {
         fun provideCvDao(database: AppDatabase): CvDao {
             return database.cvDao()
         }
+        fun provideSkillsDao(database: AppDatabase): SkillsDao {
+            return database.skillsDao()
+        }
+        fun provideProjectsDao(database: AppDatabase): ProjectsDao {
+            return database.projectsDao()
+        }
+        fun provideExperienceDAO(database: AppDatabase): ExperienceDAO {
+            return database.experienceDAO()
+        }
+        fun provideQualificationDAO(database: AppDatabase): QualificationDAO {
+            return database.qualificationDAO()
+        }
 
         const val DATABASE_NAME = "ResumeBuilder.db"
 

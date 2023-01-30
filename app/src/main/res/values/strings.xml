@@ -15,30 +15,16 @@
     <string name="str_yellowgray">Yellow Gray</string>
 
     <!--    test Ads-->
-    <!--    <string name="app_ID">ca-app-pub-3940256099942544~3347511713</string>-->
-    <!--    <string name="splash_interstitial_ad_id">ca-app-pub-3940256099942544/1033173712</string>-->
-    <!--    <string name="facebook_main_native_ad">IMG_16_9_APP_INSTALL#135949588601440_135978091931923</string>-->
-    <!--    <string name="fb_interstitialAd_EditButton">IMG_16_9_APP_INSTALL#135949588601440_135949845268081</string>-->
-    <!--    <string name="fb_interstitialAd_CreateButton">IMG_16_9_APP_INSTALL#135949588601440_141137704749295</string>-->
-    <!--    <string name="fb_interstitialAd_ExportButton">IMG_16_9_APP_INSTALL#135949588601440_141136734749392</string>-->
-    <!--    <string name="fb_interstitialAd_WelcomeButton">IMG_16_9_APP_INSTALL#135949588601440_141143111415421</string>-->
-    <!--    <string name="fb_interstitialAd_SelectTemplateButton">IMG_16_9_APP_INSTALL#135949588601440_141139791415753</string>-->
-    <!--    <string name="fb_Banner_MainScreen">IMG_16_9_APP_INSTALL#135949588601440_141138591415873</string>-->
-    <!--    <string name="APP_IN_PURCHASE">android.test.purchased</string>-->
-
-
-    <!--Original Ads-->
-
-    <string name="app_ID">ca-app-pub-6507155656776237~4613982872</string>
-    <string name="splash_interstitial_ad_id">ca-app-pub-6507155656776237/9291594489</string>
-    <string name="APP_IN_PURCHASE">cvmaker_1</string>
-    <string name="facebook_main_native_ad">135949588601440_135978091931923</string>
-    <string name="fb_interstitialAd_EditButton">135949588601440_135949845268081</string>
-    <string name="fb_interstitialAd_CreateButton">135949588601440_141137704749295</string>
-    <string name="fb_interstitialAd_ExportButton">135949588601440_141136734749392</string>
-    <string name="fb_interstitialAd_WelcomeButton">135949588601440_141143111415421</string>
-    <string name="fb_interstitialAd_SelectTemplateButton">135949588601440_141139791415753</string>
-    <string name="fb_Banner_MainScreen">135949588601440_141138591415873</string>
+        <string name="app_ID">ca-app-pub-3940256099942544~3347511713</string>
+        <string name="splash_interstitial_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+        <string name="facebook_main_native_ad">IMG_16_9_APP_INSTALL#135949588601440_135978091931923</string>
+        <string name="fb_interstitialAd_EditButton">IMG_16_9_APP_INSTALL#135949588601440_135949845268081</string>
+        <string name="fb_interstitialAd_CreateButton">IMG_16_9_APP_INSTALL#135949588601440_141137704749295</string>
+        <string name="fb_interstitialAd_ExportButton">IMG_16_9_APP_INSTALL#135949588601440_141136734749392</string>
+        <string name="fb_interstitialAd_WelcomeButton">IMG_16_9_APP_INSTALL#135949588601440_141143111415421</string>
+        <string name="fb_interstitialAd_SelectTemplateButton">IMG_16_9_APP_INSTALL#135949588601440_141139791415753</string>
+        <string name="fb_Banner_MainScreen">IMG_16_9_APP_INSTALL#135949588601440_141138591415873</string>
+        <string name="APP_IN_PURCHASE">android.test.purchased</string>
 
 
     <string name="title_activity_home">HomeActivity</string>

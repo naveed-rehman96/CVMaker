@@ -1,27 +1,28 @@
 package cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.coverLetterModule
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.HomeActivity
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.coverletter.CoverLetterFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetter.DescriptionFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetter.SentDateFragment
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetter.SentToFragment
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetter.SentFromFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentsLetter.SentToFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.HomeActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.ui.coverletter.CoverLetterFragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelCoverLetter
@@ -29,7 +30,8 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.pr
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetterActivities.PreviewBrownLetterActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetterActivities.PreviewGreenLetterActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewCoverLetterActivities.PreviewWhiteLetterActivity
-
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.roomDatabaseClasses.CvViewModel
+import org.koin.android.ext.android.inject
 
 class CreateCoverLetterActivity : AppCompatActivity() {
 
@@ -40,48 +42,34 @@ class CreateCoverLetterActivity : AppCompatActivity() {
     lateinit var txtPosition: TextView
     lateinit var btn_backCreateLetterActivity: ImageView
 
+    val cvViewModel: CvViewModel by inject()
+
 
     lateinit var layoutSentFrom: LinearLayout
     lateinit var layoutSentDate: LinearLayout
     lateinit var layoutDescription: LinearLayout
     lateinit var ScrollLinearLayout1: LinearLayout
     lateinit var layoutSentTo: LinearLayout
-    companion object
-    {
-        lateinit var modelMainLetter : ModelCoverLetter
+    companion object {
+        lateinit var modelMainLetter: ModelCoverLetter
         lateinit var mViewPager2: ViewPager2
     }
     private fun checkTheme() {
-        if (tinyDB.getString("APP_THEME") == getString(R.string.theme_blue))
-        {
+        if (tinyDB.getString("APP_THEME") == getString(R.string.theme_blue)) {
             super.setTheme(R.style.AppTheme)
-        }
-        else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_orange))
-        {
+        } else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_orange)) {
             super.setTheme(R.style.AppThemeOrange)
-
-        }
-        else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_red))
-        {
+        } else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_red)) {
             super.setTheme(R.style.AppThemeRed)
-        }
-        else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_yellow))
-        {
-
+        } else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_yellow)) {
             super.setTheme(R.style.AppThemeYellow)
-
-        }
-        else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_green))
-        {
+        } else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_green)) {
             super.setTheme(R.style.AppThemeGreen)
-
-        }
-        else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_gray))
-        {
+        } else if (tinyDB.getString("APP_THEME") == getString(R.string.theme_gray)) {
             super.setTheme(R.style.AppThemeGray)
         }
-
     }
+    @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tinyDB =
@@ -92,7 +80,7 @@ class CreateCoverLetterActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_create_cover_letter)
         modelMainLetter = ModelCoverLetter()
-        this.tinyDB.putBoolean("VIEWLetter" , false)
+        this.tinyDB.putBoolean("VIEWLetter", false)
         scrollView = findViewById(R.id.scrollViewButton)
         btn_backCreateLetterActivity = findViewById(R.id.btn_backCreateLetterActivity)
         txtPosition = findViewById(R.id.ScreenPosition)
@@ -108,33 +96,28 @@ class CreateCoverLetterActivity : AppCompatActivity() {
         supportActionBar?.title = "Cover Letter"
         when {
             tinyDB.getString("APP_THEME") == getString(R.string.theme_blue) -> {
-                toolbar.setBackgroundColor(ContextCompat.getColor(this , R.color.Blue_Theme))
+                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Blue_Theme))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-
-                toolbar.setBackgroundColor(ContextCompat.getColor(this , R.color.Orange_Theme))
+                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Orange_Theme))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-
-                toolbar.setBackgroundColor(ContextCompat.getColor(this , R.color.Red_Theme))
+                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Red_Theme))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_yellow) -> {
-                toolbar.setBackgroundColor(ContextCompat.getColor(this , R.color.Yellow_Theme))
+                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Yellow_Theme))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_green) -> {
-                toolbar.setBackgroundColor(ContextCompat.getColor(this , R.color.Green_Theme))
+                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Green_Theme))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_gray) -> {
-                toolbar.setBackgroundColor(ContextCompat.getColor(this , R.color.Gray_Theme))
+                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.Gray_Theme))
             }
         }
 
-
-        btn_backCreateLetterActivity.setOnClickListener{
+        btn_backCreateLetterActivity.setOnClickListener {
             onBackPressed()
         }
-
-
 
         if (intent != null && intent!!.extras != null) {
             val letterID = intent?.getStringExtra("CID").toString()
@@ -173,7 +156,6 @@ class CreateCoverLetterActivity : AppCompatActivity() {
                 modelMainLetter.setSenderSubject(subject)
                 modelMainLetter.setSenderCompany(company)
 
-
                 Log.e("Reciever", "onTemplateClick: $rName")
                 Log.e("Reciever", "onTemplateClick: $rAddress")
 
@@ -181,19 +163,15 @@ class CreateCoverLetterActivity : AppCompatActivity() {
             }
         }
 
-
         layoutSentFrom.setBackgroundResource(R.drawable.bg_buttonf)
         layoutSentDate.setBackgroundResource((R.drawable.bg_button_white))
         layoutDescription.setBackgroundResource((R.drawable.bg_button_white))
         layoutSentTo.setBackgroundResource((R.drawable.bg_button_white))
 
-
-
         mViewPager2 = findViewById(R.id.viewpager123)
         val adapter = ViewPagerAdapterCover(this)
         mViewPager2.adapter = adapter
         mViewPager2.offscreenPageLimit = 1
-
 
         mViewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
@@ -204,8 +182,6 @@ class CreateCoverLetterActivity : AppCompatActivity() {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
 
                 if (position == 0) {
-
-
                     scrollView.post { scrollView.scrollTo(ScrollLinearLayout1.left, 0) }
                     txtPosition.text = "Position : 1/4"
                     layoutSentFrom.setBackgroundResource(R.drawable.bg_buttonf)
@@ -235,49 +211,36 @@ class CreateCoverLetterActivity : AppCompatActivity() {
                     layoutDescription.setBackgroundResource((R.drawable.bg_buttonf))
                     layoutSentTo.setBackgroundResource((R.drawable.bg_button_white))
                 }
-
-
             }
 
             override fun onPageSelected(position: Int) {
-
             }
 
             override fun onPageScrollStateChanged(state: Int) {
-
             }
-
         })
 
-        layoutSentFrom.setOnClickListener{
+        layoutSentFrom.setOnClickListener {
             txtPosition.text = "Position : 1/4"
             mViewPager2.setCurrentItem(0, false)
         }
-        layoutSentTo.setOnClickListener{
+        layoutSentTo.setOnClickListener {
             txtPosition.text = "Position : 2/4"
             mViewPager2.setCurrentItem(1, false)
         }
-        layoutSentDate.setOnClickListener{
+        layoutSentDate.setOnClickListener {
             txtPosition.text = "Position : 3/4"
             mViewPager2.setCurrentItem(2, false)
-
         }
-        layoutDescription.setOnClickListener{
+        layoutDescription.setOnClickListener {
             txtPosition.text = "Position : 4/4"
             mViewPager2.setCurrentItem(3, false)
         }
 
-
-
-        if (tinyDB.getBoolean("VIEWLetter"))
-        {
+        if (tinyDB.getBoolean("VIEWLetter")) {
             val intent = Intent(this, LetterTemplateActivity::class.java)
             startActivity(intent)
         }
-
-
-
-
     }
 
     override fun onBackPressed() {
@@ -295,12 +258,10 @@ class CreateCoverLetterActivity : AppCompatActivity() {
                 MyDrawableCompat.setColorFilter(Ok.background, Color.parseColor("#6C48EF"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-
                 MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#ED851A"))
                 MyDrawableCompat.setColorFilter(Ok.background, Color.parseColor("#ED851A"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-
                 MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#950806"))
                 MyDrawableCompat.setColorFilter(Ok.background, Color.parseColor("#950806"))
             }
@@ -326,12 +287,10 @@ class CreateCoverLetterActivity : AppCompatActivity() {
             super.onBackPressed()
             alertDialog.dismiss()
             CoverLetterFragment.modelObjectCLFrag = modelMainLetter
-            startActivity(Intent(this , HomeActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
             finish()
-
         }
         alertDialog.show()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -343,10 +302,10 @@ class CreateCoverLetterActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.viewCv -> {
-                    getDetails()
-                    val intent = Intent(this, LetterTemplateActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP;
-                    startActivity(intent)
+                getDetails()
+                val intent = Intent(this, LetterTemplateActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                startActivity(intent)
 
                 true
             }
@@ -354,8 +313,7 @@ class CreateCoverLetterActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDetails()
-    {
+    private fun getDetails() {
         val datebase = DataBaseHandler(this)
         val cursor = datebase.fetchLetterRecord(tinyDB.getString("CL_ID"))
 
@@ -393,23 +351,22 @@ class CreateCoverLetterActivity : AppCompatActivity() {
             Log.e("Reciever", "onTemplateClick: $rName")
             Log.e("Reciever", "onTemplateClick: $rAddress")
 
-
             CoverLetterFragment.modelObjectCLFrag = modelMainLetter
         }
     }
 
     private fun selectTemplate(templateName: String?) {
         if (templateName.equals("Blue Bar")) {
-            val intent = Intent(this , PreviewBlueLetterActivity::class.java)
+            val intent = Intent(this, PreviewBlueLetterActivity::class.java)
             startActivity(intent)
         } else if (templateName.equals("Green Bar")) {
-            val intent = Intent(this , PreviewGreenLetterActivity::class.java)
+            val intent = Intent(this, PreviewGreenLetterActivity::class.java)
             startActivity(intent)
         } else if (templateName.equals("White BG")) {
-            val intent = Intent(this , PreviewWhiteLetterActivity::class.java)
+            val intent = Intent(this, PreviewWhiteLetterActivity::class.java)
             startActivity(intent)
         } else if (templateName.equals("Brown Bar")) {
-            val intent = Intent(this , PreviewBrownLetterActivity::class.java)
+            val intent = Intent(this, PreviewBrownLetterActivity::class.java)
             startActivity(intent)
         }
     }
@@ -418,32 +375,31 @@ class CreateCoverLetterActivity : AppCompatActivity() {
         super.onDestroy()
 
         tinyDB.putString("DESCRIPTION", "")
-        tinyDB.putString("cdate","" )
-        tinyDB.putString("s_name","")
-        tinyDB.putString("s_desig","")
-        tinyDB.putString("s_address","")
-        tinyDB.putString("s_subject","")
-        tinyDB.putString("s_company","")
-        tinyDB.putString("s_email","")
-        tinyDB.putString("s_phone","")
-        tinyDB.putString("r_name","")
-        tinyDB.putString("r_desig","")
-        tinyDB.putString("r_address","")
+        tinyDB.putString("cdate", "")
+        tinyDB.putString("s_name", "")
+        tinyDB.putString("s_desig", "")
+        tinyDB.putString("s_address", "")
+        tinyDB.putString("s_subject", "")
+        tinyDB.putString("s_company", "")
+        tinyDB.putString("s_email", "")
+        tinyDB.putString("s_phone", "")
+        tinyDB.putString("r_name", "")
+        tinyDB.putString("r_desig", "")
+        tinyDB.putString("r_address", "")
     }
 
     internal class ViewPagerAdapterCover(fa: FragmentActivity?) : FragmentStateAdapter(fa!!) {
         private val mFragments = arrayOf(
-            //Initialize fragments views
-            //Fragment views are initialized like any other fragment (Extending Fragment)
+            // Initialize fragments views
+            // Fragment views are initialized like any other fragment (Extending Fragment)
             SentFromFragment(),
             SentToFragment(),
             SentDateFragment(),
             DescriptionFragment()
         )
 
-
         override fun getItemCount(): Int {
-            return mFragments.size //Number of fragments displayed
+            return mFragments.size // Number of fragments displayed
         }
 
         override fun getItemId(position: Int): Long {
@@ -454,7 +410,4 @@ class CreateCoverLetterActivity : AppCompatActivity() {
             return mFragments[position]
         }
     }
-
-
-
 }
