@@ -25,7 +25,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.android.billingclient.api.* // ktlint-disable no-wildcard-imports
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -42,6 +41,7 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.* 
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.SavedNavProfileAdapterClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentAdapter.QualificationAdapterClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.inAppPurchase.InAppBaseClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
@@ -60,8 +60,7 @@ import java.io.File
 
 class HomeActivity :
     InAppBaseClass(),
-    SavedNavProfileAdapterClass.SavedProfileClick,
-    PurchasesUpdatedListener {
+    SavedNavProfileAdapterClass.SavedProfileClick{
 
     private lateinit var btnMenu: ImageView
     private lateinit var navProfileImage1: ImageView
@@ -183,16 +182,9 @@ class HomeActivity :
         cvViewModel.getAllCvList()
         getAllCvProfiles()
 
-        if (isPremium) {
-            remove_ads.visibility = View.GONE
-        }
-
-        remove_ads.setOnClickListener {
-            purchase(this, getString(R.string.APP_IN_PURCHASE))
-        }
 
         if (!tinyDB12.getString("UID").equals("")) {
-            GetUserDetails().execute()
+            getUserDetails()
         } else {
             selectedProfName.text = "No Profile Created Yet"
             Glide.with(this)
@@ -360,59 +352,50 @@ class HomeActivity :
             }
         }
     }
-
-    @SuppressLint("StaticFieldLeak")
-    inner class GetUserDetails() : AsyncTask<String, String, String>() {
-
+    fun getUserDetails()
+    {
         val progressBar = KProgressHUD(this@HomeActivity)
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            progressBar.setLabel("Loading Profile")
-            progressBar.setCancellable(false)
-            progressBar.setAnimationSpeed(2)
-            progressBar.setDimAmount(0.5f)
-        }
+        progressBar.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+        progressBar.setLabel("Loading Profile")
+        progressBar.setCancellable(false)
+        progressBar.setAnimationSpeed(2)
+        progressBar.setDimAmount(0.5f)
+        progressBar.show()
+        lifecycleScope.launch{
+            cvViewModel.getCvById(tinyDB12.getString("UID")).collect{
+                cvMainModel.personInfo = it
+           }
+            cvViewModel.getProjects(tinyDB12.getString("UID")).collect{
+                cvMainModel.projectsEntity = it as ArrayList<ProjectsEntity>
+            }
+            cvViewModel.getSkills(tinyDB12.getString("UID")).collect{
+                cvMainModel.skillsEntity = it as ArrayList<SkillsEntity>
+            }
+            cvViewModel.getExperienceById(tinyDB12.getString("UID")).collect{
+                cvMainModel.experienceInfo = it as ArrayList<ExperienceEntity>
+            }
+            cvViewModel.getQualification(tinyDB12.getString("UID")).collect{
+                cvMainModel.qualificationEntity = it as ArrayList<QualificationEntity>
+            }
 
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
-
-            Handler(Looper.myLooper()!!).postDelayed({
-                progressBar.dismiss()
-
-                Log.e("ImageUri", "onPostExecute: ${cvMainModel.personInfo.imagePath}")
-                if (!cvMainModel.personInfo.imagePath.equals("")) {
-                    Glide.with(this@HomeActivity).load(File(cvMainModel.personInfo.imagePath))
-                        .into(navProfileImage1)
-                } else {
-                    navProfileImage1.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            this@HomeActivity,
-                            R.drawable.ic_profile_icon
-                        )
+        }.invokeOnCompletion {
+            progressBar.dismiss()
+            if (cvMainModel.personInfo.imagePath != "") {
+                Glide.with(this@HomeActivity).load(File(cvMainModel.personInfo.imagePath))
+                    .into(navProfileImage1)
+            } else {
+                navProfileImage1.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this@HomeActivity,
+                        R.drawable.ic_profile_icon
                     )
-                }
-                selectedProfName.text = cvMainModel.personInfo.fullName
-            }, 100)
-        }
-
-        override fun doInBackground(vararg params: String?): String {
-            // getDetails(tinyDB12.getString("UID"))
-
-            cvMainModel.personInfo =
-                cvDatabase.cvDao()?.getCVbyId(tinyDB12.getString("UID"))!!
-            cvMainModel.experienceInfo = cvDatabase.experienceDAO()
-                ?.getAllExperience(tinyDB12.getString("UID")) as ArrayList<ExperienceEntity>
-            cvMainModel.qualificationEntity = cvDatabase.qualificationDAO()
-                ?.getAllQualification(tinyDB12.getString("UID")) as ArrayList<QualificationEntity>
-            cvMainModel.skillsEntity = cvDatabase.skillsDao()
-                ?.getAllSkills(tinyDB12.getString("UID")) as ArrayList<SkillsEntity>
-            cvMainModel.projectsEntity = cvDatabase.projectsDao()
-                ?.getAllProject(tinyDB12.getString("UID")) as ArrayList<ProjectsEntity>
-
-            return ""
+                )
+            }
+            selectedProfName.text = cvMainModel.personInfo.fullName
         }
     }
+
+
 
     override fun onViewCVClick(position: Int) {
         tinyDB12.putString("UID", arrayListCVs[position].id)
@@ -423,7 +406,7 @@ class HomeActivity :
         tinyDB12.putBoolean(Constants.skipTech, false)
         tinyDB12.putBoolean(Constants.skipRef, false)
         tinyDB12.putBoolean(Constants.skipAwards, false)
-        GetUserDetails().execute()
+        getUserDetails()
 
         selectedProfName.text = cvMainModel.personInfo.fullName
     }
@@ -549,7 +532,7 @@ class HomeActivity :
         alertDialog.show()
     }
 
-    fun showRateApp() {
+    private fun showRateApp() {
         val request: Task<ReviewInfo?> = reviewManager.requestReviewFlow()
         request.addOnCompleteListener { task: Task<ReviewInfo?> ->
             if (task.isSuccessful) {
@@ -561,9 +544,4 @@ class HomeActivity :
         }
     }
 
-    override fun onPurchasesUpdated(p0: BillingResult, p1: MutableList<Purchase>?) {
-        if (p0.responseCode == BillingClient.BillingResponseCode.OK) {
-            adContainerView.visibility = View.GONE
-        }
-    }
 }

@@ -667,7 +667,7 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                     )
                 )
             }
-            for (model in modelMain.skillsEntity!!) {
+            for (model in modelMain.skillsEntity) {
                 htmlContent.append(
                     kotlin.String.format(
                         "" +

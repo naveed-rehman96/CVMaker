@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/_5sdp"
-    tools:context="com.cvmaker.resumemaker.cvbuilder.resumebuilder.createcv.createresume.cvtemplate.fragmentsCV.PersonalInfoFragment">
-
+    >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
