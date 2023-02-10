@@ -46,4 +46,60 @@ class CvViewModel(val cvRepository: CvRepository) : ViewModel() {
     fun getSkills(id: String): Flow<List<SkillsEntity>> {
         return cvRepository.getSkillsById(id)
     }
+
+    fun updateImagePath(value : String , id: String){
+        cvRepository.updateImagePath(value,id)
+    }
+    fun updateName(value : String , id: String){
+        cvRepository.updateName(value,id)
+
+    }
+    fun updateFatherName(value : String , id: String){
+        cvRepository.updateFatherName(value,id)
+
+    }
+    fun updateGender(value : String , id: String){
+        cvRepository.updateGender(value,id)
+
+    }
+    fun updateMaritalStatus(value : String , id: String){
+        cvRepository.updateMaritalStatus(value,id)
+
+    }
+    fun updatePhone(value : String , id: String){
+        cvRepository.updatePhone(value,id)
+
+    }
+    fun updateEmailID(value : String , id: String){
+        cvRepository.updateEmailID(value,id)
+
+    }
+    fun updateFullNumber(value : String , id: String){
+        cvRepository.updateFullNumber(value,id)
+
+    }
+    fun updateCountryCode(value : String , id: String){
+        cvRepository.updateCountryCode(value,id)
+
+    }
+    fun updateDateOfBirth(value : String , id: String){
+        cvRepository.updateDateOfBirth(value,id)
+
+    }
+    fun updateCnic(value : String , id: String){
+        cvRepository.updateCnic(value,id)
+
+    }
+    fun updateNationality(value : String , id: String){
+        cvRepository.updateNationality(value,id)
+
+    }
+    fun updateAddress(value : String , id: String){
+        cvRepository.updateAddress(value,id)
+
+    }
+
+    fun insertObjective(objectiveTxt: String, string: String?) {
+        cvRepository.insertObjective(objectiveTxt,string)
+    }
 }

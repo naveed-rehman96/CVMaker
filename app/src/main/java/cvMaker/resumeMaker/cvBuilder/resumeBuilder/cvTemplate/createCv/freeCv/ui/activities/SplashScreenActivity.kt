@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.*
-import com.google.android.gms.ads.interstitial.InterstitialAd
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.homeMain.HomeActivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 
 class SplashScreenActivity : AppCompatActivity() {
-    private var interstitialAdSplash: InterstitialAd? = null
+
     lateinit var tiny: TinyDB
     lateinit var handler: Handler
 
@@ -27,29 +26,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private var mSplashHandler: Runnable = Runnable {
-        if (interstitialAdSplash != null) {
-            interstitialAdSplash!!.show(this)
-            interstitialAdSplash!!.fullScreenContentCallback =
-                object : FullScreenContentCallback() {
-                    override fun onAdDismissedFullScreenContent() {
-                        this@SplashScreenActivity.interstitialAdSplash = null
-                        startActivity(
-                            Intent(
-                                this@SplashScreenActivity,
-                                WelcomeActivity::class.java
-                            )
-                        )
-                        finish()
-                    }
 
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                        this@SplashScreenActivity.interstitialAdSplash = null
-                    }
-
-                    override fun onAdShowedFullScreenContent() {
-                    }
-                }
-        } else {
             if (!TinyDB(this).getBoolean("ShowWelcomeScreen")) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
@@ -57,7 +34,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }
-        }
+
     }
 
     protected fun in_app_layout(): Int {

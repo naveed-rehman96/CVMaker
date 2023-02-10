@@ -30,7 +30,6 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ja
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvMainModel
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.ModelNewMain
 
-import com.google.android.gms.ads.interstitial.InterstitialAd
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
 import java.io.File
 import java.io.FileOutputStream
@@ -160,7 +159,7 @@ class PreviewOtherActivity : AppCompatActivity() {
 
     }
 
-    private var interstitialAdSplash: InterstitialAd? = null
+
     private lateinit var btnExport: Button
 
 

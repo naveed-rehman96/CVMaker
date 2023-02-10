@@ -46,4 +46,50 @@ class CvRepository(
     fun getProjectsById(id: String): Flow<List<ProjectsEntity>> = flow {
         emit(projectsDao.getAllProject(id))
     }.flowOn(Dispatchers.IO)
+
+
+    fun updateImagePath(value : String , id: String){
+        cvDao.updateImagePath(value,id)
+    }
+    fun updateName(value : String , id: String){
+        cvDao.updateName(value,id)
+    }
+    fun updateFatherName(value : String , id: String){
+        cvDao.updateFatherName(value,id)
+    }
+    fun updateGender(value : String , id: String){
+        cvDao.updateGender(value,id)
+    }
+    fun updateMaritalStatus(value : String , id: String){
+        cvDao.updateMaritalStatus(value,id)
+    }
+    fun updatePhone(value : String , id: String){
+        cvDao.updatePhone(value,id)
+    }
+    fun updateEmailID(value : String , id: String){
+        cvDao.updateEmailID(value,id)
+    }
+    fun updateFullNumber(value : String , id: String){
+        cvDao.updateFullNumber(value,id)
+    }
+    fun updateCountryCode(value : String , id: String){
+        cvDao.updateCountryCode(value,id)
+    }
+    fun updateDateOfBirth(value : String , id: String){
+        cvDao.updateDateOfBirth(value,id)
+    }
+    fun updateCnic(value : String , id: String){
+        cvDao.updateCnic(value,id)
+    }
+    fun updateNationality(value : String , id: String){
+        cvDao.updateNationality(value,id)
+    }
+    fun updateAddress(value : String , id: String){
+        cvDao.updateAddress(value,id)
+    }
+
+    fun insertObjective(objectiveTxt: String, ID: String?) {
+        cvDao.updateObjective(objectiveTxt,ID)
+    }
+
 }

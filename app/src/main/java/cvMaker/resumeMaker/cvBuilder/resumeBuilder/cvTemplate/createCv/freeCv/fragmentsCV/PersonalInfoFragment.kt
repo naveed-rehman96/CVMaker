@@ -32,6 +32,7 @@ import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.showMessage
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.CreateCVActivity
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.databinding.FragmentPersonelInfoBinding
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.PathUtil
@@ -48,37 +49,11 @@ import java.util.*
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class PersonalInfoFragment : Fragment() {
 
-    private val GalleryPick = 1
-    lateinit var profileImage: CircleImageView
-    private var ImageUri: Uri? = null
-    private lateinit var cCPicker: CountryCodePicker
-
+    private val binding : FragmentPersonelInfoBinding by lazy {
+        FragmentPersonelInfoBinding.inflate(layoutInflater)
+    }
     val cvDatabase by inject<AppDatabase>()
 
-    lateinit var nameEdt: EditText
-
-    companion object {
-
-        lateinit var dateOfBirthEdt123: TextView
-    }
-
-    lateinit var emailID: EditText
-    lateinit var phoneNumEdt: EditText
-    lateinit var fatherNameEdt: EditText
-    lateinit var cnicEdt: EditText
-    lateinit var nationalityEdt: EditText
-    lateinit var addressEdt: EditText
-    lateinit var genderRadioGroup: RadioGroup
-    lateinit var maritalGroup: RadioGroup
-    lateinit var profileImageSkipped: CheckBox
-    lateinit var btnBack: Button
-    lateinit var dateOfBirthEdt: TextView
-
-    lateinit var textImageStatus: TextView
-
-    lateinit var confirm: Button
-    lateinit var cancel: Button
-    lateinit var db: DataBaseHandler
     lateinit var ID: String
     var imagePath: String = ""
     var gender: String = ""
@@ -97,15 +72,13 @@ class PersonalInfoFragment : Fragment() {
         parent: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val v = inflater.inflate(R.layout.fragment_personel_info, parent, false)
         tinyDB =
             TinyDB(
                 requireContext()
             )
+        binding.ccp.setCountryForPhoneCode(92)
 
-        initializeViews(v)
-
-        phoneNumEdt.addTextChangedListener(object : TextWatcher {
+        binding.phoneEdt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -114,12 +87,12 @@ class PersonalInfoFragment : Fragment() {
 
             @SuppressLint("SetTextI18n")
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!cCPicker.isValid) {
-                    phoneNumEdt.error = "Invalid"
+                if (!binding.ccp.isValid) {
+                    binding.phoneEdt.error = "Invalid"
                 }
             }
         })
-        emailID.addTextChangedListener(object : TextWatcher {
+        binding.emailEdt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -129,30 +102,30 @@ class PersonalInfoFragment : Fragment() {
             @SuppressLint("SetTextI18n")
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (!isValidEmail(s)) {
-                    emailID.error = "Invalid"
+                    binding.emailEdt.error = "Invalid"
                 }
             }
         })
 
-        profileImageSkipped.setOnCheckedChangeListener { _, _ ->
-            if (profileImageSkipped.isChecked) {
-                profileImage.visibility = View.GONE
-                textImageStatus.visibility = View.GONE
+        binding.profileImageSkipped.setOnCheckedChangeListener { _, _ ->
+            if (binding.profileImageSkipped.isChecked) {
+                binding.profileImage.visibility = View.GONE
+                binding.textImageStatus.visibility = View.GONE
             } else {
-                profileImage.visibility = View.VISIBLE
-                textImageStatus.visibility = View.VISIBLE
+                binding.profileImage.visibility = View.VISIBLE
+                binding.textImageStatus.visibility = View.VISIBLE
             }
         }
 
-        cCPicker.registerPhoneNumberTextView(phoneNumEdt)
+        binding.ccp.registerPhoneNumberTextView(binding.phoneEdt)
 
-        profileImage.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             pickFromGallery()
         }
-        dateOfBirthEdt123.setOnClickListener {
+        binding.dateOfBirthEdt.setOnClickListener {
             selectDateDialog()
         }
-        confirm.setOnClickListener {
+        binding.btnSavePI.setOnClickListener {
             // validatePersonalInfoDataIndividual()
             CreateCVActivity.mViewPager2.currentItem =
                 1
@@ -164,10 +137,10 @@ class PersonalInfoFragment : Fragment() {
                     cvMainModel.personInfo = it
                 }
             }.invokeOnCompletion {
-                cnicEdt.setText(cvMainModel.personInfo.cnic)
+                binding.cnicEdt.setText(cvMainModel.personInfo.cnic)
                 imagePath = cvMainModel.personInfo.imagePath
                 if (imagePath == "") {
-                    profileImage.setImageDrawable(
+                    binding.profileImage.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_baseline_add_circle_24
@@ -176,29 +149,29 @@ class PersonalInfoFragment : Fragment() {
                 } else {
                     activity?.let {
                         Glide.with(it).load(File(imagePath)).into(
-                            profileImage
+                            binding.profileImage
                         )
                     }
                 }
-                nationalityEdt.setText(cvMainModel.personInfo.nationality)
-                fatherNameEdt.setText(cvMainModel.personInfo.fatherName)
-                phoneNumEdt.setText(cvMainModel.personInfo.phoneNum)
-                emailID.setText(cvMainModel.personInfo.emailID)
-                dateOfBirthEdt123.text = cvMainModel.personInfo.dateOfBirth
-                nameEdt.setText(cvMainModel.personInfo.fullName)
-                addressEdt.setText(cvMainModel.personInfo.address)
+                binding.nationalityEdt.setText(cvMainModel.personInfo.nationality)
+                binding.fatherNameEdt.setText(cvMainModel.personInfo.fatherName)
+                binding.phoneEdt.setText(cvMainModel.personInfo.phoneNum)
+                binding.emailEdt.setText(cvMainModel.personInfo.emailID)
+                binding.dateOfBirthEdt.text = cvMainModel.personInfo.dateOfBirth
+                binding.nameEdt.setText(cvMainModel.personInfo.fullName)
+                binding.addressEdt.setText(cvMainModel.personInfo.address)
                 ID = cvMainModel.personInfo.id.toString()
                 when (cvMainModel.personInfo.gender) {
                     "Male" -> {
-                        genderRadioGroup.check(R.id.rb_Male)
+                        binding.genderRadioGroup.check(R.id.rb_Male)
                         gender = "Male"
                     }
                     "Female" -> {
-                        genderRadioGroup.check(R.id.rb_female)
+                        binding.genderRadioGroup.check(R.id.rb_female)
                         gender = "Female"
                     }
                     "Other" -> {
-                        genderRadioGroup.check(R.id.rb_other)
+                        binding.genderRadioGroup.check(R.id.rb_other)
                         gender = "Other"
                     }
                 }
@@ -207,47 +180,47 @@ class PersonalInfoFragment : Fragment() {
                 Log.e("statusMarital", "CheckAboveIf: $martialStatussss")
 
                 if (cvMainModel.personInfo.maritalStatus == "Single") {
-                    maritalGroup.check(R.id.rb_Single)
+                    binding.maritalGroup.check(R.id.rb_Single)
                     maritalStatus1 = "Single"
                 } else if (cvMainModel.personInfo.maritalStatus == "Married") {
-                    maritalGroup.check(R.id.rb_Married)
+                    binding.maritalGroup.check(R.id.rb_Married)
                     maritalStatus1 = "Married"
                 }
 
                 if (cvMainModel.personInfo.countryCode != "") {
-                    cCPicker.setCountryForPhoneCode(cvMainModel.personInfo.countryCode.toInt())
+                    binding.ccp.setCountryForPhoneCode(cvMainModel.personInfo.countryCode.toInt())
                 }
             }
         }
 
         when {
             tinyDB.getString("APP_THEME") == getString(R.string.theme_blue) -> {
-                MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#6C48EF"))
-                MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#6C48EF"))
+                MyDrawableCompat.setColorFilter(binding.btnSavePI.background, Color.parseColor("#6C48EF"))
+                MyDrawableCompat.setColorFilter(binding.btnCancelPI.background, Color.parseColor("#6C48EF"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_orange) -> {
-                MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#ED851A"))
-                MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#ED851A"))
+                MyDrawableCompat.setColorFilter(binding.btnSavePI.background, Color.parseColor("#ED851A"))
+                MyDrawableCompat.setColorFilter(binding.btnCancelPI.background, Color.parseColor("#ED851A"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_red) -> {
-                MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#950806"))
-                MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#950806"))
+                MyDrawableCompat.setColorFilter(binding.btnSavePI.background, Color.parseColor("#950806"))
+                MyDrawableCompat.setColorFilter(binding.btnCancelPI.background, Color.parseColor("#950806"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_yellow) -> {
-                MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#C8BA00"))
-                MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#C8BA00"))
+                MyDrawableCompat.setColorFilter(binding.btnSavePI.background, Color.parseColor("#C8BA00"))
+                MyDrawableCompat.setColorFilter(binding.btnCancelPI.background, Color.parseColor("#C8BA00"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_green) -> {
-                MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#296E01"))
-                MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#296E01"))
+                MyDrawableCompat.setColorFilter(binding.btnSavePI.background, Color.parseColor("#296E01"))
+                MyDrawableCompat.setColorFilter(binding.btnCancelPI.background, Color.parseColor("#296E01"))
             }
             tinyDB.getString("APP_THEME") == getString(R.string.theme_gray) -> {
-                MyDrawableCompat.setColorFilter(confirm.background, Color.parseColor("#6A6A6A"))
-                MyDrawableCompat.setColorFilter(cancel.background, Color.parseColor("#6A6A6A"))
+                MyDrawableCompat.setColorFilter(binding.btnSavePI.background, Color.parseColor("#6A6A6A"))
+                MyDrawableCompat.setColorFilter(binding.btnCancelPI.background, Color.parseColor("#6A6A6A"))
             }
         }
 
-        genderRadioGroup.setOnCheckedChangeListener(
+        binding.genderRadioGroup.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { _, checkedId ->
 
                 when (checkedId) {
@@ -263,7 +236,7 @@ class PersonalInfoFragment : Fragment() {
                 }
             }
         )
-        maritalGroup.setOnCheckedChangeListener { _, checkedId ->
+        binding.maritalGroup.setOnCheckedChangeListener { _, checkedId ->
 
             when (checkedId) {
                 R.id.rb_Married -> {
@@ -275,54 +248,27 @@ class PersonalInfoFragment : Fragment() {
             }
         }
 
-        return v
+        return binding.root
     }
 
     fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
-    private fun initializeViews(view: View?) {
-        db = activity?.let { DataBaseHandler(it) }!!
-        cnicEdt = view?.findViewById(R.id.cnicEdt) as EditText
-        nationalityEdt = view.findViewById(R.id.nationalityEdt) as EditText
-        fatherNameEdt = view.findViewById(R.id.fatherNameEdt) as EditText
-        phoneNumEdt = view.findViewById(R.id.phoneEdt) as EditText
-        emailID = view.findViewById(R.id.emailEdt) as EditText
-        dateOfBirthEdt123 = view.findViewById(R.id.dateOfBirthEdt) as TextView
-        nameEdt = view.findViewById(R.id.nameEdt) as EditText
-        confirm = view.findViewById(R.id.btn_save_PI) as Button
-        cancel = view.findViewById(R.id.btn_cancel_PI) as Button
-        profileImage = view.findViewById(R.id.profile_image) as CircleImageView
-        cCPicker = view.findViewById(R.id.ccp)
-        cCPicker.setCountryForPhoneCode(92)
-        textImageStatus = view.findViewById(R.id.textImageStatus)
-        addressEdt = view.findViewById(R.id.addressEdt)
-        genderRadioGroup = view.findViewById(R.id.genderRadioGroup)
-        maritalGroup = view.findViewById(R.id.maritalGroup)
-        profileImageSkipped = view.findViewById(R.id.profileImageSkipped)
-    }
-
     private fun validatePersonalInfoDataIndividual() {
-        val name = nameEdt.text.toString()
-        val fathername = fatherNameEdt.text.toString()
-        val phoneNumber = phoneNumEdt.text.toString()
-        val dateofbirth = dateOfBirthEdt123.text.toString()
-        val nationality = nationalityEdt.text.toString()
-        val cnic = cnicEdt.text.toString()
-        val emailid = emailID.text.toString()
-        val address = addressEdt.text.toString()
+        val name = binding.nameEdt.text.toString()
+        val fathername = binding.fatherNameEdt.text.toString()
+        val phoneNumber = binding.phoneEdt.text.toString()
+        val dateofbirth = binding.dateOfBirthEdt.text.toString()
+        val nationality = binding.nationalityEdt.text.toString()
+        val cnic = binding.cnicEdt.text.toString()
+        val emailid = binding.emailEdt.text.toString()
+        val address = binding.addressEdt.text.toString()
 
         val model = PersonalInfoDataClass()
 
-        val db = Room.databaseBuilder(
-            requireContext().applicationContext,
-            AppDatabase::class.java,
-            AppDatabase.DATABASE_NAME
-        ).build()
-
         if (TextUtils.isEmpty(name)) {
-            nameEdt.error = "Required"
+            binding.nameEdt.error = "Required"
         } else {
             model.fullName = name
             cvMainModel.personInfo.fullName = name
@@ -342,57 +288,57 @@ class PersonalInfoFragment : Fragment() {
             cvMainModel.personInfo.maritalStatus = maritalStatus1
         }
         if (TextUtils.isEmpty(fathername)) {
-            fatherNameEdt.error = "Required"
+            binding.fatherNameEdt.error = "Required"
         } else {
             model.fatherName = fathername
             cvMainModel.personInfo.fatherName = fathername
         }
 
         if (TextUtils.isEmpty(phoneNumber)) {
-            phoneNumEdt.error = "Required"
+            binding.phoneEdt.error = "Required"
         } else {
-            if (cCPicker.isValid) {
-                model.fullPhoneNum = cCPicker.fullNumber
-                model.CountryCode = cCPicker.selectedCountryCode
+            if (binding.ccp.isValid) {
+                model.fullPhoneNum = binding.ccp.fullNumber
+                model.CountryCode = binding.ccp.selectedCountryCode
                 model.phoneNumber = phoneNumber
-                cvMainModel.personInfo.fullNumber = cCPicker.fullNumber
+                cvMainModel.personInfo.fullNumber = binding.ccp.fullNumber
             } else {
                 activity?.showMessage(
                     "You have entered and Invalid Number..."
                 )
-                phoneNumEdt.error = "Invalid"
+                binding.phoneEdt.error = "Invalid"
             }
         }
 
         if (TextUtils.isEmpty(dateofbirth)) {
-            dateOfBirthEdt123.error = "Required"
+            binding.dateOfBirthEdt.error = "Required"
         } else {
             model.dateOfBirth = dateofbirth
             cvMainModel.personInfo.dateOfBirth = dateofbirth
         }
 
         if (TextUtils.isEmpty(nationality)) {
-            nationalityEdt.error = "Required"
+            binding.nationalityEdt.error = "Required"
         } else {
             model.nationality = nationality
             cvMainModel.personInfo.nationality = nationality
         }
 
         if (TextUtils.isEmpty(cnic)) {
-            cnicEdt.error = "Required"
+            binding.cnicEdt.error = "Required"
         } else {
             model.cnic = cnic
             cvMainModel.personInfo.cnic = cnic
         }
 
         if (TextUtils.isEmpty(emailid)) {
-            emailID.error = "Required"
+            binding.emailEdt.error = "Required"
         } else {
             if (!isValidEmail(emailid)) {
                 activity?.showMessage(
                     "Email Not Saved .. Please Type Correct Email ..."
                 )
-                emailID.error = "Invalid"
+                binding.emailEdt.error = "Invalid"
             } else {
                 model.emailId = emailid
                 cvMainModel.personInfo.emailID = emailid
@@ -400,36 +346,36 @@ class PersonalInfoFragment : Fragment() {
         }
 
         if (TextUtils.isEmpty(address)) {
-            addressEdt.error = "Required"
+            binding.addressEdt.error = "Required"
         } else {
             model.address = address
             cvMainModel.personInfo.address = address
         }
 
         AppDatabase.databaseWriteExecutor.execute {
-            db.cvDao().updateImagePath(model.imagePath, tinyDB.getString("UID"))
-            db.cvDao().updateName(model.fullName, tinyDB.getString("UID"))
-            db.cvDao().updateFatherName(model.fatherName, tinyDB.getString("UID"))
-            db.cvDao().updateGender(model.gender, tinyDB.getString("UID"))
-            db.cvDao().updateMaritalStatus(model.maritalStatus, tinyDB.getString("UID"))
-            db.cvDao().updatePhone(model.phoneNumber, tinyDB.getString("UID"))
-            db.cvDao().updateEmailID(model.emailId, tinyDB.getString("UID"))
-            db.cvDao().updateFullNumber(model.fullPhoneNum, tinyDB.getString("UID"))
-            db.cvDao().updateCountryCode(model.CountryCode, tinyDB.getString("UID"))
-            db.cvDao().updateDateOfBirth(model.dateOfBirth, tinyDB.getString("UID"))
-            db.cvDao().updateCnic(model.cnic, tinyDB.getString("UID"))
-            db.cvDao().updateNationality(model.nationality, tinyDB.getString("UID"))
-            db.cvDao().updateAddress(model.address, tinyDB.getString("UID"))
+            cvViewModel.updateImagePath(model.imagePath, tinyDB.getString("UID"))
+            cvViewModel.updateName(model.fullName, tinyDB.getString("UID"))
+            cvViewModel.updateFatherName(model.fatherName, tinyDB.getString("UID"))
+            cvViewModel.updateGender(model.gender, tinyDB.getString("UID"))
+            cvViewModel.updateMaritalStatus(model.maritalStatus, tinyDB.getString("UID"))
+            cvViewModel.updatePhone(model.phoneNumber, tinyDB.getString("UID"))
+            cvViewModel.updateEmailID(model.emailId, tinyDB.getString("UID"))
+            cvViewModel.updateFullNumber(model.fullPhoneNum, tinyDB.getString("UID"))
+            cvViewModel.updateCountryCode(model.CountryCode, tinyDB.getString("UID"))
+            cvViewModel.updateDateOfBirth(model.dateOfBirth, tinyDB.getString("UID"))
+            cvViewModel.updateCnic(model.cnic, tinyDB.getString("UID"))
+            cvViewModel.updateNationality(model.nationality, tinyDB.getString("UID"))
+            cvViewModel.updateAddress(model.address, tinyDB.getString("UID"))
         }
     }
 
     private fun selectDateDialog() {
-        val dialogfragment: DialogFragment = DatePickerDialogTheme4()
+        val dialogfragment: DialogFragment = DatePickerDialogTheme4(binding)
 
-        dialogfragment.show(requireFragmentManager(), "Theme 4")
+        dialogfragment.show(childFragmentManager, "Theme 4")
     }
 
-    class DatePickerDialogTheme4 : DialogFragment(), DatePickerDialog.OnDateSetListener {
+     class DatePickerDialogTheme4(var binding : FragmentPersonelInfoBinding) : DialogFragment(), DatePickerDialog.OnDateSetListener {
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val calendar = Calendar.getInstance()
             val year = calendar[Calendar.YEAR]
@@ -447,8 +393,8 @@ class PersonalInfoFragment : Fragment() {
 
         @SuppressLint("SetTextI18n")
         override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-            dateOfBirthEdt123.text = "" + view.dayOfMonth + " - " + (month + 1) + " - " + year
-            dateOfBirthEdt123.error = null
+            binding.dateOfBirthEdt.text = "" + view.dayOfMonth + " - " + (month + 1) + " - " + year
+            binding.dateOfBirthEdt.error = null
         }
     }
 
@@ -468,7 +414,7 @@ class PersonalInfoFragment : Fragment() {
     private fun setImage(uri: Uri) {
         Glide.with(this)
             .load(uri)
-            .into(profileImage)
+            .into(binding.profileImage)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -482,7 +428,7 @@ class PersonalInfoFragment : Fragment() {
                         Log.e("newUri", "onActivityResult: $uri")
                         imagePath = PathUtil.getRealPathFromURI(requireContext(), uri)
                         Log.e("IMAGE_URI", "onActivityResult: $uri")
-                        textImageStatus.text = "Image Added"
+                        binding.textImageStatus.text = "Image Added"
                     }
                 } else {
                     Log.e(TAG, "Image selection error: Couldn't select that image from memory.")
@@ -506,36 +452,14 @@ class PersonalInfoFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (imagePath == "") {
-            textImageStatus.text = "Upload Image"
+            binding.textImageStatus.text = "Upload Image"
         } else {
-            textImageStatus.text = "Image Added"
-            profileImageSkipped.visibility = View.GONE
+            binding.textImageStatus.text = "Image Added"
+            binding.profileImageSkipped.visibility = View.GONE
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.e("TAG", "onCreate: ")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.e("TAG", "onAttach: ")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.e("TAG", "onStart: ")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.e("TAG", "onStop")
-    }
 
     override fun onPause() {
         validatePersonalInfoDataIndividual()

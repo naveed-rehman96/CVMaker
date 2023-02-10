@@ -3,7 +3,6 @@ package cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.appModule
@@ -16,9 +15,6 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        MobileAds.initialize(
-            this
-        ) { }
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         firebaseCrashlytics = FirebaseCrashlytics.getInstance()
         startKoin {

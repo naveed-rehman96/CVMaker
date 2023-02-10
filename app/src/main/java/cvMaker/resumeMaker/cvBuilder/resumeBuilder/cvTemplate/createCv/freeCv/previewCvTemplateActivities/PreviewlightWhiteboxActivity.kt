@@ -44,10 +44,7 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
     lateinit var tinyDB: TinyDB
     lateinit var webView: WebView
 
-    companion object {
-        lateinit var modelMain: CvMainModel
-    }
-
+    lateinit var modelMain: CvMainModel
     lateinit var xModel: ModelNewMain
     val htmlContent = StringBuilder()
     private fun checkTheme() {
@@ -119,6 +116,7 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
             btnExportClicked()
         }
     }
+
     private lateinit var btnExport: Button
 
     fun btnExportClicked() {
@@ -138,6 +136,7 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
         }
         popup.show()
     }
+
     private fun getOPFile(): File? {
         val mediaStorageDir =
             File(Environment.getExternalStorageDirectory().absolutePath + "/CVMaker/Resume/Images/")
@@ -231,98 +230,98 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
         htmlContent.append(
             String.format(
                 "<!DOCTYPE html>\n" +
-                    "<html>\n" +
-                    "<head>\n" +
-                    "<meta name=\"viewport\" content='width=device-width, initial-scale=1.0,text/html,charset=utf-8' >" +
-                    "<title>Resume</title>\n" +
+                        "<html>\n" +
+                        "<head>\n" +
+                        "<meta name=\"viewport\" content='width=device-width, initial-scale=1.0,text/html,charset=utf-8' >" +
+                        "<title>Resume</title>\n" +
 
-                    "<meta charset=UTF-8>\n" +
-                    "" +
-                    "    <link href=\"http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css\" rel=\"stylesheet\">" +
-                    "    <link rel=\"shortcut icon\" href=\"https://ssl.gstatic.com/docs/documents/images/kix-favicon6.ico\">" +
-                    "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">" +
-                    "<style " +
-                    "type=text/css>body{font-family:arial,sans,sans-serif;margin:0}" +
-                    "iframe{border:0;frameborder:0;height:100%%;width:100%%}" +
-                    "#header,#footer{background:#f0f0f0;padding:10px 10px}" +
-                    "#header{border-bottom:1px #ccc solid}" +
-                    "#footer{border-top:1px #ccc solid;border-bottom:1px #ccc solid;font-size:13}" +
-                    "#contents{margin:6px}.dash{padding:0 6px}</style>\n" +
-                    "</head>\n" +
-                    "<body>\n" +
-                    "<div id=contents>\n" +
-                    "<style " +
-                    "type=text/css>@import " +
-                    "url('https://themes.googleusercontent.com/fonts/css?kit=xTOoZr6X-i3kNg7pYrzMsnEzyYBuwf3lO_Sc3Mw9RUVbV0WvE1cEyAoIq5yYZlSc');" +
-                    "ol{margin:0;padding:0}table td,table th{padding:0}" +
-                    ".c26{border-right-style: solid; border-bottom-color: #ffffff; border-top-width: 0pt; border-right-width: 0pt; border-left-color: #ffffff; vertical-align: top; border-right-color: #ffffff; border-left-width: 0pt; background: #ffffff; border-top-style: solid; border-left-style: solid; border-bottom-width: 0pt; width: 230pt; border-top-color: #ffffff; background: #ffffff; border-bottom-style: solid}" +
-                    ".c4{border-right-style: solid; border-bottom-color: #ffffff; border-top-width: 0pt; border-right-width: 0pt;margin-top: 20pt; border-left-color: #ffffff; vertical-align: top; margin-left: 5pt; padding-left: 35pt; border-right-color: #ffffff; border-left-width: 0pt; border-top-style: solid; border-left-style: solid; border-bottom-width: 0pt; background: #ffffff; width: 270pt; border-top-color: #ffffff; border-bottom-style: solid}" +
-                    ".c16{ color: #313133;            font-weight: 700;            text-decoration: none;            vertical-align: baseline;            font-size: 12pt;            align-items: center;            text-align: center;            font-family: \"Raleway\";            font-style: normal}" +
-                    ".c7{color: #313133;            font-size: 10pt;            font-family: \"Lato\";            text-align: center}" +
-                    ".c13{ color: #000000;    font-weight: 700;    text-decoration: none;    vertical-align: baseline;    font-size: 10pt;    font-family: \"Lato\";    font-style: normal;}" +
-                    ".c1{color: #666666;    font-family: \"Lato\";}" +
-                    ".c19{color: #000000;    font-weight: 400;    text-decoration: none;    vertical-align: baseline;    font-size: 6pt;    font-family: \"Lato\";   font-style: normal}" +
-                    ".c20{color: #313133; text-decoration: none; vertical-align: baseline; font-size: 11pt; text-align: center; font-family: \"Raleway\"; font-style: normal}" +
-                    ".c6{padding-bottom: 0pt;            line-height: 1.3;            margin-left: 30pt;            margin-right: 20pt;            text-align: left}" +
-                    ".c32{padding-top: 5pt;    padding-bottom: 0pt;    line-height: 1.15;    text-align: left}" +
-                    ".c0{padding-top: 10pt;    line-height: 1.0;   margin-left: 10pt;    text-align: left;}" +
-                    ".c22{padding-bottom: 0pt;            color: #2F3A40;            text-align: left}" +
-                    ".c221 {padding-bottom: 0pt;  color: #2F3A40;     background: #0084FF;     text-align: center;           color: #ffffff}" +
-                    ".c10{color: #d44500;    text-decoration: none;    vertical-align: baseline;    font-style: normal}" +
-                    ".c2{text-align: left}" +
-                    ".c33{padding-top: 3pt;    padding-bottom: 0pt;    line-height: 1.0;    text-align: left}" +
-                    ".c9{padding-top: 0pt;            padding-bottom: 0pt;            align-items: center;            text-align: center;            border: 1px solid black; border-collapse: collapse; padding-top: 10px;padding-bottom: 10px; margin-left: 30pt;margin-right: 30pt}" +
-                    ".c99 {  padding-bottom: 0pt;            line-height: 1.5;            margin-left: 20pt;            margin-right: 20pt;            text-align: left}" +
-                    ".c23{border-spacing: 0;    border-collapse: collapse;    margin: 0 auto;    background: #d9dae6}" +
-                    ".c30{color: #000000;    text-decoration: none;    vertical-align: baseline;    font-style: normal}" +
-                    ".c3{padding-bottom: 0pt;    text-align: left;}" +
-                    ".c14{padding-top: 16pt;    padding-bottom: 0pt;    line-height: 1.15;    text-align: left}" +
+                        "<meta charset=UTF-8>\n" +
+                        "" +
+                        "    <link href=\"http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css\" rel=\"stylesheet\">" +
+                        "    <link rel=\"shortcut icon\" href=\"https://ssl.gstatic.com/docs/documents/images/kix-favicon6.ico\">" +
+                        "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">" +
+                        "<style " +
+                        "type=text/css>body{font-family:arial,sans,sans-serif;margin:0}" +
+                        "iframe{border:0;frameborder:0;height:100%%;width:100%%}" +
+                        "#header,#footer{background:#f0f0f0;padding:10px 10px}" +
+                        "#header{border-bottom:1px #ccc solid}" +
+                        "#footer{border-top:1px #ccc solid;border-bottom:1px #ccc solid;font-size:13}" +
+                        "#contents{margin:6px}.dash{padding:0 6px}</style>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<div id=contents>\n" +
+                        "<style " +
+                        "type=text/css>@import " +
+                        "url('https://themes.googleusercontent.com/fonts/css?kit=xTOoZr6X-i3kNg7pYrzMsnEzyYBuwf3lO_Sc3Mw9RUVbV0WvE1cEyAoIq5yYZlSc');" +
+                        "ol{margin:0;padding:0}table td,table th{padding:0}" +
+                        ".c26{border-right-style: solid; border-bottom-color: #ffffff; border-top-width: 0pt; border-right-width: 0pt; border-left-color: #ffffff; vertical-align: top; border-right-color: #ffffff; border-left-width: 0pt; background: #ffffff; border-top-style: solid; border-left-style: solid; border-bottom-width: 0pt; width: 230pt; border-top-color: #ffffff; background: #ffffff; border-bottom-style: solid}" +
+                        ".c4{border-right-style: solid; border-bottom-color: #ffffff; border-top-width: 0pt; border-right-width: 0pt;margin-top: 20pt; border-left-color: #ffffff; vertical-align: top; margin-left: 5pt; padding-left: 35pt; border-right-color: #ffffff; border-left-width: 0pt; border-top-style: solid; border-left-style: solid; border-bottom-width: 0pt; background: #ffffff; width: 270pt; border-top-color: #ffffff; border-bottom-style: solid}" +
+                        ".c16{ color: #313133;            font-weight: 700;            text-decoration: none;            vertical-align: baseline;            font-size: 12pt;            align-items: center;            text-align: center;            font-family: \"Raleway\";            font-style: normal}" +
+                        ".c7{color: #313133;            font-size: 10pt;            font-family: \"Lato\";            text-align: center}" +
+                        ".c13{ color: #000000;    font-weight: 700;    text-decoration: none;    vertical-align: baseline;    font-size: 10pt;    font-family: \"Lato\";    font-style: normal;}" +
+                        ".c1{color: #666666;    font-family: \"Lato\";}" +
+                        ".c19{color: #000000;    font-weight: 400;    text-decoration: none;    vertical-align: baseline;    font-size: 6pt;    font-family: \"Lato\";   font-style: normal}" +
+                        ".c20{color: #313133; text-decoration: none; vertical-align: baseline; font-size: 11pt; text-align: center; font-family: \"Raleway\"; font-style: normal}" +
+                        ".c6{padding-bottom: 0pt;            line-height: 1.3;            margin-left: 30pt;            margin-right: 20pt;            text-align: left}" +
+                        ".c32{padding-top: 5pt;    padding-bottom: 0pt;    line-height: 1.15;    text-align: left}" +
+                        ".c0{padding-top: 10pt;    line-height: 1.0;   margin-left: 10pt;    text-align: left;}" +
+                        ".c22{padding-bottom: 0pt;            color: #2F3A40;            text-align: left}" +
+                        ".c221 {padding-bottom: 0pt;  color: #2F3A40;     background: #0084FF;     text-align: center;           color: #ffffff}" +
+                        ".c10{color: #d44500;    text-decoration: none;    vertical-align: baseline;    font-style: normal}" +
+                        ".c2{text-align: left}" +
+                        ".c33{padding-top: 3pt;    padding-bottom: 0pt;    line-height: 1.0;    text-align: left}" +
+                        ".c9{padding-top: 0pt;            padding-bottom: 0pt;            align-items: center;            text-align: center;            border: 1px solid black; border-collapse: collapse; padding-top: 10px;padding-bottom: 10px; margin-left: 30pt;margin-right: 30pt}" +
+                        ".c99 {  padding-bottom: 0pt;            line-height: 1.5;            margin-left: 20pt;            margin-right: 20pt;            text-align: left}" +
+                        ".c23{border-spacing: 0;    border-collapse: collapse;    margin: 0 auto;    background: #d9dae6}" +
+                        ".c30{color: #000000;    text-decoration: none;    vertical-align: baseline;    font-style: normal}" +
+                        ".c3{padding-bottom: 0pt;    text-align: left;}" +
+                        ".c14{padding-top: 16pt;    padding-bottom: 0pt;    line-height: 1.15;    text-align: left}" +
 
-                    ".c28{padding-top: 6pt;    padding-bottom: 0pt;    line-height: 1.0;    text-align: left}" +
+                        ".c28{padding-top: 6pt;    padding-bottom: 0pt;    line-height: 1.0;    text-align: left}" +
 
-                    ".c18{font-size: 9pt;    font-family: \"Lato\";    font-weight: 400}" +
+                        ".c18{font-size: 9pt;    font-family: \"Lato\";    font-weight: 400}" +
 
-                    ".c24{font-size: 14pt;    font-family: \"Lato\";    font-weight: 700}" +
+                        ".c24{font-size: 14pt;    font-family: \"Lato\";    font-weight: 700}" +
 
-                    ".c8{font-size: 10pt;    font-family: \"Lato\";    font-weight: 400}" +
+                        ".c8{font-size: 10pt;    font-family: \"Lato\";    font-weight: 400}" +
 
-                    ".c5{font-size: 11pt;    font-family: \"Lato\";    font-weight: 400}" +
+                        ".c5{font-size: 11pt;    font-family: \"Lato\";    font-weight: 400}" +
 
-                    ".c31{background-color: #d9dae6;    max-width: 504pt;    padding: 36pt 54pt 36pt 54pt}" +
+                        ".c31{background-color: #d9dae6;    max-width: 504pt;    padding: 36pt 54pt 36pt 54pt}" +
 
-                    ".c35{font-weight: 700;    font-size: 24pt;    font-family: \"Raleway\"}" +
+                        ".c35{font-weight: 700;    font-size: 24pt;    font-family: \"Raleway\"}" +
 
-                    ".c11{orphans: 2;    widows: 2;    height: 11pt}" +
-                    ".c21{height:auto}" +
+                        ".c11{orphans: 2;    widows: 2;    height: 11pt}" +
+                        ".c21{height:auto}" +
 
-                    ".c15{height:auto}" +
-                    ".c27{height:auto}" +
-                    ".c211 {    height: 40pt}" +
-                    ".c34{height:auto}" +
-                    ".c29{height:auto}" +
-                    ".c25{  font-size: 11pt;            font-style italic}" +
-                    ".c251{font-size: 9pt;            font-style:italic}" +
-                    ".c12{page-break-after:avoid}" +
-                    ".c17{height:265pt}" +
-                    ".c91{  line-height: 1.15; color: #313133; brder-radius: 10pt; font-family: \"helvetica\"; background: #ffffff; margin-right: 60pt; margin-left: 20pt; text-align: center; margin-top: 10pt; border: 0.7px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px}" +
-                    ".c161{ color: #313133;            font-weight: 100;            font-size: 12pt;            font-family: \"Raleway\"}" +
-                    "hr.new6 {            border: 1px solid #717171;            border-radius: 1px;        }" +
-                    ".c68{    padding-bottom: 10pt;    line-height: 1.0;    text-align: left;}" +
+                        ".c15{height:auto}" +
+                        ".c27{height:auto}" +
+                        ".c211 {    height: 40pt}" +
+                        ".c34{height:auto}" +
+                        ".c29{height:auto}" +
+                        ".c25{  font-size: 11pt;            font-style italic}" +
+                        ".c251{font-size: 9pt;            font-style:italic}" +
+                        ".c12{page-break-after:avoid}" +
+                        ".c17{height:265pt}" +
+                        ".c91{  line-height: 1.15; color: #313133; brder-radius: 10pt; font-family: \"helvetica\"; background: #ffffff; margin-right: 60pt; margin-left: 20pt; text-align: center; margin-top: 10pt; border: 0.7px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px}" +
+                        ".c161{ color: #313133;            font-weight: 100;            font-size: 12pt;            font-family: \"Raleway\"}" +
+                        "hr.new6 {            border: 1px solid #717171;            border-radius: 1px;        }" +
+                        ".c68{    padding-bottom: 10pt;    line-height: 1.0;    text-align: left;}" +
 
-                    ".title{ padding-top: 6pt; color: #313133; font-weight: 700; font-size: 18pt; padding-bottom: 0pt; font-family: \"Raleway\"; line-height: 1.0; page-break-after: avoid; orphans: 2; widows: 2; text-align: center}" +
-                    ".subtitle{padding-top: 3pt; color: #313133; font-size: 16pt; padding-bottom: 0pt; font-family: \"Raleway\"; line-height: 1.0; page-break-after: avoid; orphans: 2; widows: 2; text-align: center}" +
-                    "li{color:#000;font-size:11pt;font-family:\"Lato\"}" +
-                    "p{margin: 0;    color: #000000;    font-size: 11pt;    font-family: \"Lato\"}" +
-                    "h1{padding-top: 4pt;    color: #000000;    font-weight: 700;    font-size: 12pt;    padding-bottom: 0pt;    font-family: \"Raleway\";    line-height: 1.15;    page-break-after: avoid;    orphans: 2;    widows: 2;    text-align: left}" +
-                    "h2{padding-top: 6pt;    color: #000000;    font-weight: 700;    font-size: 11pt;    padding-bottom: 0pt;    font-family: \"Lato\";    line-height: 1.15;    page-break-after: avoid;    orphans: 2;    widows: 2;    text-align: left}" +
-                    "h3{padding-top: 6pt;    color: #666666;    font-size: 9pt;    padding-bottom: 0pt;    font-family: \"Lato\";    line-height: 1.15;    page-break-after: avoid;    orphans: 2;    widows: 2;    text-align: left}" +
-                    "h4{padding-top:8pt;-webkit-text-decoration-skip:none;color:#666;text-decoration:underline;font-size:11pt;padding-bottom:0;line-height:1.15;page-break-after:avoid;text-decoration-skip-ink:none;font-family:\"Trebuchet MS\";orphans:2;widows:2;text-align:left}" +
-                    "h5{padding-top:8pt;color:#666;font-size:11pt;padding-bottom:0;font-family:\"Trebuchet MS\";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}" +
-                    "h6{padding-top:8pt;color:#666;font-size:11pt;padding-bottom:0;font-family:\"Trebuchet MS\";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}" +
-                    "</style>\n" +
-                    "<p class=\"c2 c29\"><span class=c19></span></p>\n" +
-                    "<a id=t.b7144mALLJdNZgTMP7QwRgUp272mSxnuhMR8051e></a>\n" +
-                    "<a id=t.0></a>\n"
+                        ".title{ padding-top: 6pt; color: #313133; font-weight: 700; font-size: 18pt; padding-bottom: 0pt; font-family: \"Raleway\"; line-height: 1.0; page-break-after: avoid; orphans: 2; widows: 2; text-align: center}" +
+                        ".subtitle{padding-top: 3pt; color: #313133; font-size: 16pt; padding-bottom: 0pt; font-family: \"Raleway\"; line-height: 1.0; page-break-after: avoid; orphans: 2; widows: 2; text-align: center}" +
+                        "li{color:#000;font-size:11pt;font-family:\"Lato\"}" +
+                        "p{margin: 0;    color: #000000;    font-size: 11pt;    font-family: \"Lato\"}" +
+                        "h1{padding-top: 4pt;    color: #000000;    font-weight: 700;    font-size: 12pt;    padding-bottom: 0pt;    font-family: \"Raleway\";    line-height: 1.15;    page-break-after: avoid;    orphans: 2;    widows: 2;    text-align: left}" +
+                        "h2{padding-top: 6pt;    color: #000000;    font-weight: 700;    font-size: 11pt;    padding-bottom: 0pt;    font-family: \"Lato\";    line-height: 1.15;    page-break-after: avoid;    orphans: 2;    widows: 2;    text-align: left}" +
+                        "h3{padding-top: 6pt;    color: #666666;    font-size: 9pt;    padding-bottom: 0pt;    font-family: \"Lato\";    line-height: 1.15;    page-break-after: avoid;    orphans: 2;    widows: 2;    text-align: left}" +
+                        "h4{padding-top:8pt;-webkit-text-decoration-skip:none;color:#666;text-decoration:underline;font-size:11pt;padding-bottom:0;line-height:1.15;page-break-after:avoid;text-decoration-skip-ink:none;font-family:\"Trebuchet MS\";orphans:2;widows:2;text-align:left}" +
+                        "h5{padding-top:8pt;color:#666;font-size:11pt;padding-bottom:0;font-family:\"Trebuchet MS\";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}" +
+                        "h6{padding-top:8pt;color:#666;font-size:11pt;padding-bottom:0;font-family:\"Trebuchet MS\";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}" +
+                        "</style>\n" +
+                        "<p class=\"c2 c29\"><span class=c19></span></p>\n" +
+                        "<a id=t.b7144mALLJdNZgTMP7QwRgUp272mSxnuhMR8051e></a>\n" +
+                        "<a id=t.0></a>\n"
 
             )
         )
@@ -330,14 +329,14 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
         htmlContent.append(
             String.format(
                 "        <table class=\"c23\" style=\"background: #2F3A40;\">\n" +
-                    "            <tbody>\n"
+                        "            <tbody>\n"
             )
         )
 
         htmlContent.append(
             String.format(
                 "<tr class=\"c21\">\n" +
-                    "                    <th class=\"c26\" style=\"margin-top: 50px;\" colspan=\"1\" rowspan=\"1\">\n"
+                        "                    <th class=\"c26\" style=\"margin-top: 50px;\" colspan=\"1\" rowspan=\"1\">\n"
             )
         )
 
@@ -351,12 +350,12 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 htmlContent.append(
                     String.format(
                         "<p class=\"c68\"></p>" +
-                            "<p class=\"c68\"></p>" +
-                            "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
-                            "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
-                            "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
-                            "                            <img src=\"%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
-                            "                        </div>",
+                                "<p class=\"c68\"></p>" +
+                                "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
+                                "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
+                                "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
+                                "                            <img src=\"%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
+                                "                        </div>",
                         modelMain.personInfo.fullName,
                         modelMain.personInfo.fatherName,
                         male
@@ -367,12 +366,12 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 htmlContent.append(
                     String.format(
                         "<p class=\"c68\"></p>" +
-                            "<p class=\"c68\"></p>" +
-                            "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
-                            "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
-                            "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
-                            "                            <img src=\"%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
-                            "                        </div>",
+                                "<p class=\"c68\"></p>" +
+                                "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
+                                "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
+                                "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
+                                "                            <img src=\"%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
+                                "                        </div>",
                         modelMain.personInfo.fullName,
                         modelMain.personInfo.fatherName,
                         female
@@ -383,12 +382,12 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 htmlContent.append(
                     String.format(
                         "<p class=\"c68\"></p>" +
-                            "<p class=\"c68\"></p>" +
-                            "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
-                            "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
-                            "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
-                            "                            <img src=\"%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
-                            "                        </div>",
+                                "<p class=\"c68\"></p>" +
+                                "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
+                                "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
+                                "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
+                                "                            <img src=\"%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
+                                "                        </div>",
                         modelMain.personInfo.fullName,
                         modelMain.personInfo.fatherName,
                         male
@@ -400,12 +399,12 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
             htmlContent.append(
                 String.format(
                     "<p class=\"c68\"></p>" +
-                        "<p class=\"c68\"></p>" +
-                        "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
-                        "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
-                        "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
-                        "                            <img src=\"file://%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
-                        "                        </div>",
+                            "<p class=\"c68\"></p>" +
+                            "                        <p class=\"c6 c12 title\"><span>%s</span></p>" +
+                            "                        <p class=\"c33 subtitle\"><span class=\"c20\">%s</span></p>" +
+                            "<div style=\"margin-top: 10pt;height: 250px;margin-left: 20pt;margin-right: 20pt; background: #FFFFFF;align-items: center;\">" +
+                            "                            <img src=\"file://%s\" style=\"width: 166pt; height: 220px;border-radius: 100pt\">" +
+                            "                        </div>",
                     modelMain.personInfo.fullName,
                     modelMain.personInfo.fatherName,
                     file.absolutePath
@@ -417,15 +416,15 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
         htmlContent.append(
             String.format(
                 "" +
-                    "                        <h1 class=\"c9\">" +
-                    "                            <span class=\"c16\" style=\"padding-top: 8px;padding-bottom: 8px;\">Objective</span>" +
-                    "                        </h1>" +
-                    "                        <p class=\"c6\">" +
-                    "                            <span>" +
-                    "                                <span class=\"c251\" style=\"font-size: 9pt;color: #313133;margin-top: 2px;margin-bottom: 0px;margin-left: 5pt;\">asdadadasdadadasdasd%s</span>" +
-                    "                            </span>" +
-                    "                        </p>" +
-                    "",
+                        "                        <h1 class=\"c9\">" +
+                        "                            <span class=\"c16\" style=\"padding-top: 8px;padding-bottom: 8px;\">Objective</span>" +
+                        "                        </h1>" +
+                        "                        <p class=\"c6\">" +
+                        "                            <span>" +
+                        "                                <span class=\"c251\" style=\"font-size: 9pt;color: #313133;margin-top: 2px;margin-bottom: 0px;margin-left: 5pt;\">asdadadasdadadasdasd%s</span>" +
+                        "                            </span>" +
+                        "                        </p>" +
+                        "",
                 modelMain.personInfo.objective
             )
         )
@@ -433,42 +432,42 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
         htmlContent.append(
             String.format(
                 "" +
-                    " <p class=\"c68\"></p>" +
-                    "                        <h1 class=\"c9\">" +
-                    "                            <span class=\"c16\">Contact Details</span>" +
-                    "                        </h1>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-envelope \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Email</span> <br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-phone \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Phone</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-location-arrow\" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Address</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-male\" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Gender</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-id-badge \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">National ID</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-calendar \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Date Of Birth</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-globe \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Nationality</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>" +
-                    "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
-                    "                            <i class=\"fa fa-user-o \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
-                    "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Nationality</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
-                    "                        </p>",
+                        " <p class=\"c68\"></p>" +
+                        "                        <h1 class=\"c9\">" +
+                        "                            <span class=\"c16\">Contact Details</span>" +
+                        "                        </h1>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-envelope \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Email</span> <br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-phone \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Phone</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-location-arrow\" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Address</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-male\" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Gender</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-id-badge \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">National ID</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-calendar \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Date Of Birth</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-globe \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Nationality</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>" +
+                        "                        <p class=\"c6\" style=\"margin-top: 3pt;\">" +
+                        "                            <i class=\"fa fa-user-o \" aria-hidden=\"true\" style=\"margin-right: 10px;color: #313133;\">" +
+                        "                                <span class=\"c25\" style=\"color: #313133;margin-left: 5pt;font-style: italic;\">Nationality</span><br><span class=\"c251\" style=\"color: #313133;margin-left: 19pt;\">%s</span></i>" +
+                        "                        </p>",
                 modelMain.personInfo.emailID, tinyDB.getString("FullPhoneNumberUpdate"),
                 modelMain.personInfo.address,
                 modelMain.personInfo.gender,
@@ -483,16 +482,16 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
             htmlContent.append(
                 String.format(
                     "" +
-                        "" +
-                        "                        <p class=\"c68\"></p>" +
-                        "                        <h1 class=\"c9\">" +
-                        "                            <span >Languages</span>" +
-                        "                        </h1>" +
-                        "                        <p class=\"c6\">" +
-                        "                            <span class=\"c251\" style=\"color: #313133;\">%s</span>" +
-                        "                        </p>" +
-                        "                        <p class=\"c68\"></p>" +
-                        "",
+                            "" +
+                            "                        <p class=\"c68\"></p>" +
+                            "                        <h1 class=\"c9\">" +
+                            "                            <span >Languages</span>" +
+                            "                        </h1>" +
+                            "                        <p class=\"c6\">" +
+                            "                            <span class=\"c251\" style=\"color: #313133;\">%s</span>" +
+                            "                        </p>" +
+                            "                        <p class=\"c68\"></p>" +
+                            "",
                     modelMain.personInfo.language
                 )
             )
@@ -501,16 +500,16 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
             htmlContent.append(
                 String.format(
                     "" +
-                        "" +
-                        "                        <p class=\"c68\"></p>" +
-                        "                        <h1 class=\"c9\">" +
-                        "                            <span >Achievements</span>" +
-                        "                        </h1>" +
-                        "                        <p class=\"c6\">" +
-                        "                            <span class=\"c251\" style=\"color: #313133;\">%s</span>" +
-                        "                        </p>" +
-                        "                        <p class=\"c68\"></p>" +
-                        "",
+                            "" +
+                            "                        <p class=\"c68\"></p>" +
+                            "                        <h1 class=\"c9\">" +
+                            "                            <span >Achievements</span>" +
+                            "                        </h1>" +
+                            "                        <p class=\"c6\">" +
+                            "                            <span class=\"c251\" style=\"color: #313133;\">%s</span>" +
+                            "                        </p>" +
+                            "                        <p class=\"c68\"></p>" +
+                            "",
                     modelMain.personInfo.awards
                 )
             )
@@ -521,13 +520,13 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 String.format(
 
                     "                        <h1 class=\"c9\">" +
-                        "                            <span >Reference</span>" +
-                        "                        </h1>" +
-                        "                        <p class=\"c6\">" +
-                        "                            <span class=\"c251\" style=\"color: #313133;\">%s</span>" +
-                        "                        </p>" +
-                        "                        <p class=\"c68\"></p>" +
-                        "",
+                            "                            <span >Reference</span>" +
+                            "                        </h1>" +
+                            "                        <p class=\"c6\">" +
+                            "                            <span class=\"c251\" style=\"color: #313133;\">%s</span>" +
+                            "                        </p>" +
+                            "                        <p class=\"c68\"></p>" +
+                            "",
                     modelMain.personInfo.reference
                 )
             )
@@ -536,7 +535,7 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
         htmlContent.append(
             String.format(
                 "                    </th>\n" +
-                    "                    <td class=\"c4\" colspan=\"1\" rowspan=\"1\">\n"
+                        "                    <td class=\"c4\" colspan=\"1\" rowspan=\"1\">\n"
             )
         )
 
@@ -545,9 +544,9 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 htmlContent.append(
                     String.format(
                         "<h1 class=\"c91\" style=\"margin-top: 40pt;\">" +
-                            "                            <span> Work Experience </span>" +
-                            "                        </h1>" +
-                            ""
+                                "                            <span> Work Experience </span>" +
+                                "                        </h1>" +
+                                ""
 
                     )
                 )
@@ -558,19 +557,19 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                     htmlContent.append(
                         String.format(
                             "" +
-                                "<h2 class=\"c3\" style=\"font-size: 12px; margin-top: 2px;font-style: bold;margin-bottom: 5px;margin-left: 20pt\">" +
-                                "                            <span>" +
-                                "                                <p class=\"c251\" style=\"font-size: 12pt; color: #FF1A3A;\">( %s )</p>" +
-                                "                            </span>" +
-                                "                        </h2>" +
-                                "                        <p class=\"c22\">" +
-                                "                            <span>" +
-                                "                                <p class= \"c251\" style=\"font-size: 10pt;color: #2F3A40;margin-top: :2px;margin-bottom: 0px;margin-left: 20pt;font-weight:bold;\">%s</p>" +
-                                "                            </span>" +
-                                "                        </p>" +
-                                "                        <p class=\"c22\"><span>" +
-                                "                                <p class= \"c251\" style=\"font-size: 9pt;margin-top: 2px;margin-left: 20pt\">%s</p>" +
-                                "                        </p>",
+                                    "<h2 class=\"c3\" style=\"font-size: 12px; margin-top: 2px;font-style: bold;margin-bottom: 5px;margin-left: 20pt\">" +
+                                    "                            <span>" +
+                                    "                                <p class=\"c251\" style=\"font-size: 12pt; color: #FF1A3A;\">( %s )</p>" +
+                                    "                            </span>" +
+                                    "                        </h2>" +
+                                    "                        <p class=\"c22\">" +
+                                    "                            <span>" +
+                                    "                                <p class= \"c251\" style=\"font-size: 10pt;color: #2F3A40;margin-top: :2px;margin-bottom: 0px;margin-left: 20pt;font-weight:bold;\">%s</p>" +
+                                    "                            </span>" +
+                                    "                        </p>" +
+                                    "                        <p class=\"c22\"><span>" +
+                                    "                                <p class= \"c251\" style=\"font-size: 9pt;margin-top: 2px;margin-left: 20pt\">%s</p>" +
+                                    "                        </p>",
                             "From " + model.startDate + " to " + model.endDate,
                             model.companyName,
                             model.designation
@@ -585,9 +584,9 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 htmlContent.append(
                     String.format(
                         "<h1 class=\"c91\" style=\"margin-top: 10pt;\">" +
-                            "                            <span> Qualification </span>" +
-                            "                        </h1>" +
-                            ""
+                                "                            <span> Qualification </span>" +
+                                "                        </h1>" +
+                                ""
 
                     )
                 )
@@ -597,29 +596,29 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                     htmlContent.append(
                         String.format(
                             "" +
-                                "" +
-                                "                        <h2 class=\"c3\" style=\"font-size: 12px; margin-top: 2px;font-style: bold;margin-bottom: 5px;margin-left: 20pt;\">" +
-                                "                            <span>" +
-                                "                                <p class= \"c251\" style=\"font-size: 12pt;color: #FF1A3A;\">( %s )</p>" +
-                                "                            </span>" +
-                                "                        </h2>" +
-                                "                        <p class=\"c22\">" +
-                                "                            <span>" +
-                                "                                <p class= \"c251\"  style=\"font-size: 10pt;color: #2F3A40;margin-top: :2px;margin-bottom: 0px;margin-left: 20pt;font-weight:bold; \">%s</p>" +
-                                "                            </span>" +
-                                "                        </p>" +
-                                "                        <p class=\"c22\">" +
-                                "                            <span>" +
-                                "                                <p class= \"c251\"  style=\"font-size: 10pt;margin-top: 2px;margin-left: 20pt\">%s</p>" +
-                                "                            </span>" +
-                                "                        </p>" +
-                                "                        <p class=\"c22\">" +
-                                "                            <span>" +
-                                "                                <p class= \"c251\" style=\"font-size: 10pt;margin-top: 2px;margin-left: 20pt\">%s</p>" +
-                                "                            </span>" +
-                                "                        </p>" +
-                                "" +
-                                "",
+                                    "" +
+                                    "                        <h2 class=\"c3\" style=\"font-size: 12px; margin-top: 2px;font-style: bold;margin-bottom: 5px;margin-left: 20pt;\">" +
+                                    "                            <span>" +
+                                    "                                <p class= \"c251\" style=\"font-size: 12pt;color: #FF1A3A;\">( %s )</p>" +
+                                    "                            </span>" +
+                                    "                        </h2>" +
+                                    "                        <p class=\"c22\">" +
+                                    "                            <span>" +
+                                    "                                <p class= \"c251\"  style=\"font-size: 10pt;color: #2F3A40;margin-top: :2px;margin-bottom: 0px;margin-left: 20pt;font-weight:bold; \">%s</p>" +
+                                    "                            </span>" +
+                                    "                        </p>" +
+                                    "                        <p class=\"c22\">" +
+                                    "                            <span>" +
+                                    "                                <p class= \"c251\"  style=\"font-size: 10pt;margin-top: 2px;margin-left: 20pt\">%s</p>" +
+                                    "                            </span>" +
+                                    "                        </p>" +
+                                    "                        <p class=\"c22\">" +
+                                    "                            <span>" +
+                                    "                                <p class= \"c251\" style=\"font-size: 10pt;margin-top: 2px;margin-left: 20pt\">%s</p>" +
+                                    "                            </span>" +
+                                    "                        </p>" +
+                                    "" +
+                                    "",
                             model.endDate,
                             model.schoolName,
                             model.subject,
@@ -634,25 +633,23 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 htmlContent.append(
                     kotlin.String.format(
                         "" +
-                            "" +
-                            "<h1 class=\"c91\" style=\"margin-top: 10pt;\">" +
-                            "                            <span > Projects </span>" +
-                            "                        </h1>"
+                                "" +
+                                "<h1 class=\"c91\" style=\"margin-top: 10pt;\">" +
+                                "                            <span > Projects </span>" +
+                                "                        </h1>"
                     )
                 )
             }
-            if (modelMain.projectsEntity != null) {
-                for (model in modelMain.projectsEntity!!) {
-                    htmlContent.append(
-                        kotlin.String.format(
-                            "                        <p class=\"c22\" style=\"margin-bottom: 2px; margin-left: 20pt; margin-right:30pt;\">" +
+            for (model in modelMain.projectsEntity) {
+                htmlContent.append(
+                    kotlin.String.format(
+                        "                        <p class=\"c22\" style=\"margin-bottom: 2px; margin-left: 20pt; margin-right:30pt;\">" +
                                 "                            <span class=\"c251\">%s</span>" +
                                 "                        </p>",
-                            model.projectTitle
+                        model.projectTitle
 
-                        )
                     )
-                }
+                )
             }
         }
 
@@ -661,9 +658,9 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                 htmlContent.append(
                     kotlin.String.format(
                         "" +
-                            "<h1 class=\"c91\" style=\"margin-top: 10pt;\">" +
-                            "                            <span > Skills </span>" +
-                            "                        </h1>"
+                                "<h1 class=\"c91\" style=\"margin-top: 10pt;\">" +
+                                "                            <span > Skills </span>" +
+                                "                        </h1>"
                     )
                 )
             }
@@ -672,9 +669,9 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
                     kotlin.String.format(
                         "" +
 
-                            "                        <p class=\"c22\" style=\"margin-bottom: 2px; margin-left: 20pt; margin-right:30pt;\">" +
-                            "                            <span class=\"c251\">%s</span>" +
-                            "                        </p>",
+                                "                        <p class=\"c22\" style=\"margin-bottom: 2px; margin-left: 20pt; margin-right:30pt;\">" +
+                                "                            <span class=\"c251\">%s</span>" +
+                                "                        </p>",
                         model.skillTitle
 
                     )
@@ -686,13 +683,13 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
             htmlContent.append(
                 String.format(
                     "" +
-                        "" +
-                        "<h1 class=\"c91\" style=\"margin-top: 10pt;\">" +
-                        "                            <span > Hobby / Interests </span>" +
-                        "                        </h1>" +
-                        "                        <p class=\"c22\" style=\"margin-bottom: 15px; margin-left: 20pt; margin-right:30pt;\">" +
-                        "                            <span class=\"c251\">%s</span>" +
-                        "                        </p>",
+                            "" +
+                            "<h1 class=\"c91\" style=\"margin-top: 10pt;\">" +
+                            "                            <span > Hobby / Interests </span>" +
+                            "                        </h1>" +
+                            "                        <p class=\"c22\" style=\"margin-bottom: 15px; margin-left: 20pt; margin-right:30pt;\">" +
+                            "                            <span class=\"c251\">%s</span>" +
+                            "                        </p>",
                     modelMain.personInfo.interest
 
                 )
@@ -702,13 +699,13 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
         htmlContent.append(
             String.format(
                 "</td>\n" +
-                    "                </tr>\n" +
-                    "            </tbody>\n" +
-                    "        </table>\n" +
-                    "        <p class=\"c2 c11\"><span class=\"c30 c5\"></span></p>\n" +
-                    "    </div>\n" +
-                    "</body>\n" +
-                    "</html>\n"
+                        "                </tr>\n" +
+                        "            </tbody>\n" +
+                        "        </table>\n" +
+                        "        <p class=\"c2 c11\"><span class=\"c30 c5\"></span></p>\n" +
+                        "    </div>\n" +
+                        "</body>\n" +
+                        "</html>\n"
             )
         )
 
@@ -751,7 +748,8 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
             )
             == PackageManager.PERMISSION_GRANTED
         ) {
-            val fileName = modelMain.personInfo.fileName + "_" + modelMain.personInfo.id + "_LWB.pdf"
+            val fileName =
+                modelMain.personInfo.fileName + "_" + modelMain.personInfo.id + "_LWB.pdf"
             val printAdapter = webView.createPrintDocumentAdapter(fileName)
             val printAttributes = PrintAttributes.Builder()
                 .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
@@ -808,9 +806,9 @@ class PreviewlightWhiteboxActivity : AppCompatActivity() {
     ) {
         if (requestCode == PERMISSION_REQUEST) {
             if (grantResults[
-                Arrays.asList(*permissions)
-                    .indexOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            ] == PackageManager.PERMISSION_GRANTED
+                        Arrays.asList(*permissions)
+                            .indexOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                ] == PackageManager.PERMISSION_GRANTED
             ) {
                 savePdf()
             }

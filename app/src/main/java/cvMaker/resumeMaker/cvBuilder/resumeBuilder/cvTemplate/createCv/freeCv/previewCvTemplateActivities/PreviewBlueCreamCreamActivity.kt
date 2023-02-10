@@ -24,7 +24,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.ads.interstitial.InterstitialAd
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.Constants
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
@@ -118,7 +117,6 @@ class PreviewBlueCreamCreamActivity : AppCompatActivity() {
         }
     }
 
-    private var interstitialAdSplash: InterstitialAd? = null
     private lateinit var btnExport: Button
 
     fun btnExportClicked() {
@@ -169,21 +167,21 @@ class PreviewBlueCreamCreamActivity : AppCompatActivity() {
                 file,
                 fileName,
                 object : PdfPrint.CallbackPrint {
-                    override fun success(path: kotlin.String?) {
+                    override fun success(path: String?) {
                         allowSave = true
                         Toast.makeText(
                             applicationContext,
-                            kotlin.String.format("Your file is saved in %s", path),
+                            String.format("Your file is saved in %s", path),
                             Toast.LENGTH_LONG
                         ).show()
                         showFilesDialogPdf()
                     }
 
-                    override fun onFailure(errorMsg: kotlin.String?) {
+                    override fun onFailure(errorMsg: String?) {
                         allowSave = true
                         Toast.makeText(
                             applicationContext,
-                            kotlin.String.format(
+                            String.format(
                                 "Failed"
                             ),
                             Toast.LENGTH_LONG
@@ -202,7 +200,7 @@ class PreviewBlueCreamCreamActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<kotlin.String?>,
+        permissions: Array<String?>,
         grantResults: IntArray
     ) {
         if (requestCode == PERMISSION_REQUEST) {
@@ -691,7 +689,7 @@ class PreviewBlueCreamCreamActivity : AppCompatActivity() {
         if (!tinyDB.getBoolean(Constants.skipProj)) {
             if (modelMain.projectsEntity != null) {
                 htmlContent.append(
-                    kotlin.String.format(
+                    String.format(
                         "                        <p class=\"68\"></p>" +
                             "                        <h1 class=\"c9\" style=\"text-align: center; margin-bottom: 15px;\">" +
                             "                            <span class=\"c16\" style=\"color: #ffffff; margin-bottom: 10px;text-align: center;\">Projects</span>" +
@@ -703,7 +701,7 @@ class PreviewBlueCreamCreamActivity : AppCompatActivity() {
             if (modelMain.projectsEntity != null) {
                 for (model in modelMain.projectsEntity!!) {
                     htmlContent.append(
-                        kotlin.String.format(
+                        String.format(
                             "                        <p class=\"c6\" style=\"margin-bottom: 2px;\">" +
                                 "                            <span class=\"c7\">%s</span>" +
                                 "                        </p>",
@@ -799,8 +797,8 @@ class PreviewBlueCreamCreamActivity : AppCompatActivity() {
         )
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: kotlin.String) {
-                if (dialog.isShowing()) {
+            override fun onPageFinished(view: WebView, url: String) {
+                if (dialog.isShowing) {
                     dialog.dismiss()
                 }
             }
