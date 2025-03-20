@@ -65,85 +65,85 @@ class PermissionActivity : AppCompatActivity() {
             1
         )
     }
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (permissions.isEmpty()) {
-            return
-        }
-        allPermissionsGranted = true
-
-//        if (grantResults.isNotEmpty()) {
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String?>, grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (permissions.isEmpty()) {
+//            return
+//        }
+//        allPermissionsGranted = true
+//
+////        if (grantResults.isNotEmpty()) {
+////            for (grantResult in grantResults) {
+////                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+////                    allPermissionsGranted = false
+////                    break
+////                }
+////            }
+////        }
+//        if (grantResults.isNotEmpty())
+//        {
 //            for (grantResult in grantResults) {
-//                if (grantResult != PackageManager.PERMISSION_GRANTED) {
-//                    allPermissionsGranted = false
+//                if (grantResult == PackageManager.PERMISSION_GRANTED) {
+//                    allPermissionsGranted = true
 //                    break
+//                }
+//                else
+//                {
+//                    allPermissionsGranted = false
 //                }
 //            }
 //        }
-        if (grantResults.isNotEmpty())
-        {
-            for (grantResult in grantResults) {
-                if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                    allPermissionsGranted = true
-                    break
-                }
-                else
-                {
-                    allPermissionsGranted = false
-                }
-            }
-        }
-        if (!allPermissionsGranted) {
-            var somePermissionsForeverDenied = false
-            for (permission in permissions) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission!!)) {
-                    //denied
-                    Log.e("denied", permission)
-
-                } else {
-                    if (ActivityCompat.checkSelfPermission(
-                            this,
-                            permission
-                        ) == PackageManager.PERMISSION_GRANTED
-                    ) {
-                        //allowed
-                        Log.e("allowed", permission)
-                    } else {
-                        //set to never ask again
-                        Log.e("set to never ask again", permission)
-                        somePermissionsForeverDenied = true
-                    }
-                }
-            }
-            if (somePermissionsForeverDenied) {
-
-
-                val alertDialogBuilder = AlertDialog.Builder(this)
-                alertDialogBuilder.setTitle("Permissions Required")
-                    .setMessage(
-                        "You have forcefully denied some of the required permissions " +
-                                "for this action. Please open settings, go to permissions and allow them."
-                    )
-                    .setPositiveButton(
-                        "Settings"
-                    ) { _ , _ ->
-                        val intent = Intent(
-                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                            Uri.fromParts("package", packageName, null)
-                        )
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                    }
-                    .setNegativeButton(
-                        "Cancel"
-                    ) { _ , _ -> }
-                    .setCancelable(false)
-                    .create()
-                    .show()
-            }
-        }
-    }
+//        if (!allPermissionsGranted) {
+//            var somePermissionsForeverDenied = false
+//            for (permission in permissions) {
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission!!)) {
+//                    //denied
+//                    Log.e("denied", permission)
+//
+//                } else {
+//                    if (ActivityCompat.checkSelfPermission(
+//                            this,
+//                            permission
+//                        ) == PackageManager.PERMISSION_GRANTED
+//                    ) {
+//                        //allowed
+//                        Log.e("allowed", permission)
+//                    } else {
+//                        //set to never ask again
+//                        Log.e("set to never ask again", permission)
+//                        somePermissionsForeverDenied = true
+//                    }
+//                }
+//            }
+//            if (somePermissionsForeverDenied) {
+//
+//
+//                val alertDialogBuilder = AlertDialog.Builder(this)
+//                alertDialogBuilder.setTitle("Permissions Required")
+//                    .setMessage(
+//                        "You have forcefully denied some of the required permissions " +
+//                                "for this action. Please open settings, go to permissions and allow them."
+//                    )
+//                    .setPositiveButton(
+//                        "Settings"
+//                    ) { _ , _ ->
+//                        val intent = Intent(
+//                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+//                            Uri.fromParts("package", packageName, null)
+//                        )
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        startActivity(intent)
+//                    }
+//                    .setNegativeButton(
+//                        "Cancel"
+//                    ) { _ , _ -> }
+//                    .setCancelable(false)
+//                    .create()
+//                    .show()
+//            }
+//        }
+//    }
 }

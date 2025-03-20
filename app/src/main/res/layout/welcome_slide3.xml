@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,40 +10,43 @@
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15.5"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:scaleType="fitXY"
-        android:src="@drawable/s2" />
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_weight="14"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/screen_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/text_screen_1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/imageTop"
-        android:layout_weight="1.5"
-        android:fontFamily="@font/extra_bold"
-        android:gravity="center"
-        android:text="Easy To Edit"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/_16sdp"
-        android:textStyle="bold" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Build CV \nFor Free"
+        android:textColor="#424242"
+        android:textSize="50sp"     android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/text_screen_1_desc"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
         android:fontFamily="@font/bold"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
         android:gravity="top"
-        android:text="Professional attractive &amp; beautifull Resume teplates for all categoris eg: Software engineer , graphic designers etc"
-        android:textAlignment="center"
+        android:text="Quickly generate free high-quality resumes without spending hours on manual formats. "
         android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/text_screen_1"
+        app:layout_constraintStart_toStartOf="@+id/text_screen_1"
+        app:layout_constraintTop_toBottomOf="@+id/text_screen_1"
         tools:ignore="RtlCompat" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

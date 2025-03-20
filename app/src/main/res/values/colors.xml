@@ -8,7 +8,8 @@
     <color name="textGreen">#1F6E23</color>
     <color name="textRed">#9E3831</color>
     <color name="textColorSecondary">#D11002</color>
-
+    <color name="kprogresshud_default_color">#b1000000</color>
+    <color name="kprogresshud_grey_color">#449E9E9E</color>
 
     <color name="red">#FF0000</color>
     <color name="green">#13CC1A</color>

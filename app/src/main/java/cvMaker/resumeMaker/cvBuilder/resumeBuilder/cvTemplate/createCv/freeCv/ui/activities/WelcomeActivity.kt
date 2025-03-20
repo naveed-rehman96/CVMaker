@@ -1,229 +1,158 @@
-package cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities;
+package cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.ui.activities
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.text.Html;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.content.Intent
+import android.graphics.Color
+import android.os.Build
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.databinding.ActivityWelcomeBinding
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+class WelcomeActivity : AppCompatActivity() {
+    private var myViewPagerAdapter: MyViewPagerAdapter? = null
+    private lateinit var layouts: IntArray
 
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R;
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat;
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB;
+    private val binding by lazy {
+        ActivityWelcomeBinding.inflate(layoutInflater)
+    }
+    override fun onStart() {
+        super.onStart()
 
-
-
-@SuppressWarnings("ALL")
-public class WelcomeActivity extends AppCompatActivity {
-
-    private ViewPager viewPager;
-    private MyViewPagerAdapter myViewPagerAdapter;
-    private LinearLayout dotsLayout;
-    private TextView[] dots;
-    private int[] layouts;
-    private Button btnNext;
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        getWindow().setStatusBarColor(ContextCompat.getColor(WelcomeActivity.this, R.color.your_color));
+        window.statusBarColor =
+            ContextCompat.getColor(this@WelcomeActivity, R.color.your_color)
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    override fun onResume() {
+        super.onResume()
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(WelcomeActivity.this, R.color.your_color));
+        window.statusBarColor =
+            ContextCompat.getColor(this@WelcomeActivity, R.color.your_color)
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
 
         // Checking for first time launch - before calling setContentView()
+        setContentView(binding.root)
 
+        val tinyDB = TinyDB(this)
 
-        setContentView(R.layout.activity_welcome);
-
-        TinyDB tinyDB = new TinyDB(this);
-
-        if (!tinyDB.getBoolean("ShowWelcomeScreen"))
-        {
-            tinyDB.putBoolean("ShowWelcomeScreen" , true);
+        if (!tinyDB.getBoolean("ShowWelcomeScreen")) {
+            tinyDB.putBoolean("ShowWelcomeScreen", true)
         }
-
-
-
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnNext = (Button) findViewById(R.id.btn_next);
 
 
         // layouts of all welcome sliders
         // add few more layouts if you want
-        layouts = new int[]{
-                R.layout.welcome_slide1,
-                R.layout.welcome_slide2,
-                R.layout.welcome_slide3};
+        layouts = intArrayOf(
+            R.layout.welcome_slide1,
+            R.layout.welcome_slide2,
+            R.layout.welcome_slide3
+        )
 
-        // adding bottom dots
-        addBottomDots(0);
 
         // making notification bar transparent
-        changeStatusBarColor();
+        changeStatusBarColor()
 
-        myViewPagerAdapter = new MyViewPagerAdapter();
-        viewPager.setAdapter(myViewPagerAdapter);
-        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+        myViewPagerAdapter = MyViewPagerAdapter()
+        binding.viewPager!!.adapter = myViewPagerAdapter
+        binding.viewPager!!.addOnPageChangeListener(viewPagerPageChangeListener)
 
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // checking for last page
-                // if last page home screen will be launched
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current);
-                } else {
-
-                    launchHomeScreen();
-                }
+        binding.btnNext!!.setOnClickListener {
+            // checking for last page
+            // if last page home screen will be launched
+            val current = getItem(+1)
+            if (current < layouts.size) {
+                // move to next screen
+                binding.viewPager!!.currentItem = current
+            } else {
+                launchHomeScreen()
             }
-        });
-    }
-
-    private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
-
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-
-        dotsLayout.removeAllViews();
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setTextColor(colorsInactive[currentPage]);
-            dotsLayout.addView(dots[i]);
         }
-
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
-    private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
+
+    private fun getItem(i: Int): Int {
+        return binding.viewPager.currentItem + i
     }
 
-    private void launchHomeScreen() {
-        startActivity(new Intent(WelcomeActivity.this, PermissionActivity.class));
-        finish();
+    private fun launchHomeScreen() {
+        startActivity(Intent(this@WelcomeActivity, PermissionActivity::class.java))
+        finish()
     }
 
     //  viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageSelected(int position) {
-            addBottomDots(position);
-
+    var viewPagerPageChangeListener: OnPageChangeListener = object : OnPageChangeListener {
+        override fun onPageSelected(position: Int) {
             // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length - 1) {
+
+
+            if (position == layouts.size - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText("Start");
+                binding.btnNext.text = "Get Started"
             } else {
                 // still pages are left
-                btnNext.setText("Next");
+                binding.btnNext.text = "Skip"
             }
-
-            if (position == 0) {
-                getWindow().setStatusBarColor(ContextCompat.getColor(WelcomeActivity.this, R.color.your_color));
-                MyDrawableCompat.setColorFilter(btnNext.getBackground(), Color.parseColor("#6B47EC"));
-
-            } else if (position == 1) {
-                getWindow().setStatusBarColor(ContextCompat.getColor(WelcomeActivity.this, R.color.your_color2));
-                MyDrawableCompat.setColorFilter(btnNext.getBackground(), Color.parseColor("#FFD601"));
-            } else if (position == 2) {
-                getWindow().setStatusBarColor(ContextCompat.getColor(WelcomeActivity.this, R.color.your_color3));
-                MyDrawableCompat.setColorFilter(btnNext.getBackground(), Color.parseColor("#37C3FF"));
-            }
-
         }
 
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
+        override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
         }
 
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
+        override fun onPageScrollStateChanged(arg0: Int) {
         }
-    };
+    }
 
     /**
      * Making notification bar transparent
      */
-    private void changeStatusBarColor() {
+    private fun changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
+            val window = window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.TRANSPARENT
         }
     }
 
     /**
      * View pager adapter
      */
-    public class MyViewPagerAdapter extends PagerAdapter {
-        private LayoutInflater layoutInflater;
+    inner class MyViewPagerAdapter : PagerAdapter() {
+        private var layoutInflater: LayoutInflater? = null
 
-        public MyViewPagerAdapter() {
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            layoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            val view = layoutInflater!!.inflate(layouts[position], container, false)
+            container.addView(view)
+
+            return view
         }
 
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View view = layoutInflater.inflate(layouts[position], container, false);
-            container.addView(view);
-
-            return view;
+        override fun getCount(): Int {
+            return layouts.size
         }
 
-        @Override
-        public int getCount() {
-            return layouts.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object obj) {
-            return view == obj;
+        override fun isViewFromObject(view: View, obj: Any): Boolean {
+            return view === obj
         }
 
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            View view = (View) object;
-            container.removeView(view);
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            val view = `object` as View
+            container.removeView(view)
         }
     }
-
 }

@@ -1,2 +1,5 @@
 rootProject.name = "CV & Resume Builder"
 include ':app'
+include ':pdfgenerator'
+include ':countrycodepicker'
+include ':countryCodes'

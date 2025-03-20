@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#6C48EF">
+    android:background="@drawable/bg_splash">
 
     <ImageView
         android:layout_width="@dimen/_220sdp"
@@ -14,55 +14,40 @@
         android:id="@+id/imgSplash"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.35"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/_15sdp"
         android:layout_centerInParent="true"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/imgSplash"
-        android:id="@+id/laycenter"
-        android:layout_below="@+id/imgSplash"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sdp"
-            android:text="Resume Builder"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"/>
-
-
-
-    </LinearLayout>
 
     <ProgressBar
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@+id/laycenter"
-        android:layout_below="@+id/laycenter"
+        android:backgroundTint="@android:color/darker_gray"
+        android:max="100"
+        android:progress="20"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:progressTint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:indeterminateTint="@android:color/white"
-        android:layout_centerHorizontal="true"
-        />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="@dimen/_14sdp"
-        app:layout_constraintBottom_toTopOf="@+id/btm_text"
         android:text="Free Resume Builder App is the Best"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintBottom_toTopOf="@+id/btm_text" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

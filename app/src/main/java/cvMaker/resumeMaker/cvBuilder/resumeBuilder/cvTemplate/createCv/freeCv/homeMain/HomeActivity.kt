@@ -26,6 +26,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -35,12 +36,11 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.tasks.Task
-import com.kaopiz.kprogresshud.KProgressHUD
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.* // ktlint-disable no-wildcard-imports
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.SavedNavProfileAdapterClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.customViews.KProgressHUD
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentAdapter.QualificationAdapterClass
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.helper.DataBaseHandler
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.inAppPurchase.InAppBaseClass
@@ -303,55 +303,55 @@ class HomeActivity :
 
     var allPermissionsGranted: Boolean = true
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (permissions.isEmpty()) {
-            return
-        }
-        allPermissionsGranted = true
-
-        if (grantResults.isNotEmpty()) {
-            for (grantResult in grantResults) {
-                if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                    allPermissionsGranted = false
-                    tinyDB12.putBoolean("PermissionGranted", false)
-                    break
-                }
-            }
-        }
-        if (!allPermissionsGranted) {
-            var somePermissionsForeverDenied = false
-            for (permission in permissions) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission!!)) {
-                    // denied
-                    Log.e("denied", permission)
-                    val intent = Intent(this, PermissionActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    if (ActivityCompat.checkSelfPermission(
-                            this,
-                            permission
-                        ) == PackageManager.PERMISSION_GRANTED
-                    ) {
-                        // allowed
-                        Log.e("allowed", permission)
-                    } else {
-                        // set to never ask again
-                        Log.e("set to never ask again", permission)
-                        somePermissionsForeverDenied = true
-                    }
-                }
-            }
-            if (somePermissionsForeverDenied) {
-                val intent = Intent(this, PermissionActivity::class.java)
-                startActivity(intent)
-            }
-        }
-    }
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String?>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (permissions.isEmpty()) {
+//            return
+//        }
+//        allPermissionsGranted = true
+//
+//        if (grantResults.isNotEmpty()) {
+//            for (grantResult in grantResults) {
+//                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+//                    allPermissionsGranted = false
+//                    tinyDB12.putBoolean("PermissionGranted", false)
+//                    break
+//                }
+//            }
+//        }
+//        if (!allPermissionsGranted) {
+//            var somePermissionsForeverDenied = false
+//            for (permission in permissions) {
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission!!)) {
+//                    // denied
+//                    Log.e("denied", permission)
+//                    val intent = Intent(this, PermissionActivity::class.java)
+//                    startActivity(intent)
+//                } else {
+//                    if (ActivityCompat.checkSelfPermission(
+//                            this,
+//                            permission
+//                        ) == PackageManager.PERMISSION_GRANTED
+//                    ) {
+//                        // allowed
+//                        Log.e("allowed", permission)
+//                    } else {
+//                        // set to never ask again
+//                        Log.e("set to never ask again", permission)
+//                        somePermissionsForeverDenied = true
+//                    }
+//                }
+//            }
+//            if (somePermissionsForeverDenied) {
+//                val intent = Intent(this, PermissionActivity::class.java)
+//                startActivity(intent)
+//            }
+//        }
+//    }
     fun getUserDetails()
     {
         val progressBar = KProgressHUD(this@HomeActivity)
@@ -525,6 +525,7 @@ class HomeActivity :
         }
 
         Ok.setOnClickListener {
+            super.onBackPressed()
             alertDialog.dismiss()
             finishAffinity()
             finish()
@@ -538,7 +539,7 @@ class HomeActivity :
             if (task.isSuccessful) {
                 val reviewInfo = task.result
                 val flow: Task<Void?> =
-                    reviewManager.launchReviewFlow(this, reviewInfo)
+                    reviewManager.launchReviewFlow(this, reviewInfo!!)
                 flow.addOnCompleteListener { }
             }
         }

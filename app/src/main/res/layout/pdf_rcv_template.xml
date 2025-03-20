@@ -99,7 +99,7 @@
                 android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_more_vert"
-                android:background="@drawable/flag_transparent"/>
+                android:background="@drawable/ic_baseline_more_vert_24"/>
 
 
         </RelativeLayout>

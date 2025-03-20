@@ -21,13 +21,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.bumptech.glide.Glide
-import com.rilixtech.widget.countrycodepicker.CountryCodePicker
-import com.theartofdev.edmodo.cropper.CropImage
+import com.canhub.cropper.CropImage
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.UserObject.cvMainModel
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.appModule.showMessage
@@ -403,12 +406,27 @@ class PersonalInfoFragment : Fragment() {
     }
 
     private fun launchImageCrop() {
-        val intent = context?.let {
-            CropImage.activity()
-                .setAspectRatio(1, 1)
-                .getIntent(it)
+        startCameraWithoutUri(true,true)
+    }
+    private fun startCameraWithoutUri(includeCamera: Boolean, includeGallery: Boolean) {
+        customCropImage.launch(
+            CropImageContractOptions(
+                uri = null,
+                cropImageOptions = CropImageOptions(
+                    imageSourceIncludeCamera = includeCamera,
+                    imageSourceIncludeGallery = includeGallery,
+                ),
+            ),
+        )
+    }
+    private val customCropImage = registerForActivityResult(CropImageContract()) {
+        if (it !is CropImage.CancelledResult) {
+            handleCropImageResult(it.uriContent!!)
         }
-        startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+    }
+    private fun handleCropImageResult(uri: Uri) {
+        imagePath = PathUtil.getPath(requireContext(), uri)
+        setImage(uri)
     }
 
     private fun setImage(uri: Uri) {
@@ -435,17 +453,6 @@ class PersonalInfoFragment : Fragment() {
                 }
             }
 
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                val result = CropImage.getActivityResult(data)
-                if (resultCode == RESULT_OK) {
-                    setImage(result.uri)
-                    Log.e("IMAGE_URI", "imageUri: " + result.uri.toString())
-                    imagePath = PathUtil.getPath(requireContext(), result.uri)
-                    Log.e("IMAGE_URI", "imagePath: $imagePath")
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Log.e(TAG, "Crop error: ${result.getError()}")
-                }
-            }
         }
     }
 

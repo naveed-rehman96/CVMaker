@@ -19,14 +19,23 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.kaopiz.kprogresshud.KProgressHUD
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.MyApplication
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.adapters.FragmentCvTemplateAdapter
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.fragmentPreviewCv.*
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.customViews.KProgressHUD
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.*
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.MyDrawableCompat
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.models.CvTemplateModelClass
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.DarkBlueWhiteCreamCVFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.DarkGrayBlueFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.DarkGrayWhiteCVFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.DarkLightGrayCvFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.DarkRedWhiteCvFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.LightGrayWhiteCvFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.LightWhiteBoxCvFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.LightWhiteCVFragment
+import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.YellowGrayCvFragment
 
 class SelectTemplateActivity : AppCompatActivity(), FragmentCvTemplateAdapter.OnTemplateSelect {
 
@@ -176,7 +185,9 @@ class SelectTemplateActivity : AppCompatActivity(), FragmentCvTemplateAdapter.On
             }
             tinyDB.getString("CV_SELECTED_TEMPLATE_NAME") == "Dark Blue Cream" -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.FragmentPreviewCvFrameLayout, BlueCreamCvFragment())
+                    .replace(R.id.FragmentPreviewCvFrameLayout,
+                        cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.BlueCreamCvFragment()
+                    )
                     .commitAllowingStateLoss()
             }
             tinyDB.getString("CV_SELECTED_TEMPLATE_NAME") == "Gray White" -> {
@@ -212,7 +223,9 @@ class SelectTemplateActivity : AppCompatActivity(), FragmentCvTemplateAdapter.On
             tinyDB.getString("CV_SELECTED_TEMPLATE_NAME") == "Other" -> {
                 fragmentManager = supportFragmentManager
                 transaction = fragmentManager.beginTransaction()
-                transaction.replace(R.id.FragmentPreviewCvFrameLayout, BlueCreamCvFragment())
+                transaction.replace(R.id.FragmentPreviewCvFrameLayout,
+                    cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.BlueCreamCvFragment()
+                )
                 transaction.commit()
             }
         }
@@ -292,7 +305,9 @@ class SelectTemplateActivity : AppCompatActivity(), FragmentCvTemplateAdapter.On
             }
             templateList[position].getName().equals("Dark Blue Cream") -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.FragmentPreviewCvFrameLayout, BlueCreamCvFragment())
+                    .replace(R.id.FragmentPreviewCvFrameLayout,
+                        cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.BlueCreamCvFragment()
+                    )
                     .commitAllowingStateLoss()
             }
             templateList[position].getName().equals("Gray White") -> {
@@ -348,7 +363,9 @@ class SelectTemplateActivity : AppCompatActivity(), FragmentCvTemplateAdapter.On
             Handler(Looper.myLooper()!!).postDelayed({
                 progressBar.dismiss()
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.FragmentPreviewCvFrameLayout, BlueCreamCvFragment())
+                    .add(R.id.FragmentPreviewCvFrameLayout,
+                        cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.previewsTemplates.fragmentPreviewCv.BlueCreamCvFragment()
+                    )
                     .commitAllowingStateLoss()
             }, 1000)
         }

@@ -10,7 +10,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.R
-import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.coverLetterModule.SavedCoverLetterAcitivity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.cvModule.Saved_Cv_Pdf_Activity
 import cvMaker.resumeMaker.cvBuilder.resumeBuilder.cvTemplate.createCv.freeCv.javaClass.TinyDB
 import java.util.*
@@ -89,9 +88,7 @@ class SavedPdfFragment : Fragment() {
             startActivity(Intent(requireContext(), Saved_Cv_Pdf_Activity::class.java))
         }
 
-        btnSavedCoverLetter.setOnClickListener {
-            startActivity(Intent(requireContext(), SavedCoverLetterAcitivity::class.java))
-        }
+
     }
 
     override fun onCreateView(
